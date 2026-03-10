@@ -20,8 +20,10 @@
     --accent-gemini-bg: rgba(66,133,244,.08);
     --tag-dev: #7c3aed;
     --tag-mkt: #e11d48;
+    --tag-solo: #06b6d4;
     --tag-dev-bg: rgba(124,58,237,.12);
     --tag-mkt-bg: rgba(225,29,72,.12);
+    --tag-solo-bg: rgba(6,182,212,.12);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
@@ -73,6 +75,7 @@
   .filter-btn.gemini.active { background: var(--accent-gemini); border-color: var(--accent-gemini); color: #fff; }
   .filter-btn.dev.active { background: var(--tag-dev); border-color: var(--tag-dev); color: #fff; }
   .filter-btn.mkt.active { background: var(--tag-mkt); border-color: var(--tag-mkt); color: #fff; }
+  .filter-btn.solo.active { background: var(--tag-solo); border-color: var(--tag-solo); color: #fff; }
 
   .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
   .section-title {
@@ -110,6 +113,7 @@
   }
   .tag.dev { background: var(--tag-dev-bg); color: var(--tag-dev); }
   .tag.mkt { background: var(--tag-mkt-bg); color: var(--tag-mkt); }
+  .tag.solo { background: var(--tag-solo-bg); color: var(--tag-solo); }
 
   .card-meta { font-size: .8rem; color: var(--text-muted); }
   .card-meta span { margin-right: 12px; }
@@ -152,9 +156,9 @@
   <h1><span class="ai-name">ChatGPT・Claude・Gemini</span><br>実務導入事例集</h1>
   <p>開発 & マーケティング領域における、大企業から個人事業まで網羅した超具体的なユースケースコレクション</p>
   <div class="stats-bar">
-    <div class="stat"><div class="stat-num chatgpt">21</div><div class="stat-label">ChatGPT / OpenAI</div></div>
-    <div class="stat"><div class="stat-num claude">18</div><div class="stat-label">Claude / Anthropic</div></div>
-    <div class="stat"><div class="stat-num gemini">21</div><div class="stat-label">Gemini / Google</div></div>
+    <div class="stat"><div class="stat-num chatgpt">31</div><div class="stat-label">ChatGPT / OpenAI</div></div>
+    <div class="stat"><div class="stat-num claude">22</div><div class="stat-label">Claude / Anthropic</div></div>
+    <div class="stat"><div class="stat-num gemini">22</div><div class="stat-label">Gemini / Google</div></div>
   </div>
 </div>
 
@@ -166,6 +170,8 @@
   <span style="color:var(--border)">|</span>
   <button class="filter-btn dev" data-filter="dev">開発</button>
   <button class="filter-btn mkt" data-filter="mkt">マーケティング</button>
+  <span style="color:var(--border)">|</span>
+  <button class="filter-btn solo" data-filter="solo">個人・小規模</button>
 </div>
 
 <div class="container" id="content">
@@ -1065,9 +1071,364 @@
 </div>
 
 <!-- ============================================================ -->
-<!--  個人事業・小規模ビジネス（後で追加予定）                       -->
+<!--  個人事業・小規模ビジネス — 開発                               -->
 <!-- ============================================================ -->
-<div id="small-biz-section"></div>
+<h2 class="section-title" style="border-bottom-color: var(--tag-solo);">&#x1f4a1; 個人事業・小規模ビジネス — 開発</h2>
+<div class="cards">
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Pieter Levels（@levelsio）</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロ開発者</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT / AI画像生成</div>
+  <div class="card-usecase">NomadList、RemoteOK、PhotoAI、InteriorAIなど40以上のプロダクトを1人で開発・運営</div>
+  <div class="card-results"><ul>
+    <li>年間売上 <strong>300万ドル超（約4.5億円）</strong></li>
+    <li>従業員ゼロで高利益率を実現</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.fast-saas.com/blog/pieter-levels-success-story/" target="_blank">FastSaaS Blog</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Cameron Trew（Kleo & Mentions）</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
+  <div class="card-product chatgpt">AI活用プロダクト開発</div>
+  <div class="card-usecase">高給の会社員を辞め、2つのSaaSを開発。リーンMVPを素早くリリース</div>
+  <div class="card-results"><ul>
+    <li>合計MRR <strong>8.2万ドル（約1,230万円/月）</strong></li>
+    <li><strong>3ヶ月</strong> で達成</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.indiehackers.com/post/tech/from-0-to-62k-mrr-in-three-months-mUPVSYOlJAC2iogGK7d4" target="_blank">Indie Hackers</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Richard Wang（Leadmore AI）</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロファウンダー</span><span>海外</span></div>
+  <div class="card-product chatgpt">AI/LLM活用プロダクト構築</div>
+  <div class="card-usecase">B2B向けAIマーケティングツールを1人で開発。マーケ費用ゼロで成長</div>
+  <div class="card-results"><ul>
+    <li>MRR <strong>3万ドル超（約450万円/月）</strong></li>
+    <li>初週で有料ユーザー <strong>10人以上</strong> 獲得</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.indiehackers.com/post/tech/hitting-30k-mrr-with-an-ai-marketing-product-n59ORJCYjnZC61Q096UL" target="_blank">Indie Hackers</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名 Indie Hacker</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
+  <div class="card-product chatgpt">AIコーディングアシスタント</div>
+  <div class="card-usecase">AIを活用したSaaSを開発、コンテンツ主導のグロース</div>
+  <div class="card-results"><ul>
+    <li>MRR <strong>$2K→$50K</strong> に8ヶ月で成長</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.indiehackers.com/post/from-2k-mrr-to-50k-in-8-months-how-one-indie-hacker-cracked-the-ai-code-30d5ace166" target="_blank">Indie Hackers</a></div>
+</div>
+
+<div class="card claude" data-ai="claude" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・事務職女性（28歳）<span class="flag">🇯🇵</span></div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>副業・個人開発</span><span>日本</span></div>
+  <div class="card-product claude">Claude Code</div>
+  <div class="card-usecase">Instagramキャプション生成ツールをClaude Codeで開発。プログラミング初心者</div>
+  <div class="card-results"><ul>
+    <li>副収入 月3万円→<strong>月15万円</strong> に成長</li>
+    <li>プログラミング未経験から <strong>3ヶ月以内</strong> に達成</li>
+  </ul></div>
+  <div class="card-source"><a href="https://note.com/happy_recipes/n/neea55b001b3c" target="_blank">note</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・非エンジニア</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT / Cursor等</div>
+  <div class="card-usecase">AIでコーディングを学びながら、複数SaaSのポートフォリオを構築</div>
+  <div class="card-results"><ul>
+    <li>月間売上 <strong>2.8万ドル（約420万円/月）</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.indiehackers.com/post/tech/learning-to-code-and-building-a-28k-mo-portfolio-of-saas-products-OA5p18fXtvHGxP9xTAwG" target="_blank">Indie Hackers</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・ソロファウンダー</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
+  <div class="card-product chatgpt">AIコーディングツール</div>
+  <div class="card-usecase">AIを駆使してわずか12時間でSaaS MVPを構築・リリース</div>
+  <div class="card-results"><ul>
+    <li>MRR <strong>$15,000（約225万円/月）</strong></li>
+    <li>開発時間 数ヶ月→<strong>12時間</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://medium.com/@AIBites/this-founder-built-a-15k-mrr-saas-in-12-hours-82dd65e0be0a" target="_blank">Medium</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">フリーランスWebエンジニア</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>フリーランス</span><span>海外</span></div>
+  <div class="card-product chatgpt">GitHub Copilot</div>
+  <div class="card-usecase">API、DBモデル、Reactコンポーネント等の反復コーディングをCopilotで自動化</div>
+  <div class="card-results"><ul>
+    <li>週 <strong>3〜4時間</strong> 節約（月$1,200〜$1,800相当）</li>
+    <li>月額$10に対し <strong>120〜180倍のROI</strong></li>
+    <li>タスク完了速度 <strong>55.8%向上</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://freltek.com/is-github-copilot-worth-it-for-freelancers-honest-roianalysis/" target="_blank">Freltek</a></div>
+</div>
+
+<div class="card claude" data-ai="claude" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Barron van Den Berg</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>フリーランス</span><span>海外</span></div>
+  <div class="card-product claude">Claude vs ChatGPT 比較</div>
+  <div class="card-usecase">同じ副業タスクをClaude/ChatGPTで30日間実施し収益を比較</div>
+  <div class="card-results"><ul>
+    <li>Claude: 30日間で <strong>$1,247</strong></li>
+    <li>ChatGPT: 30日間で <strong>$600</strong></li>
+    <li>Claudeが <strong>約2倍</strong> の収益効率</li>
+  </ul></div>
+  <div class="card-source"><a href="https://medium.com/@barronqasem/claude-vs-chatgpt-i-tested-both-for-30-days-to-see-which-one-makes-money-faster-9137f8ca7778" target="_blank">Medium</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・個人開発者（副業）</div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>副業開発</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT（GPTs / API）</div>
+  <div class="card-usecase">AIを活用したマイクロアプリを複数開発・販売</div>
+  <div class="card-results"><ul>
+    <li>月収 $300→$1,000→$2,000→<strong>$3,000超</strong></li>
+    <li><strong>3〜4ヶ月</strong> で成長</li>
+  </ul></div>
+  <div class="card-source"><a href="https://medium.com/@godfreyigaa/how-to-make-money-with-chat-gpt-the-exact-workflow-i-used-to-build-a-3k-month-gpt-9988a40f21db" target="_blank">Medium</a></div>
+</div>
+
+<div class="card claude" data-ai="claude" data-cat="dev" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">minorun365 <span class="flag">🇯🇵</span></div>
+    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>エンジニア</span><span>日本</span></div>
+  <div class="card-product claude">Claude Code</div>
+  <div class="card-usecase">ドキュメント作成・テストコード記述の自動化、個人開発ワークフロー構築</div>
+  <div class="card-results"><ul>
+    <li>定型作業を自動化し <strong>創造的思考にリソース集中</strong></li>
+    <li>企画→実装→運用を <strong>1人</strong> でこなす環境実現</li>
+  </ul></div>
+  <div class="card-source"><a href="https://qiita.com/minorun365/items/114f53def8cb0db60f47" target="_blank">Qiita</a></div>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  個人事業・小規模ビジネス — マーケティング                      -->
+<!-- ============================================================ -->
+<h2 class="section-title" style="border-bottom-color: var(--tag-solo);">&#x1f4a1; 個人事業・小規模ビジネス — マーケティング</h2>
+<div class="cards">
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Sweta Bose</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>フリーランス</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT</div>
+  <div class="card-usecase">ChatGPTで8つの収入源を構築。コンテンツカレンダー、動画スクリプト、SEO、翻訳等</div>
+  <div class="card-results"><ul>
+    <li>月収 <strong>$5,000（約75万円）</strong></li>
+    <li><strong>8つ</strong> の収入源を1人で運営</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.moneymakingstory.com/p/how-sweta-bose-built-an-5-000-month-freelance-business-using-chatgpt" target="_blank">MoneyMakingStory</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Barron van Den Berg</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>フリーランスライター</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT</div>
+  <div class="card-usecase">時給$25のライターからChatGPTでプレミアムコンテンツサービスに転換</div>
+  <div class="card-results"><ul>
+    <li>月収 $847→$2,130→$4,680→<strong>$8,560</strong></li>
+    <li><strong>6ヶ月</strong> で10倍成長</li>
+  </ul></div>
+  <div class="card-source"><a href="https://medium.com/@barronqasem/i-made-8-500-month-using-chatgpt-heres-the-exact-blueprint-i-followed-74480daf588f" target="_blank">Medium</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Jennifer L.</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ニュースレター運営</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT</div>
+  <div class="card-usecase">ChatGPTでニュースレターコンテンツを制作、1人で運営</div>
+  <div class="card-results"><ul>
+    <li>購読者 <strong>2,400人</strong></li>
+    <li>年間 <strong>$69,600（約1,050万円）</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://medium.com/masterplan-infinite-weave/2025-chatgpt-case-study-revenue-scaling-80637c59f674" target="_blank">Medium</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Marcus Rodriguez</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>ソロSaaSファウンダー</span><span>海外</span></div>
+  <div class="card-product chatgpt">Jasper AI（ChatGPT系）</div>
+  <div class="card-usecase">フリーランスライター→AIに切替え、ブログ記事を月4本→20本へ</div>
+  <div class="card-results"><ul>
+    <li>月 <strong>$4,800（約72万円）</strong> のコスト削減</li>
+    <li>記事数 <strong>5倍増</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.entrepreneur.com/science-technology/17-wild-ai-use-cases-fuelling-7-figure-solopreneurs-youve/493933" target="_blank">Entrepreneur</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・YouTubeソロプレナー</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>YouTube運営</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT / AI音声・動画生成</div>
+  <div class="card-usecase">スクリプト・ナレーション・サムネイル・編集をすべてAIで自動化</div>
+  <div class="card-results"><ul>
+    <li>広告収入 月 <strong>$10,000（約150万円）</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.entrepreneur.com/science-technology/7-ai-tools-solopreneurs-are-using-to-build-7-figure-businesses-with-no-team-and-no-stress" target="_blank">Entrepreneur</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・フリーランスマーケター</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>マーケコンサル</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT / AI自動化ツール</div>
+  <div class="card-usecase">地元中小企業向けAIリード獲得自動化サービスを提供</div>
+  <div class="card-results"><ul>
+    <li>クライアントあたり月 <strong>$1,000〜$2,500</strong></li>
+    <li>45日以内に2件獲得、利益率 <strong>約70%</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://ucstrategies.com/news/forget-the-hype-these-3-ai-side-hustle-models-actually-make-money-in-2026/" target="_blank">UCStrategies</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・個人ブロガー <span class="flag">🇯🇵</span></div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>副業ブログ</span><span>日本</span></div>
+  <div class="card-product chatgpt">ChatGPT</div>
+  <div class="card-usecase">ChatGPTでSEO記事を効率作成、アフィリエイト収益化</div>
+  <div class="card-results"><ul>
+    <li>アフィリエイト報酬 月 <strong>20万円</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.yukemuri-blog.com/chatgpt-blog-roadmap/" target="_blank">ゆけむりブログ</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・小規模デジタルマーケエージェンシー</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>デジタルマーケ</span><span>海外</span></div>
+  <div class="card-product chatgpt">ChatGPT / AIマーケツール</div>
+  <div class="card-usecase">管理業務の自動化、コンテンツ作成の効率化</div>
+  <div class="card-results"><ul>
+    <li>週 <strong>8〜10時間</strong> の管理業務削減</li>
+    <li>請求可能時間 <strong>20%増加</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://doneforyou.com/case-study-small-businesses-winning-ai-tools-2025/" target="_blank">Done For You</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">ゑびや（伊勢神宮門前の食堂）<span class="flag">🇯🇵</span></div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>飲食業</span><span>日本</span></div>
+  <div class="card-product chatgpt">独自AI（機械学習）</div>
+  <div class="card-usecase">400項目のデータ相関分析で翌日の来客数をAI予測</div>
+  <div class="card-results"><ul>
+    <li>5年間で売上 <strong>4.8〜5倍</strong>、利益率 <strong>10倍</strong></li>
+    <li>来客予測的中率 <strong>95%超</strong></li>
+    <li>従業員数ほぼ変えずに達成</li>
+  </ul></div>
+  <div class="card-source"><a href="https://special.nikkeibp.co.jp/atclh/ONB/21/microsoft0816/" target="_blank">日経BP</a></div>
+</div>
+
+<div class="card gemini" data-ai="gemini" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・個人事業主 <span class="flag">🇯🇵</span></div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>個人事業主</span><span>日本</span></div>
+  <div class="card-product gemini">Google Gemini</div>
+  <div class="card-usecase">Googleドライブ+Geminiで確定申告の経費一覧表を自動作成</div>
+  <div class="card-results"><ul>
+    <li>確定申告の作業時間 <strong>半分以下</strong> に短縮</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.issoh.co.jp/column/details/11288/" target="_blank">issoh.co.jp</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">匿名・小規模D2Cブランド</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>EC/D2C</span><span>海外</span></div>
+  <div class="card-product chatgpt">AI広告最適化ツール</div>
+  <div class="card-usecase">AIでの広告キャンペーン自動最適化、ターゲティング・入札調整</div>
+  <div class="card-results"><ul>
+    <li>CPO <strong>$41→$19（54%削減）</strong></li>
+    <li>ROI <strong>353%向上</strong></li>
+    <li>CAC <strong>30%削減</strong></li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.supalabs.co/en/blog/ai-marketing-automation-case-study-353-percent-roi-microsoft-copilot-30-percent-cac-reduction-2025/" target="_blank">SUPALABS</a></div>
+</div>
+
+<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
+  <div class="card-header">
+    <div class="card-company">Nikita Soloviov（2人エージェンシー）</div>
+    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
+  </div>
+  <div class="card-meta"><span>コンテンツ制作</span><span>海外</span></div>
+  <div class="card-product chatgpt">Elai.io（AI動画）</div>
+  <div class="card-usecase">AIアバター・ナレーションでクライアント向け商品動画を制作</div>
+  <div class="card-results"><ul>
+    <li>2人で <strong>「10倍大きく見える」品質</strong> のサービス提供</li>
+    <li>制作コスト・時間を大幅削減</li>
+  </ul></div>
+  <div class="card-source"><a href="https://www.entrepreneur.com/science-technology/17-wild-ai-use-cases-fuelling-7-figure-solopreneurs-youve/493933" target="_blank">Entrepreneur</a></div>
+</div>
+
+</div>
 
 </div>
 
@@ -1094,6 +1455,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // If same filter type group, toggle within group
         const isAi = ['chatgpt','claude','gemini'].includes(filter);
         const isCat = ['dev','mkt'].includes(filter);
+        const isScale = filter === 'solo';
 
         if (isAi) {
           btns.forEach(b => { if (['chatgpt','claude','gemini'].includes(b.dataset.filter)) b.classList.remove('active'); });
@@ -1107,10 +1469,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Get active filters
       const activeAi = [...document.querySelectorAll('.filter-btn.active')].map(b => b.dataset.filter).filter(f => ['chatgpt','claude','gemini'].includes(f));
       const activeCat = [...document.querySelectorAll('.filter-btn.active')].map(b => b.dataset.filter).filter(f => ['dev','mkt'].includes(f));
+      const soloActive = document.querySelector('[data-filter="solo"]').classList.contains('active');
       const isAll = document.querySelector('[data-filter="all"]').classList.contains('active');
 
       // No active filters = show all
-      if (!isAll && activeAi.length === 0 && activeCat.length === 0) {
+      if (!isAll && activeAi.length === 0 && activeCat.length === 0 && !soloActive) {
         document.querySelector('[data-filter="all"]').classList.add('active');
       }
 
@@ -1119,9 +1482,11 @@ document.addEventListener('DOMContentLoaded', () => {
       cards.forEach(card => {
         const ai = card.dataset.ai;
         const cat = card.dataset.cat;
+        const scale = card.dataset.scale;
         const matchAi = activeAi.length === 0 || activeAi.includes(ai);
         const matchCat = activeCat.length === 0 || activeCat.includes(cat);
-        card.style.display = (showAll || (matchAi && matchCat)) ? '' : 'none';
+        const matchScale = !soloActive || scale === 'solo';
+        card.style.display = (showAll || (matchAi && matchCat && matchScale)) ? '' : 'none';
       });
 
       // Hide/show section titles
