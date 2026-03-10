@@ -4,1503 +4,375 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI導入事例集 | ChatGPT・Claude・Gemini × 開発 & マーケティング</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #232736;
-    --border: #2e3347;
-    --text: #e4e6f0;
-    --text-muted: #8b8fa7;
-    --accent-chatgpt: #10a37f;
-    --accent-claude: #d97706;
-    --accent-gemini: #4285f4;
-    --accent-chatgpt-bg: rgba(16,163,127,.08);
-    --accent-claude-bg: rgba(217,119,6,.08);
-    --accent-gemini-bg: rgba(66,133,244,.08);
-    --tag-dev: #7c3aed;
-    --tag-mkt: #e11d48;
-    --tag-solo: #06b6d4;
-    --tag-dev-bg: rgba(124,58,237,.12);
-    --tag-mkt-bg: rgba(225,29,72,.12);
-    --tag-solo-bg: rgba(6,182,212,.12);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-  .hero {
-    text-align: center;
-    padding: 80px 24px 48px;
-    background: linear-gradient(180deg, rgba(66,133,244,.06) 0%, transparent 100%);
-    border-bottom: 1px solid var(--border);
-  }
-  .hero h1 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 800;
-    letter-spacing: -.02em;
-    margin-bottom: 12px;
-  }
-  .hero h1 .ai-name { background: linear-gradient(135deg, var(--accent-chatgpt), var(--accent-claude), var(--accent-gemini)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
-  .stats-bar {
-    display: flex; justify-content: center; gap: 40px; padding: 24px; flex-wrap: wrap;
-  }
-  .stat { text-align: center; }
-  .stat-num { font-size: 2rem; font-weight: 800; }
-  .stat-num.chatgpt { color: var(--accent-chatgpt); }
-  .stat-num.claude { color: var(--accent-claude); }
-  .stat-num.gemini { color: var(--accent-gemini); }
-  .stat-label { font-size: .8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; }
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f5;
+  --border: #e5e7eb;
+  --border-light: #f0f0f0;
+  --text: #1a1a2e;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --chatgpt: #10a37f;
+  --claude: #d97706;
+  --gemini: #4285f4;
+  --chatgpt-bg: rgba(16,163,127,.07);
+  --claude-bg: rgba(217,119,6,.07);
+  --gemini-bg: rgba(66,133,244,.07);
+  --tag-dev: #7c3aed;
+  --tag-mkt: #e11d48;
+  --tag-solo: #0891b2;
+  --tag-dev-bg: rgba(124,58,237,.08);
+  --tag-mkt-bg: rgba(225,29,72,.08);
+  --tag-solo-bg: rgba(8,145,178,.08);
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;}
 
-  /* Filter */
-  .controls {
-    display: flex; justify-content: center; gap: 8px; padding: 24px; flex-wrap: wrap;
-    position: sticky; top: 0; background: var(--bg); z-index: 100;
-    border-bottom: 1px solid var(--border);
-  }
-  .filter-btn {
-    padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border);
-    background: var(--surface); color: var(--text-muted); cursor: pointer;
-    font-size: .85rem; transition: all .2s;
-  }
-  .filter-btn:hover { border-color: var(--text-muted); color: var(--text); }
-  .filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .filter-btn.chatgpt.active { background: var(--accent-chatgpt); border-color: var(--accent-chatgpt); color: #fff; }
-  .filter-btn.claude.active { background: var(--accent-claude); border-color: var(--accent-claude); color: #fff; }
-  .filter-btn.gemini.active { background: var(--accent-gemini); border-color: var(--accent-gemini); color: #fff; }
-  .filter-btn.dev.active { background: var(--tag-dev); border-color: var(--tag-dev); color: #fff; }
-  .filter-btn.mkt.active { background: var(--tag-mkt); border-color: var(--tag-mkt); color: #fff; }
-  .filter-btn.solo.active { background: var(--tag-solo); border-color: var(--tag-solo); color: #fff; }
+/* Header */
+.site-header{padding:40px 24px 0;max-width:960px;margin:0 auto;}
+.site-header h1{font-size:clamp(1.4rem,3vw,1.8rem);font-weight:800;letter-spacing:-.02em;color:var(--text);}
+.site-header p{color:var(--text-muted);font-size:.95rem;margin-top:4px;}
+.header-stats{display:flex;gap:24px;margin-top:16px;flex-wrap:wrap;}
+.header-stats span{font-size:.85rem;color:var(--text-muted);}
+.header-stats strong{color:var(--text);font-weight:700;}
 
-  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-  .section-title {
-    font-size: 1.5rem; font-weight: 700; margin: 48px 0 24px; padding-bottom: 12px;
-    border-bottom: 2px solid var(--border);
-    display: flex; align-items: center; gap: 12px;
-  }
-  .section-title .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-  .section-title .dot.chatgpt { background: var(--accent-chatgpt); }
-  .section-title .dot.claude { background: var(--accent-claude); }
-  .section-title .dot.gemini { background: var(--accent-gemini); }
+/* Filters */
+.filters{max-width:960px;margin:24px auto 0;padding:0 24px;}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text-secondary);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .15s;}
+.filter-btn:hover{border-color:#bbb;}
+.filter-btn.active{color:#fff;border-color:transparent;}
+.filter-btn.active[data-provider="chatgpt"]{background:var(--chatgpt);}
+.filter-btn.active[data-provider="claude"]{background:var(--claude);}
+.filter-btn.active[data-provider="gemini"]{background:var(--gemini);}
+.filter-btn.active[data-genre="dev"]{background:var(--tag-dev);}
+.filter-btn.active[data-genre="mkt"]{background:var(--tag-mkt);}
+.filter-btn.active[data-scale="solo"]{background:var(--tag-solo);}
+.filter-btn.active[data-filter="all"]{background:var(--text);color:#fff;}
+.filter-label{font-size:.75rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:6px 4px;display:flex;align-items:center;}
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+/* Section */
+.section{max-width:960px;margin:32px auto 0;padding:0 24px;}
+.section:last-of-type{padding-bottom:64px;}
+.section-title{font-size:1.1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-title .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.section-title .count{font-size:.8rem;color:var(--text-muted);font-weight:500;}
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    transition: transform .15s, box-shadow .15s;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
-  .card.chatgpt { border-left: 3px solid var(--accent-chatgpt); }
-  .card.claude { border-left: 3px solid var(--accent-claude); }
-  .card.gemini { border-left: 3px solid var(--accent-gemini); }
+/* Accordion Items */
+.accordion-list{display:flex;flex-direction:column;gap:6px;}
+.acc-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s;}
+.acc-item:hover{box-shadow:var(--shadow);}
+.acc-item.open{box-shadow:var(--shadow-md);}
+.acc-item[data-hidden="true"]{display:none;}
 
-  .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-  .card-company { font-size: 1.15rem; font-weight: 700; }
-  .card-company .flag { font-size: .9rem; margin-left: 4px; }
-  .card-tags { display: flex; gap: 6px; flex-shrink: 0; }
-  .tag {
-    font-size: .7rem; padding: 3px 8px; border-radius: 10px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: .04em;
-  }
-  .tag.dev { background: var(--tag-dev-bg); color: var(--tag-dev); }
-  .tag.mkt { background: var(--tag-mkt-bg); color: var(--tag-mkt); }
-  .tag.solo { background: var(--tag-solo-bg); color: var(--tag-solo); }
+.acc-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;user-select:none;}
+.acc-header:hover{background:var(--surface-hover);}
+.acc-company{font-weight:700;font-size:.95rem;flex-shrink:0;}
+.acc-company .flag{margin-left:2px;}
+.acc-separator{color:var(--border);flex-shrink:0;}
+.acc-tool{font-size:.82rem;color:var(--text-muted);flex-shrink:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.acc-tags{display:flex;gap:4px;flex-shrink:0;margin-left:auto;}
+.acc-tag{padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:600;letter-spacing:.02em;}
+.acc-tag.dev{background:var(--tag-dev-bg);color:var(--tag-dev);}
+.acc-tag.mkt{background:var(--tag-mkt-bg);color:var(--tag-mkt);}
+.acc-tag.solo{background:var(--tag-solo-bg);color:var(--tag-solo);}
+.acc-highlight{font-size:.82rem;font-weight:700;color:var(--text);flex-shrink:0;white-space:nowrap;}
+.acc-chevron{flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;transition:transform .2s;color:var(--text-muted);}
+.acc-item.open .acc-chevron{transform:rotate(180deg);}
 
-  .card-meta { font-size: .8rem; color: var(--text-muted); }
-  .card-meta span { margin-right: 12px; }
-  .card-product {
-    display: inline-block; font-size: .75rem; padding: 3px 10px;
-    border-radius: 6px; font-weight: 600; width: fit-content;
-  }
-  .card-product.chatgpt { background: var(--accent-chatgpt-bg); color: var(--accent-chatgpt); }
-  .card-product.claude { background: var(--accent-claude-bg); color: var(--accent-claude); }
-  .card-product.gemini { background: var(--accent-gemini-bg); color: var(--accent-gemini); }
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1);}
+.acc-body-inner{padding:0 20px 20px;border-top:1px solid var(--border-light);margin-top:0;}
+.acc-body-inner > *:first-child{margin-top:16px;}
 
-  .card-usecase { font-size: .9rem; color: var(--text); }
-  .card-results { font-size: .85rem; }
-  .card-results ul { list-style: none; padding: 0; }
-  .card-results li { padding: 3px 0; }
-  .card-results li::before { content: '→ '; color: var(--text-muted); }
-  .card-results strong { color: #60d394; }
+.detail-block{margin-bottom:16px;}
+.detail-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:4px;}
+.detail-text{font-size:.88rem;color:var(--text-secondary);line-height:1.75;}
+.detail-list{list-style:none;padding:0;}
+.detail-list li{font-size:.88rem;color:var(--text-secondary);padding:3px 0;padding-left:18px;position:relative;}
+.detail-list li::before{content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;}
+.acc-item[data-provider="chatgpt"] .detail-list li::before{background:var(--chatgpt);}
+.acc-item[data-provider="claude"] .detail-list li::before{background:var(--claude);}
+.acc-item[data-provider="gemini"] .detail-list li::before{background:var(--gemini);}
+.detail-link{display:inline-flex;align-items:center;gap:4px;font-size:.82rem;color:var(--text-muted);text-decoration:none;border-bottom:1px dashed var(--border);padding-bottom:1px;transition:color .15s;}
+.detail-link:hover{color:var(--text);}
 
-  .card-source { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
-  .card-source a {
-    font-size: .75rem; color: var(--text-muted); text-decoration: none;
-    word-break: break-all;
-  }
-  .card-source a:hover { color: var(--text); text-decoration: underline; }
+/* Provider accent bar */
+.acc-item[data-provider="chatgpt"]{border-left:3px solid var(--chatgpt);}
+.acc-item[data-provider="claude"]{border-left:3px solid var(--claude);}
+.acc-item[data-provider="gemini"]{border-left:3px solid var(--gemini);}
 
-  footer {
-    text-align: center; padding: 48px 24px; color: var(--text-muted);
-    font-size: .8rem; border-top: 1px solid var(--border);
-  }
-
-  @media (max-width: 600px) {
-    .cards { grid-template-columns: 1fr; }
-    .stats-bar { gap: 20px; }
-  }
+/* Mobile */
+@media(max-width:640px){
+  .site-header{padding:24px 16px 0;}
+  .filters{padding:0 16px;}
+  .section{padding:0 16px;}
+  .acc-header{padding:12px 14px;flex-wrap:wrap;gap:6px;}
+  .acc-tool{display:none;}
+  .acc-separator{display:none;}
+  .acc-tags{margin-left:0;}
+  .acc-body-inner{padding:0 14px 16px;}
+  .header-stats{gap:16px;}
+}
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1><span class="ai-name">ChatGPT・Claude・Gemini</span><br>実務導入事例集</h1>
-  <p>開発 & マーケティング領域における、大企業から個人事業まで網羅した超具体的なユースケースコレクション</p>
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-num chatgpt">31</div><div class="stat-label">ChatGPT / OpenAI</div></div>
-    <div class="stat"><div class="stat-num claude">22</div><div class="stat-label">Claude / Anthropic</div></div>
-    <div class="stat"><div class="stat-num gemini">22</div><div class="stat-label">Gemini / Google</div></div>
-  </div>
-</div>
-
-<div class="controls">
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn chatgpt" data-filter="chatgpt">ChatGPT</button>
-  <button class="filter-btn claude" data-filter="claude">Claude</button>
-  <button class="filter-btn gemini" data-filter="gemini">Gemini</button>
-  <span style="color:var(--border)">|</span>
-  <button class="filter-btn dev" data-filter="dev">開発</button>
-  <button class="filter-btn mkt" data-filter="mkt">マーケティング</button>
-  <span style="color:var(--border)">|</span>
-  <button class="filter-btn solo" data-filter="solo">個人・小規模</button>
-</div>
-
-<div class="container" id="content">
-
-<!-- ============================================================ -->
-<!--  ChatGPT × 開発                                              -->
-<!-- ============================================================ -->
-<h2 class="section-title"><span class="dot chatgpt"></span>ChatGPT / OpenAI — 開発</h2>
-<div class="cards">
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Accenture</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>ITコンサル</span><span>海外</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">450名の開発者を対象にランダム化比較試験を実施し、全社的な開発生産性向上を検証</div>
-  <div class="card-results"><ul>
-    <li>PR数 <strong>8.69%増</strong>、マージ率 <strong>11%向上</strong></li>
-    <li>ビルド成功率 <strong>84%増加</strong></li>
-    <li>完了タスク数 <strong>26%増加</strong></li>
-    <li>開発者の <strong>90%</strong> が仕事の充実感向上</li>
-  </ul></div>
-  <div class="card-source"><a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture/" target="_blank">GitHub Blog</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Moderna</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>製薬</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT Enterprise</div>
-  <div class="card-usecase">社内に750以上のカスタムGPTを構築。TPPドラフト作成・分析、ワクチン用量評価等に活用</div>
-  <div class="card-results"><ul>
-    <li>分析工程を <strong>数週間→数時間</strong> に短縮</li>
-    <li>エンジニアの <strong>73%</strong> がコード納品速度向上を報告</li>
-    <li>従業員の <strong>75%</strong> がAIで速度・品質が改善</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.constellationr.com/blog-news/insights/moderna-uses-openais-chatgpt-enterprise-scale-750-gpts" target="_blank">Constellation Research</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">OpenAI（自社 Codex）</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>AI</span><span>海外</span></div>
-  <div class="card-product chatgpt">OpenAI Codex</div>
-  <div class="card-usecase">3名のエンジニアでCodexエージェントによりベータ製品を構築。ロジック・テスト・CI・ドキュメントすべてをCodexが生成</div>
-  <div class="card-results"><ul>
-    <li>約 <strong>100万行のコード</strong> を数週間で出荷</li>
-    <li><strong>1,500件のPR</strong> を3名で管理</li>
-    <li>コードの <strong>90%以上</strong> をエージェントが生成</li>
-  </ul></div>
-  <div class="card-source"><a href="https://openai.com/index/harness-engineering/" target="_blank">OpenAI Blog</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Shopify</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>EC</span><span>海外</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">全社的にAIコーディングを構造的に推進</div>
-  <div class="card-results"><ul>
-    <li>開発者の <strong>90%以上</strong> が採用</li>
-    <li>日次で <strong>24,000行以上</strong> のAI生成コード受入</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.wearetenet.com/blog/github-copilot-usage-data-statistics" target="_blank">Tenet</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">BBVA</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>金融</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT Enterprise</div>
-  <div class="card-usecase">3,000ライセンスを配布し、従業員が2,900以上のカスタムGPTを自主作成</div>
-  <div class="card-results"><ul>
-    <li>ユーザーの <strong>80%が週2時間以上</strong> の業務時間削減</li>
-  </ul></div>
-  <div class="card-source"><a href="https://openai.com/index/1-million-businesses-putting-ai-to-work/" target="_blank">OpenAI</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">ZoomInfo</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>SaaS</span><span>海外</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">全社的なエンジニアリング組織への導入と効果測定</div>
-  <div class="card-results"><ul>
-    <li>コード提案の平均受入率 <strong>33%</strong></li>
-    <li>開発者満足度スコア <strong>72%</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://arxiv.org/html/2501.13282v1" target="_blank">arXiv</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">日立製作所 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>電機/IT</span><span>日本</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">全社展開、自社フレームワーク（Justware OSS）と連携</div>
-  <div class="card-results"><ul>
-    <li>生産性平均 <strong>10-20%</strong>（最大 <strong>30%</strong>）向上</li>
-    <li>コード生成率 78%→<strong>99%</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.microsoft.com/ja-jp/customers/story/22781-hitachi-github" target="_blank">Microsoft Customer Stories</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">ZOZO <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>EC</span><span>日本</span></div>
-  <div class="card-product chatgpt">GitHub Copilot Business</div>
-  <div class="card-usecase">エンジニア約500名に全社導入</div>
-  <div class="card-results"><ul>
-    <li><strong>78.9%</strong> が生産性向上実感</li>
-    <li><strong>58%</strong> が1日30分以上の時間節約</li>
-  </ul></div>
-  <div class="card-source"><a href="https://techblog.zozo.com/entry/introducing_github_copilot" target="_blank">ZOZO TECH BLOG</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">ソフトバンク <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>通信</span><span>日本</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">カスタムコマンドでチーム統一運用（ドキュメント・テスト・ログ生成）</div>
-  <div class="card-results"><ul>
-    <li>開発工数を平均 <strong>34%削減</strong></li>
-    <li>定型作業がほぼゼロに</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.softbank.jp/biz/blog/cloud-technology/articles/202512/github-copilot-custom-command/" target="_blank">ソフトバンク</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">メンバーズルーツ <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>Web開発</span><span>日本</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">新規コンポーネント作成、一括置換作業等</div>
-  <div class="card-results"><ul>
-    <li>特定タスクで工数 <strong>最大80%削減</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://roots.members.co.jp/blog/250219/" target="_blank">メンバーズルーツ</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  ChatGPT × マーケティング                                     -->
-<!-- ============================================================ -->
-<h2 class="section-title"><span class="dot chatgpt"></span>ChatGPT / OpenAI — マーケティング</h2>
-<div class="cards">
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Klarna</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>フィンテック</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT Enterprise / OpenAI API</div>
-  <div class="card-usecase">マーケティングコンテンツ制作・画像生成・CS自動化</div>
-  <div class="card-results"><ul>
-    <li>マーケ費用 年 <strong>$10M削減</strong></li>
-    <li>画像制作 <strong>6週間→7日</strong></li>
-    <li>AIチャットボットが月 <strong>230万件</strong> 対応</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.marketingdive.com/news/klarna-gen-ai-openai-cut-marketing-spend-efficiency/717332/" target="_blank">Marketing Dive</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Coca-Cola</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>飲料</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT / DALL-E / Azure OpenAI</div>
-  <div class="card-usecase">消費者参加型キャンペーン「Create Real Magic」</div>
-  <div class="card-results"><ul>
-    <li><strong>12万点以上</strong> のUGC獲得</li>
-    <li>サイト平均滞在時間 <strong>7分以上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://aiexpert.network/case-study-coca-colas-adoption-of-openais-generative-ai-technologies/" target="_blank">AIX</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Promega</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>ライフサイエンス</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT Enterprise</div>
-  <div class="card-usecase">メールマーケティングの下書き・キャンペーンブリーフ</div>
-  <div class="card-results"><ul>
-    <li>6カ月で <strong>135時間の工数削減</strong></li>
-    <li>メール展開時間 <strong>半減</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://openai.com/index/promega/" target="_blank">OpenAI</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Octopus Energy</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>エネルギー</span><span>海外</span></div>
-  <div class="card-product chatgpt">OpenAI GPT</div>
-  <div class="card-usecase">顧客メール返信のAI自動生成</div>
-  <div class="card-results"><ul>
-    <li>AI生成メール顧客満足度 <strong>80%</strong>（人間対応65%を上回る）</li>
-    <li>約 <strong>250人分</strong> の業務を処理</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.cityam.com/ai-doing-the-work-of-over-200-people-at-octopus-chief-executive-says/" target="_blank">CityAM</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Instacart</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>EC/デリバリー</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPTプラグイン / OpenAI API</div>
-  <div class="card-usecase">AIショッピングアシスタント、広告主向けAIランディングページ</div>
-  <div class="card-results"><ul>
-    <li>Celsius社キャンペーンで売上 <strong>20%増</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://openai.com/index/instacart-partnership/" target="_blank">OpenAI</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Indeed</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>人材</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT Enterprise</div>
-  <div class="card-usecase">AI「Career Scout」で求職者マッチング最適化</div>
-  <div class="card-results"><ul>
-    <li>関連求人発見・応募速度 <strong>7倍</strong></li>
-    <li>採用確率 <strong>38%向上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://almcorp.com/blog/openai-state-of-enterprise-ai-report-2025/" target="_blank">OpenAI Enterprise Report</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">サイバーエージェント <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>広告</span><span>日本</span></div>
-  <div class="card-product chatgpt">ChatGPT API / 独自LLM</div>
-  <div class="card-usecase">バナー広告キャッチコピー自動生成、広告オペレーション効率化</div>
-  <div class="card-results"><ul>
-    <li>月間オペ時間の <strong>30%（約7万時間）削減</strong> 目標</li>
-    <li>バナー制作本数 <strong>4割増</strong></li>
-    <li>広告ディレクター <strong>30人→0人</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://xtrend.nikkei.com/atcl/contents/18/00819/00015/" target="_blank">日経クロストレンド</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">ベネッセ <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>教育</span><span>日本</span></div>
-  <div class="card-product chatgpt">Benesse GPT（Azure OpenAI）</div>
-  <div class="card-usecase">マーケティングコピー自動作成、広告クリエイティブ最適化</div>
-  <div class="card-results"><ul>
-    <li>CVR 前年同期比 <strong>1.39倍</strong></li>
-    <li>グループ社員1.5万人展開、4割が毎日使用</li>
-  </ul></div>
-  <div class="card-source"><a href="https://xtrend.nikkei.com/atcl/contents/18/01071/00009/" target="_blank">日経クロストレンド</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  Claude × 開発                                               -->
-<!-- ============================================================ -->
-<h2 class="section-title"><span class="dot claude"></span>Claude / Anthropic — 開発</h2>
-<div class="cards">
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Spotify</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>音楽ストリーミング</span><span>海外</span></div>
-  <div class="card-product claude">Claude Agent SDK / Claude Code</div>
-  <div class="card-usecase">「Honk」エージェントでJavaコード変換・マイグレーション自動化。全アップデートの約半数がこのシステムを経由</div>
-  <div class="card-results"><ul>
-    <li>エンジニアリング時間 <strong>最大90%削減</strong></li>
-    <li>月 <strong>650件以上</strong> のAI生成PRがプロダクションにマージ</li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/customers/spotify" target="_blank">Claude Customer Story</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Palo Alto Networks</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>セキュリティ</span><span>海外</span></div>
-  <div class="card-product claude">Claude</div>
-  <div class="card-usecase">セキュアな開発加速、CI/CDにおけるAI後処理による自動コード改善</div>
-  <div class="card-results"><ul>
-    <li>機能開発速度 <strong>20-30%向上</strong></li>
-    <li>オンボーディング <strong>数カ月→数週間</strong></li>
-    <li>ジュニア開発者の統合タスク <strong>70%高速化</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/blog/driving-ai-transformation-with-claude" target="_blank">Anthropic</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">TELUS</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>通信</span><span>カナダ</span></div>
-  <div class="card-product claude">Claude（Fuel iXプラットフォーム）</div>
-  <div class="card-usecase">57,000名向けAIワークフロー基盤</div>
-  <div class="card-results"><ul>
-    <li>コード出荷速度 <strong>30%向上</strong></li>
-    <li>累計 <strong>50万時間以上</strong> 節約</li>
-    <li>累計 <strong>$9,000万以上</strong> の効果</li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/customers/telus" target="_blank">Claude Customer Story</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Novo Nordisk</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>製薬</span><span>デンマーク</span></div>
-  <div class="card-product claude">Claude（Bedrock経由）/ Claude Code</div>
-  <div class="card-usecase">NovoScribeプラットフォームによる臨床文書作成の自動化</div>
-  <div class="card-results"><ul>
-    <li>文書作成 <strong>10週間超→10分</strong></li>
-    <li>レビューサイクル <strong>50%短縮</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/blog/driving-ai-transformation-with-claude" target="_blank">Anthropic</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Altana</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>サプライチェーンAI</span><span>海外</span></div>
-  <div class="card-product claude">Claude Code</div>
-  <div class="card-usecase">AI/MLシステム開発加速、税・関税分類の自動生成</div>
-  <div class="card-results"><ul>
-    <li>開発速度 <strong>2〜10倍</strong> に向上</li>
-  </ul></div>
-  <div class="card-source"><a href="https://devops.com/enterprise-ai-development-gets-a-major-upgrade-claude-code-now-bundled-with-team-and-enterprise-plans/" target="_blank">DevOps.com</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Smartsheet</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>SaaS</span><span>海外</span></div>
-  <div class="card-product claude">Claude（Bedrock経由）</div>
-  <div class="card-usecase">開発者生産性向上、コードドキュメント・アーキテクチャ図の自動生成</div>
-  <div class="card-results"><ul>
-    <li>運用コスト <strong>60%削減</strong></li>
-    <li>コードドキュメント生成 <strong>2週間→4時間</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://aws.amazon.com/blogs/architecture/how-smartsheet-boosts-developer-productivity-with-amazon-bedrock-and-roo-code/" target="_blank">AWS Blog</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Intercom</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>SaaS</span><span>海外</span></div>
-  <div class="card-product claude">Claude（Fin AIエージェント搭載）</div>
-  <div class="card-usecase">AIカスタマーサポートエージェント</div>
-  <div class="card-results"><ul>
-    <li>最大 <strong>86%の解決率</strong></li>
-    <li>顧客ベース全体で平均解決率 <strong>51%</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/customers/intercom" target="_blank">Claude Customer Story</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Gamma</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>SaaS</span><span>海外</span></div>
-  <div class="card-product claude">Claude</div>
-  <div class="card-usecase">AI機能の半数以上をClaudeで駆動</div>
-  <div class="card-results"><ul>
-    <li>ユーザー満足度 <strong>30%向上</strong></li>
-    <li>無料→有料転換率 <strong>20%向上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/customers/gamma" target="_blank">Claude Customer Story</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">楽天 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>EC</span><span>日本</span></div>
-  <div class="card-product claude">Claude Opus 4 / Claude Code</div>
-  <div class="card-usecase">vLLM（1,250万行）へのリファクタリング・機能実装。7時間連続で自律的に作業</div>
-  <div class="card-results"><ul>
-    <li>実装精度 <strong>99.9%</strong></li>
-    <li>市場投入 <strong>24営業日→5営業日（79%改善）</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.technologyreview.jp/s/362556/" target="_blank">MIT Technology Review Japan</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">READYFOR <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>クラウドファンディング</span><span>日本</span></div>
-  <div class="card-product claude">Claude Code</div>
-  <div class="card-usecase">日常開発業務（コード生成・Git操作・PR作成）</div>
-  <div class="card-results"><ul>
-    <li><strong>83%</strong> が生産性向上実感</li>
-    <li><strong>66%</strong> が1日1-2時間短縮</li>
-  </ul></div>
-  <div class="card-source"><a href="https://zenn.dev/readyfor_blog/articles/a1cfd81a562e07" target="_blank">Zenn</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  Claude × マーケティング                                      -->
-<!-- ============================================================ -->
-<h2 class="section-title"><span class="dot claude"></span>Claude / Anthropic — マーケティング</h2>
-<div class="cards">
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Anthropic（自社マーケチーム）</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>AI</span><span>海外</span></div>
-  <div class="card-product claude">Claude Code / Claude Desktop（MCP）</div>
-  <div class="card-usecase">インフルエンサーマーケ、ケーススタディ作成、広告バリエーション自動生成</div>
-  <div class="card-results"><ul>
-    <li>インフルエンサー部門 月 <strong>100時間+節約</strong></li>
-    <li>ケーススタディ <strong>2.5h→30min</strong></li>
-    <li>チーム生産性 <strong>前年比5倍</strong></li>
-    <li>広告バリエーション <strong>10倍</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/blog/how-anthropic-uses-claude-marketing" target="_blank">Anthropic Blog</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">IG Group</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>金融</span><span>英国</span></div>
-  <div class="card-product claude">Claude Enterprise</div>
-  <div class="card-usecase">マーケキャンペーン高速化、代理店依存削減</div>
-  <div class="card-results"><ul>
-    <li><strong>3カ月でROI全額回収</strong></li>
-    <li>スピード・トゥ・マーケット <strong>3桁%改善</strong></li>
-    <li>アナリティクスチームが週 <strong>70時間</strong> 節約</li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/customers/ig-group" target="_blank">Claude Customer Story</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">BlueOcean AI</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>マーケテック</span><span>海外</span></div>
-  <div class="card-product claude">Claude 3（Bedrock経由）</div>
-  <div class="card-usecase">ブランド分析プラットフォーム「Spark」構築（顧客: AWS, Cisco, SAP等）</div>
-  <div class="card-results"><ul>
-    <li>業務効率 <strong>97%改善</strong>（5日→2時間）</li>
-    <li>運営コスト <strong>21%削減</strong></li>
-    <li>顧客のアナリティクスコスト <strong>66-96%削減</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://aws.amazon.com/solutions/case-studies/blueoceanai-bedrock/" target="_blank">AWS Case Study</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Netcore Cloud</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>マーケ自動化</span><span>海外</span></div>
-  <div class="card-product claude">Claude Sonnet 3.7（Bedrock経由）</div>
-  <div class="card-usecase">AI「Co-Marketer」構築、キャンペーン自動セットアップ</div>
-  <div class="card-results"><ul>
-    <li>セットアップ時間 <strong>最大50%高速化</strong></li>
-    <li>ROI <strong>最大10倍</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://aws.amazon.com/solutions/case-studies/netcore-bedrock-case-study/" target="_blank">AWS Case Study</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Cox Automotive</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>自動車</span><span>海外</span></div>
-  <div class="card-product claude">Claude（Sonnet/Haiku）</div>
-  <div class="card-usecase">VinSolutions CRMのAI化、Autotrader車両リスティング自動生成</div>
-  <div class="card-results"><ul>
-    <li>リード応答・テストドライブ予約 <strong>2倍以上</strong></li>
-    <li>AI生成リスティングに <strong>80%好評価</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/blog/driving-ai-transformation-with-claude" target="_blank">Anthropic</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Zapier</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>SaaS</span><span>海外</span></div>
-  <div class="card-product claude">Claude API</div>
-  <div class="card-usecase">800以上の内部エージェント運用（マーケ・CS含む全社横断）</div>
-  <div class="card-results"><ul>
-    <li><strong>50万スタッフ時間以上</strong> 節約</li>
-    <li>AI導入率 <strong>89%</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://claude.com/customers/zapier" target="_blank">Claude Customer Story</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Showpad</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>セールスイネーブルメント</span><span>海外</span></div>
-  <div class="card-product claude">Claude 3 Haiku（Bedrock経由）</div>
-  <div class="card-usecase">AI検索、アセット要約、メッセージ作成</div>
-  <div class="card-results"><ul>
-    <li>1年で <strong>12の新規AI機能</strong> リリース</li>
-    <li>推論速度 <strong>30%向上</strong>、コスト <strong>1/3</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://aws.amazon.com/solutions/case-studies/showpad-bedrock-case-study/" target="_blank">AWS Case Study</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">みずほFG <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>金融</span><span>日本</span></div>
-  <div class="card-product claude">Claude Enterprise</div>
-  <div class="card-usecase">30,000人向けAI業務活用基盤</div>
-  <div class="card-results"><ul>
-    <li><strong>30,000人</strong> が業務活用</li>
-    <li>高度な金融規制環境下での大規模AI導入を実現</li>
-  </ul></div>
-  <div class="card-source"><a href="https://gai.workstyle-evolution.co.jp/2025/11/14/anthropic-japan-office-claude-enterprise-success-cases-rakuten-mizuho-mercari/" target="_blank">各種報道</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  Gemini × 開発                                               -->
-<!-- ============================================================ -->
-<h2 class="section-title"><span class="dot gemini"></span>Gemini / Google — 開発</h2>
-<div class="cards">
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">HCLTech</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>ITサービス</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini Code Assist</div>
-  <div class="card-usecase">ミドルウェア開発の加速、ユニットテストカバレッジ達成</div>
-  <div class="card-results"><ul>
-    <li>スクラッチ開発 <strong>25%時間短縮</strong></li>
-    <li>テストカバレッジ達成 <strong>60%生産性向上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.hcltech.com/case-study/accelerating-middleware-innovation-with-gemini-code-assist" target="_blank">HCLTech</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Delivery Hero</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>フードデリバリー</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini Code Assist</div>
-  <div class="card-usecase">コードレビュー自動化、PR自動要約、レビュアー割当効率化</div>
-  <div class="card-results"><ul>
-    <li><strong>15,000+リポジトリ</strong> に展開</li>
-    <li>2025年 Google <strong>DORA Award受賞</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/customers/delivery-hero-ai" target="_blank">Google Cloud</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Dun & Bradstreet</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>データ分析</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini Code Assist Enterprise</div>
-  <div class="card-usecase">SDLC全体の変革、アプリ近代化、オンボーディング支援</div>
-  <div class="card-results"><ul>
-    <li>オンボーディング期間短縮</li>
-    <li>ナレッジ共有促進</li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/blog/products/ai-machine-learning/dun-bradstreet-gemini-code-assist-software-development-lifecycle" target="_blank">Google Cloud Blog</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Renault Group (Ampere)</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>自動車</span><span>フランス</span></div>
-  <div class="card-product gemini">Gemini Code Assist + Cloud Workstations</div>
-  <div class="card-usecase">ソフトウェア定義車両（SDV）開発、RAGでプライベートコードベースに対応</div>
-  <div class="card-results"><ul>
-    <li>ボイラープレート自動生成</li>
-    <li>巨大コードベース理解速度が大幅向上</li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/blog/products/application-development/renault-groups-software-defined-vehicles-built-on-google-cloud" target="_blank">Google Cloud Blog</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Quantiphi</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>AIコンサル</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini Code Assist</div>
-  <div class="card-usecase">SDLC全体の効率化</div>
-  <div class="card-results"><ul>
-    <li><strong>30%以上</strong> の効率向上</li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/products/gemini/code-assist" target="_blank">Google Cloud</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">Deutsche Bank</div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>金融</span><span>ドイツ</span></div>
-  <div class="card-product gemini">Gemini + Vertex AI</div>
-  <div class="card-usecase">AIリサーチエージェント「DB Lumina」構築</div>
-  <div class="card-results"><ul>
-    <li>400ページのレポートを <strong>3ページに自動要約</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders" target="_blank">Google Cloud Blog</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">JCOM <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>通信</span><span>日本</span></div>
-  <div class="card-product gemini">Gemini Enterprise</div>
-  <div class="card-usecase">コールセンターAI「JAICO」構築（通話要約、ナレッジレコメンド）</div>
-  <div class="card-results"><ul>
-    <li>月 <strong>1,500時間以上</strong> の業務削減</li>
-    <li>月間 <strong>20万件</strong> の要約データ生成</li>
-  </ul></div>
-  <div class="card-source"><a href="https://robotstart.info/article/2025/09/02/379568.html" target="_blank">ロボスタ</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">第一興商 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>エンタメ</span><span>日本</span></div>
-  <div class="card-product gemini">Vertex AI（Gemini 1.5 Pro）</div>
-  <div class="card-usecase">カラオケリクエスト集計の名寄せ自動化、多言語楽曲検索</div>
-  <div class="card-results"><ul>
-    <li>手動の検索・ファクトチェック・DB突合を自動化</li>
-    <li>毎週 <strong>200曲前後</strong> の情報収集を効率化</li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloudpack.jp/casestudy/24-05.html" target="_blank">cloudpack</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="dev">
-  <div class="card-header">
-    <div class="card-company">HIGUCHI GROUP <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span></div>
-  </div>
-  <div class="card-meta"><span>不動産</span><span>日本</span></div>
-  <div class="card-product gemini">Google Workspace with Gemini</div>
-  <div class="card-usecase">アプリケーション開発の高速化</div>
-  <div class="card-results"><ul>
-    <li>開発期間 <strong>1ヶ月→1週間（75%削減）</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://prtimes.jp/main/html/rd/p/000000109.000069271.html" target="_blank">PR TIMES</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  Gemini × マーケティング                                      -->
-<!-- ============================================================ -->
-<h2 class="section-title"><span class="dot gemini"></span>Gemini / Google — マーケティング</h2>
-<div class="cards">
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Radisson Hotel Group</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>ホテル</span><span>海外</span></div>
-  <div class="card-product gemini">Vertex AI / Gemini</div>
-  <div class="card-usecase">広告コピー自動生成、30言語以上のローカライズ（8週間→数時間）</div>
-  <div class="card-results"><ul>
-    <li>広告収益 <strong>22%増</strong></li>
-    <li>ROAS <strong>35%向上</strong></li>
-    <li>広告チーム生産性 <strong>50%向上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/customers/radisson" target="_blank">Google Cloud</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">L'Oreal</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>化粧品</span><span>フランス</span></div>
-  <div class="card-product gemini">AI Max for Search / Performance Max / Gemini</div>
-  <div class="card-usecase">検索広告最適化、マルチチャネル広告運用、AIクリエイティブ制作</div>
-  <div class="card-results"><ul>
-    <li>CVR <strong>2倍</strong>、CPC <strong>31%削減</strong>、CTR <strong>67%向上</strong></li>
-    <li>タイ市場でROAS <strong>5倍</strong></li>
-    <li>クリエイティブ制作 <strong>数週間→数時間</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://business.google.com/us/think/ai-excellence/loreal-ai-max-search-marketing-strategy/" target="_blank">Think with Google</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Viral Nation</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>インフルエンサーマーケ</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini / Vertex AI</div>
-  <div class="card-usecase">ブランドセーフティ分析プラットフォーム「Secure」構築</div>
-  <div class="card-results"><ul>
-    <li>インフラコスト <strong>92%削減</strong></li>
-    <li>エンジニアリングリソース <strong>70%削減</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/customers/viralnation" target="_blank">Google Cloud</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Incubeta</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>デジタルマーケ</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini for Workspace</div>
-  <div class="card-usecase">広告キャンペーンインサイト生成、クリエイティブ制作（800名以上導入）</div>
-  <div class="card-results"><ul>
-    <li>短期キャンペーンROI <strong>最大50%向上</strong></li>
-    <li>クリエイティブ制作 <strong>数日→数分</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://workspace.google.com/blog/customer-stories/incubeta-drives-ai-performance-with-gemini-google-workspace" target="_blank">Google Workspace Blog</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Dept Agency（Pit Viper）</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>広告</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini 2.5 Pro / Veo / Imagen</div>
-  <div class="card-usecase">AI生成動画広告「The Impossible Ad」</div>
-  <div class="card-results"><ul>
-    <li>制作期間 <strong>400%短縮</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/blog/products/ai-machine-learning/how-5-agencies-created-an-impossible-ad-with-gemini-25-pro" target="_blank">Google Cloud Blog</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Converteo</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>マーケコンサル</span><span>海外</span></div>
-  <div class="card-product gemini">Gemini Enterprise Plus</div>
-  <div class="card-usecase">「AIネイティブ」コンサルティングファームへの変革</div>
-  <div class="card-results"><ul>
-    <li>反復業務で <strong>20-30%の生産性向上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/customers/converteo" target="_blank">Google Cloud</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Precis Digital</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>デジタルマーケ</span><span>スウェーデン</span></div>
-  <div class="card-product gemini">Gemini 1.5 Flash / Vertex AI</div>
-  <div class="card-usecase">広告ビジュアル分析自動化、自然言語データクエリ</div>
-  <div class="card-results"><ul>
-    <li>フォーム自動入力 <strong>300ミリ秒</strong></li>
-    <li>15名で日数十万件のジョブ処理</li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/customers/precis-digital" target="_blank">Google Cloud</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">三菱自動車 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>自動車</span><span>日本</span></div>
-  <div class="card-product gemini">Google広告AI（P-MAX / Gemini統合）</div>
-  <div class="card-usecase">価値に基づく入札最適化</div>
-  <div class="card-results"><ul>
-    <li>ROAS <strong>107%向上</strong></li>
-    <li>CVR <strong>104%向上</strong></li>
-    <li>CPA <strong>47%削減</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://business.google.com/jp/accelerate/resources/articles/generate-leads-case-studies/" target="_blank">Google広告</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">ライフネット生命 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>保険</span><span>日本</span></div>
-  <div class="card-product gemini">Google広告AI / P-MAX / Gemini全社導入</div>
-  <div class="card-usecase">目標ROAS入札、P-MAXキャンペーン最適化</div>
-  <div class="card-results"><ul>
-    <li>CV値 <strong>35%増</strong>、契約件数 <strong>11%増</strong></li>
-    <li>P-MAXでCPA <strong>25%削減</strong>＆獲得数 <strong>90%増</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.thinkwithgoogle.com/intl/ja-jp/future-of-marketing/management-and-culture/gml-2024-jp-casestudy/" target="_blank">Think with Google</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">電通デジタル <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>広告</span><span>日本</span></div>
-  <div class="card-product gemini">Vertex AI / Gemini（∞AI）</div>
-  <div class="card-usecase">次世代マーケ支援ツール群（∞AI Ads等4ソリューション）</div>
-  <div class="card-results"><ul>
-    <li><strong>100社以上</strong> が導入</li>
-    <li>通常2年以上→<strong>約半年</strong> でリリース</li>
-  </ul></div>
-  <div class="card-source"><a href="https://cloud.google.com/blog/ja/topics/customers/dentsu-digital-next-generation-marketing-support-tool-using-gen-ai" target="_blank">Google Cloud Blog</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt">
-  <div class="card-header">
-    <div class="card-company">Geotab</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span></div>
-  </div>
-  <div class="card-meta"><span>テレマティクス</span><span>海外</span></div>
-  <div class="card-product gemini">Google Workspace with Gemini</div>
-  <div class="card-usecase">リサーチ、レポート作成、顧客インサイト抽出</div>
-  <div class="card-results"><ul>
-    <li>社員2,300名のうち <strong>89%が採用</strong></li>
-    <li>1ヶ月で <strong>110,000件</strong> のクエリ実行</li>
-  </ul></div>
-  <div class="card-source"><a href="https://workspace.google.com/customers/success-stories/geotab/" target="_blank">Google Workspace</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  個人事業・小規模ビジネス — 開発                               -->
-<!-- ============================================================ -->
-<h2 class="section-title" style="border-bottom-color: var(--tag-solo);">&#x1f4a1; 個人事業・小規模ビジネス — 開発</h2>
-<div class="cards">
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Pieter Levels（@levelsio）</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロ開発者</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT / AI画像生成</div>
-  <div class="card-usecase">NomadList、RemoteOK、PhotoAI、InteriorAIなど40以上のプロダクトを1人で開発・運営</div>
-  <div class="card-results"><ul>
-    <li>年間売上 <strong>300万ドル超（約4.5億円）</strong></li>
-    <li>従業員ゼロで高利益率を実現</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.fast-saas.com/blog/pieter-levels-success-story/" target="_blank">FastSaaS Blog</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Cameron Trew（Kleo & Mentions）</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
-  <div class="card-product chatgpt">AI活用プロダクト開発</div>
-  <div class="card-usecase">高給の会社員を辞め、2つのSaaSを開発。リーンMVPを素早くリリース</div>
-  <div class="card-results"><ul>
-    <li>合計MRR <strong>8.2万ドル（約1,230万円/月）</strong></li>
-    <li><strong>3ヶ月</strong> で達成</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.indiehackers.com/post/tech/from-0-to-62k-mrr-in-three-months-mUPVSYOlJAC2iogGK7d4" target="_blank">Indie Hackers</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Richard Wang（Leadmore AI）</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロファウンダー</span><span>海外</span></div>
-  <div class="card-product chatgpt">AI/LLM活用プロダクト構築</div>
-  <div class="card-usecase">B2B向けAIマーケティングツールを1人で開発。マーケ費用ゼロで成長</div>
-  <div class="card-results"><ul>
-    <li>MRR <strong>3万ドル超（約450万円/月）</strong></li>
-    <li>初週で有料ユーザー <strong>10人以上</strong> 獲得</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.indiehackers.com/post/tech/hitting-30k-mrr-with-an-ai-marketing-product-n59ORJCYjnZC61Q096UL" target="_blank">Indie Hackers</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名 Indie Hacker</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
-  <div class="card-product chatgpt">AIコーディングアシスタント</div>
-  <div class="card-usecase">AIを活用したSaaSを開発、コンテンツ主導のグロース</div>
-  <div class="card-results"><ul>
-    <li>MRR <strong>$2K→$50K</strong> に8ヶ月で成長</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.indiehackers.com/post/from-2k-mrr-to-50k-in-8-months-how-one-indie-hacker-cracked-the-ai-code-30d5ace166" target="_blank">Indie Hackers</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・事務職女性（28歳）<span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>副業・個人開発</span><span>日本</span></div>
-  <div class="card-product claude">Claude Code</div>
-  <div class="card-usecase">Instagramキャプション生成ツールをClaude Codeで開発。プログラミング初心者</div>
-  <div class="card-results"><ul>
-    <li>副収入 月3万円→<strong>月15万円</strong> に成長</li>
-    <li>プログラミング未経験から <strong>3ヶ月以内</strong> に達成</li>
-  </ul></div>
-  <div class="card-source"><a href="https://note.com/happy_recipes/n/neea55b001b3c" target="_blank">note</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・非エンジニア</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT / Cursor等</div>
-  <div class="card-usecase">AIでコーディングを学びながら、複数SaaSのポートフォリオを構築</div>
-  <div class="card-results"><ul>
-    <li>月間売上 <strong>2.8万ドル（約420万円/月）</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.indiehackers.com/post/tech/learning-to-code-and-building-a-28k-mo-portfolio-of-saas-products-OA5p18fXtvHGxP9xTAwG" target="_blank">Indie Hackers</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・ソロファウンダー</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロSaaS開発</span><span>海外</span></div>
-  <div class="card-product chatgpt">AIコーディングツール</div>
-  <div class="card-usecase">AIを駆使してわずか12時間でSaaS MVPを構築・リリース</div>
-  <div class="card-results"><ul>
-    <li>MRR <strong>$15,000（約225万円/月）</strong></li>
-    <li>開発時間 数ヶ月→<strong>12時間</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://medium.com/@AIBites/this-founder-built-a-15k-mrr-saas-in-12-hours-82dd65e0be0a" target="_blank">Medium</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">フリーランスWebエンジニア</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>フリーランス</span><span>海外</span></div>
-  <div class="card-product chatgpt">GitHub Copilot</div>
-  <div class="card-usecase">API、DBモデル、Reactコンポーネント等の反復コーディングをCopilotで自動化</div>
-  <div class="card-results"><ul>
-    <li>週 <strong>3〜4時間</strong> 節約（月$1,200〜$1,800相当）</li>
-    <li>月額$10に対し <strong>120〜180倍のROI</strong></li>
-    <li>タスク完了速度 <strong>55.8%向上</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://freltek.com/is-github-copilot-worth-it-for-freelancers-honest-roianalysis/" target="_blank">Freltek</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Barron van Den Berg</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>フリーランス</span><span>海外</span></div>
-  <div class="card-product claude">Claude vs ChatGPT 比較</div>
-  <div class="card-usecase">同じ副業タスクをClaude/ChatGPTで30日間実施し収益を比較</div>
-  <div class="card-results"><ul>
-    <li>Claude: 30日間で <strong>$1,247</strong></li>
-    <li>ChatGPT: 30日間で <strong>$600</strong></li>
-    <li>Claudeが <strong>約2倍</strong> の収益効率</li>
-  </ul></div>
-  <div class="card-source"><a href="https://medium.com/@barronqasem/claude-vs-chatgpt-i-tested-both-for-30-days-to-see-which-one-makes-money-faster-9137f8ca7778" target="_blank">Medium</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・個人開発者（副業）</div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>副業開発</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT（GPTs / API）</div>
-  <div class="card-usecase">AIを活用したマイクロアプリを複数開発・販売</div>
-  <div class="card-results"><ul>
-    <li>月収 $300→$1,000→$2,000→<strong>$3,000超</strong></li>
-    <li><strong>3〜4ヶ月</strong> で成長</li>
-  </ul></div>
-  <div class="card-source"><a href="https://medium.com/@godfreyigaa/how-to-make-money-with-chat-gpt-the-exact-workflow-i-used-to-build-a-3k-month-gpt-9988a40f21db" target="_blank">Medium</a></div>
-</div>
-
-<div class="card claude" data-ai="claude" data-cat="dev" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">minorun365 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag dev">開発</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>エンジニア</span><span>日本</span></div>
-  <div class="card-product claude">Claude Code</div>
-  <div class="card-usecase">ドキュメント作成・テストコード記述の自動化、個人開発ワークフロー構築</div>
-  <div class="card-results"><ul>
-    <li>定型作業を自動化し <strong>創造的思考にリソース集中</strong></li>
-    <li>企画→実装→運用を <strong>1人</strong> でこなす環境実現</li>
-  </ul></div>
-  <div class="card-source"><a href="https://qiita.com/minorun365/items/114f53def8cb0db60f47" target="_blank">Qiita</a></div>
-</div>
-
-</div>
-
-<!-- ============================================================ -->
-<!--  個人事業・小規模ビジネス — マーケティング                      -->
-<!-- ============================================================ -->
-<h2 class="section-title" style="border-bottom-color: var(--tag-solo);">&#x1f4a1; 個人事業・小規模ビジネス — マーケティング</h2>
-<div class="cards">
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Sweta Bose</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>フリーランス</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT</div>
-  <div class="card-usecase">ChatGPTで8つの収入源を構築。コンテンツカレンダー、動画スクリプト、SEO、翻訳等</div>
-  <div class="card-results"><ul>
-    <li>月収 <strong>$5,000（約75万円）</strong></li>
-    <li><strong>8つ</strong> の収入源を1人で運営</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.moneymakingstory.com/p/how-sweta-bose-built-an-5-000-month-freelance-business-using-chatgpt" target="_blank">MoneyMakingStory</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Barron van Den Berg</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>フリーランスライター</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT</div>
-  <div class="card-usecase">時給$25のライターからChatGPTでプレミアムコンテンツサービスに転換</div>
-  <div class="card-results"><ul>
-    <li>月収 $847→$2,130→$4,680→<strong>$8,560</strong></li>
-    <li><strong>6ヶ月</strong> で10倍成長</li>
-  </ul></div>
-  <div class="card-source"><a href="https://medium.com/@barronqasem/i-made-8-500-month-using-chatgpt-heres-the-exact-blueprint-i-followed-74480daf588f" target="_blank">Medium</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Jennifer L.</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ニュースレター運営</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT</div>
-  <div class="card-usecase">ChatGPTでニュースレターコンテンツを制作、1人で運営</div>
-  <div class="card-results"><ul>
-    <li>購読者 <strong>2,400人</strong></li>
-    <li>年間 <strong>$69,600（約1,050万円）</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://medium.com/masterplan-infinite-weave/2025-chatgpt-case-study-revenue-scaling-80637c59f674" target="_blank">Medium</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Marcus Rodriguez</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>ソロSaaSファウンダー</span><span>海外</span></div>
-  <div class="card-product chatgpt">Jasper AI（ChatGPT系）</div>
-  <div class="card-usecase">フリーランスライター→AIに切替え、ブログ記事を月4本→20本へ</div>
-  <div class="card-results"><ul>
-    <li>月 <strong>$4,800（約72万円）</strong> のコスト削減</li>
-    <li>記事数 <strong>5倍増</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.entrepreneur.com/science-technology/17-wild-ai-use-cases-fuelling-7-figure-solopreneurs-youve/493933" target="_blank">Entrepreneur</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・YouTubeソロプレナー</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>YouTube運営</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT / AI音声・動画生成</div>
-  <div class="card-usecase">スクリプト・ナレーション・サムネイル・編集をすべてAIで自動化</div>
-  <div class="card-results"><ul>
-    <li>広告収入 月 <strong>$10,000（約150万円）</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.entrepreneur.com/science-technology/7-ai-tools-solopreneurs-are-using-to-build-7-figure-businesses-with-no-team-and-no-stress" target="_blank">Entrepreneur</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・フリーランスマーケター</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>マーケコンサル</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT / AI自動化ツール</div>
-  <div class="card-usecase">地元中小企業向けAIリード獲得自動化サービスを提供</div>
-  <div class="card-results"><ul>
-    <li>クライアントあたり月 <strong>$1,000〜$2,500</strong></li>
-    <li>45日以内に2件獲得、利益率 <strong>約70%</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://ucstrategies.com/news/forget-the-hype-these-3-ai-side-hustle-models-actually-make-money-in-2026/" target="_blank">UCStrategies</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・個人ブロガー <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>副業ブログ</span><span>日本</span></div>
-  <div class="card-product chatgpt">ChatGPT</div>
-  <div class="card-usecase">ChatGPTでSEO記事を効率作成、アフィリエイト収益化</div>
-  <div class="card-results"><ul>
-    <li>アフィリエイト報酬 月 <strong>20万円</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.yukemuri-blog.com/chatgpt-blog-roadmap/" target="_blank">ゆけむりブログ</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・小規模デジタルマーケエージェンシー</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>デジタルマーケ</span><span>海外</span></div>
-  <div class="card-product chatgpt">ChatGPT / AIマーケツール</div>
-  <div class="card-usecase">管理業務の自動化、コンテンツ作成の効率化</div>
-  <div class="card-results"><ul>
-    <li>週 <strong>8〜10時間</strong> の管理業務削減</li>
-    <li>請求可能時間 <strong>20%増加</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://doneforyou.com/case-study-small-businesses-winning-ai-tools-2025/" target="_blank">Done For You</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">ゑびや（伊勢神宮門前の食堂）<span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>飲食業</span><span>日本</span></div>
-  <div class="card-product chatgpt">独自AI（機械学習）</div>
-  <div class="card-usecase">400項目のデータ相関分析で翌日の来客数をAI予測</div>
-  <div class="card-results"><ul>
-    <li>5年間で売上 <strong>4.8〜5倍</strong>、利益率 <strong>10倍</strong></li>
-    <li>来客予測的中率 <strong>95%超</strong></li>
-    <li>従業員数ほぼ変えずに達成</li>
-  </ul></div>
-  <div class="card-source"><a href="https://special.nikkeibp.co.jp/atclh/ONB/21/microsoft0816/" target="_blank">日経BP</a></div>
-</div>
-
-<div class="card gemini" data-ai="gemini" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・個人事業主 <span class="flag">🇯🇵</span></div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>個人事業主</span><span>日本</span></div>
-  <div class="card-product gemini">Google Gemini</div>
-  <div class="card-usecase">Googleドライブ+Geminiで確定申告の経費一覧表を自動作成</div>
-  <div class="card-results"><ul>
-    <li>確定申告の作業時間 <strong>半分以下</strong> に短縮</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.issoh.co.jp/column/details/11288/" target="_blank">issoh.co.jp</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">匿名・小規模D2Cブランド</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>EC/D2C</span><span>海外</span></div>
-  <div class="card-product chatgpt">AI広告最適化ツール</div>
-  <div class="card-usecase">AIでの広告キャンペーン自動最適化、ターゲティング・入札調整</div>
-  <div class="card-results"><ul>
-    <li>CPO <strong>$41→$19（54%削減）</strong></li>
-    <li>ROI <strong>353%向上</strong></li>
-    <li>CAC <strong>30%削減</strong></li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.supalabs.co/en/blog/ai-marketing-automation-case-study-353-percent-roi-microsoft-copilot-30-percent-cac-reduction-2025/" target="_blank">SUPALABS</a></div>
-</div>
-
-<div class="card chatgpt" data-ai="chatgpt" data-cat="mkt" data-scale="solo">
-  <div class="card-header">
-    <div class="card-company">Nikita Soloviov（2人エージェンシー）</div>
-    <div class="card-tags"><span class="tag mkt">マーケ</span><span class="tag solo">個人</span></div>
-  </div>
-  <div class="card-meta"><span>コンテンツ制作</span><span>海外</span></div>
-  <div class="card-product chatgpt">Elai.io（AI動画）</div>
-  <div class="card-usecase">AIアバター・ナレーションでクライアント向け商品動画を制作</div>
-  <div class="card-results"><ul>
-    <li>2人で <strong>「10倍大きく見える」品質</strong> のサービス提供</li>
-    <li>制作コスト・時間を大幅削減</li>
-  </ul></div>
-  <div class="card-source"><a href="https://www.entrepreneur.com/science-technology/17-wild-ai-use-cases-fuelling-7-figure-solopreneurs-youve/493933" target="_blank">Entrepreneur</a></div>
-</div>
-
-</div>
-
-</div>
-
-<footer>
-  <p>AI導入事例集 — 全事例は公式ブログ・カスタマーストーリー・主要メディア記事に基づいています</p>
-  <p>Last updated: 2026-03-10</p>
-</footer>
+<header class="site-header">
+  <h1>AI導入事例集</h1>
+  <p>ChatGPT・Claude・Gemini を活用した開発 &amp; マーケティングの実践事例</p>
+  <div class="header-stats">
+    <span><strong>70</strong> 事例</span>
+    <span><strong>3</strong> AIプロバイダ</span>
+    <span><strong>6</strong> カテゴリ</span>
+  </div>
+</header>
+
+<nav class="filters">
+  <div class="filter-row">
+    <span class="filter-label">AI:</span>
+    <button class="filter-btn active" data-filter="all" data-group="provider">すべて</button>
+    <button class="filter-btn" data-provider="chatgpt" data-group="provider">ChatGPT</button>
+    <button class="filter-btn" data-provider="claude" data-group="provider">Claude</button>
+    <button class="filter-btn" data-provider="gemini" data-group="provider">Gemini</button>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">分野:</span>
+    <button class="filter-btn active" data-filter="all" data-group="genre">すべて</button>
+    <button class="filter-btn" data-genre="dev" data-group="genre">開発</button>
+    <button class="filter-btn" data-genre="mkt" data-group="genre">マーケティング</button>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">規模:</span>
+    <button class="filter-btn active" data-filter="all" data-group="scale">すべて</button>
+    <button class="filter-btn" data-scale="solo" data-group="scale">個人・小規模</button>
+  </div>
+</nav>
+
+<div id="cases"></div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const btns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.card');
+const CASES=[
+// === ChatGPT x 開発 ===
+{company:"Accenture",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"PR数8.69%増・ビルド成功率84%増",bg:"世界最大のITコンサルティング企業が、AIコーディングツールの効果を科学的に証明するため、ランダム化比較試験（RCT）という厳密な手法を採用した先駆的事例。Copilotなしのグループと比較することで、「本当にAIは開発生産性を上げるのか」に定量的な回答を出した。",method:"全社の開発者から450名をランダムに選出し、Copilot使用群と非使用群に分けて3ヶ月間の開発パフォーマンスを追跡。プルリクエスト数、マージ率、ビルド成功率、タスク完了数など複数のKPIで多角的に評価した。",results:["PR数 8.69%増","マージ率 11%向上","ビルド成功率 84%増","タスク完了 26%増"],flag:""},
+{company:"Moderna",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"750カスタムGPT・分析数週間→数時間",bg:"COVID-19ワクチンで知られるバイオテック企業が、製薬業界における規制文書作成や臨床データ分析の膨大な事務作業をAIで効率化。OpenAIと戦略的パートナーシップを締結し、全社的なAI活用を推進した。",method:"社内で750以上の用途特化型カスタムGPTを構築。「Dose ID GPT」はワクチンの最適投与量を迅速に評価し、「TPP GPT」は新薬のターゲット製品プロファイルを数時間でドラフト作成。法務・エンジニアリング・臨床チームがそれぞれ業務特化のGPTを自主開発した。",results:["750以上のカスタムGPT構築","分析工程を数週間から数時間に短縮","部門横断での自主的AI活用"],flag:""},
+{company:"OpenAI（自社Codex）",tool:"Codexエージェント",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"3名で100万行・コード90%以上AI生成",bg:"OpenAI自身が「Codexエージェントによる開発」を社内で実践した事例。人間がアーキテクチャ設計とレビューに専念し、コーディング自体をエージェントに委ねる「エージェントファースト」の開発手法を検証した。",method:"3名のエンジニアがCodexエージェントに並列でタスクを割り当て、アプリケーションロジック・テストコード・CI設定・ドキュメント・内部ツールの全コードをエージェントに生成させた。エンジニアは設計指示とコードレビュー、マージ判断に集中する分業体制を構築。",results:["3名で100万行のコード出荷","コードの90%以上がエージェント生成"],flag:""},
+{company:"Shopify",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発者90%以上採用・日次24,000行以上",bg:"ECプラットフォーム大手のShopifyが、CEO Tobi Lütkeの「AIの利用はもはや任意ではない」という全社メモを発端に、開発組織全体でAIコーディングを標準化。経営トップのコミットメントがボトムアップの採用を加速させた。",method:"全開発チームにCopilotを配布し、AIの活用度合いをパフォーマンス評価にも組み込み、「AIを使わない理由」を問う文化に転換。結果として日次で24,000行以上のAI生成コードが受け入れられる体制が定着した。",results:["開発者の90%以上が採用","日次24,000行以上のAI生成コード受入"],flag:""},
+{company:"BBVA",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"80%が週2時間以上削減",bg:"スペイン最大手の銀行BBVAが、金融業界特有の厳格なコンプライアンス環境下でChatGPT Enterpriseの大規模展開を実現。セキュリティとガバナンスを確保しつつ、従業員の自発的なAI活用を促進するアプローチが特徴。",method:"3,000ライセンスを法務・マーケティング・財務・開発など部門横断で配布。IT部門がトップダウンでユースケースを指定するのではなく、従業員自身が2,900以上のカスタムGPTを自主的に作成。部門ごとの業務知識とAIを組み合わせたボトムアップの活用が生まれた。",results:["3,000ライセンス展開","2,900以上のカスタムGPT","80%が週2時間以上の時間削減"],flag:""},
+{company:"ZoomInfo",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"受入率33%・満足度72%",bg:"B2Bデータプラットフォーム企業が、GitHub Copilotの導入効果をarXivに学術論文として発表した珍しい事例。企業内での大規模導入効果を客観的に測定し、公開知見として共有した。",method:"全社エンジニアリング組織にCopilotを導入し、コード提案の受入率・行ベースの受入率・開発者満足度を定量的に測定。コード行ベースで20%、提案ベースで33%の受入率を記録し、学術論文として研究知見を公開した。",results:["提案ベース受入率 33%","行ベース受入率 20%","開発者満足度 72%"],flag:""},
+{company:"日立製作所",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"生産性10-20%向上・コード生成率99%",bg:"日本を代表する総合電機メーカーが、2023年5月に「Generative AIセンター」を設置し、社内30万人規模のデジタル基盤整備の一環としてGitHub Copilotを導入。自社開発フレームワーク「Justware OSS」との相乗効果を追求した。",method:"自社フレームワークJustware OSSのコード生成テンプレートとCopilotを組み合わせることで、フレームワーク準拠のコード生成率を78%から99%に引き上げた。コミュニティ活動を通じて社内に知見を蓄積し、ベストプラクティスを全社展開。",results:["生産性 10-20%向上（最大30%）","フレームワーク準拠コード生成率 78%→99%"],flag:"🇯🇵"},
+{company:"ZOZO",tool:"GitHub Copilot Business",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"78.9%が生産性向上実感",bg:"ZOZOTOWNを運営するZOZOが、約500名のエンジニア全員に一斉導入した国内大規模事例。導入前後でアンケートと利用データの両面から効果を測定し、技術ブログで詳細を公開している透明性の高い事例。",method:"2023年5月から全エンジニアにライセンスを配布。アンケートでは58%が1日30分以上の時間節約を報告。501名が合計183,943行のCopilot生成コードを参照し、コーディングスタイルの統一にも貢献。",results:["500名全社導入","78.9%が生産性向上実感","58%が1日30分以上節約","183,943行のAI生成コード参照"],flag:"🇯🇵"},
+{company:"ソフトバンク",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発工数34%削減",bg:"ソフトバンクが「個人の道具」としてのAIツールを「チームの脳」として組織的に活用する仕組みを構築。.githubディレクトリにプロジェクト共通ルールとカスタムコマンドを配置し、チーム全体で統一した品質のアウトプットを実現する運用設計が特徴。",method:"ドキュメント生成、テストコード生成、ログ実装などの定型タスク用にカスタムコマンドを作成し、.github/ディレクトリで共有。チーム内で同じプロンプトを使うことで品質の統一を実現。2ヶ月間のパイロットで平均34%の工数削減を達成。",results:["開発工数 34%削減","チーム共通カスタムコマンド運用"],flag:"🇯🇵"},
+{company:"メンバーズルーツ",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"特定タスク工数最大80%削減",bg:"Web開発・デジタルマーケティング支援企業が、1ヶ月間のトライアルでGitHub Copilotの実務効果を検証。特に反復的なコンポーネント作成や大量の一括置換作業で顕著な効果が確認された。",method:"新規コンポーネントの作成時にCopilotの提案をベースにカスタマイズする手法を確立。一括置換作業では正規表現の生成をCopilotに任せることで、手作業では数時間かかっていた作業を大幅に短縮。",results:["特定タスクで工数最大80%削減","コンポーネント作成の効率化","正規表現生成の自動化"],flag:"🇯🇵"},
+// === ChatGPT x マーケティング ===
+{company:"Klarna",tool:"ChatGPT Enterprise / OpenAI API",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケ費用年$10M削減",bg:"スウェーデン発のフィンテック企業Klarnaが、OpenAIとの戦略的パートナーシップを通じてマーケティング部門を根本から変革。従来は外部のデザインエージェンシーに依存していた広告クリエイティブ制作を、ほぼすべて社内AIで完結する体制に移行した。",method:"広告画像の制作にDALL-Eを導入し、キャンペーンごとの画像制作サイクルを6週間から7日に短縮。AIチャットボットが月間230万件の顧客問い合わせを処理しカスタマーサービスの3分の2をカバー。マーケティング部門のAI採用率は88%に到達。",results:["年間約$10Mのコスト削減","画像制作 6週間→7日","月230万件の問い合わせをAI処理","AI採用率 88%"],flag:""},
+{company:"Coca-Cola",tool:"ChatGPT / DALL-E / Azure OpenAI",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"12万点以上のUGC",bg:"世界最大の飲料ブランドが、Bain & CompanyおよびOpenAIとの三者パートナーシップにより、生成AIを大規模消費者キャンペーンに初めて活用。AIをクリエイティブの「ツール」ではなく「プラットフォーム」として消費者に開放した点が革新的。",method:"「Create Real Magic」キャンペーンで消費者がChatGPTとDALL-Eを使ってCoca-Colaブランドの資産を活用したオリジナルアートワークを制作できるプラットフォームを構築。12万点以上のUGCが投稿され、平均滞在時間は7分以上を記録。",results:["12万点以上のユーザー生成コンテンツ","平均滞在時間 7分以上"],flag:""},
+{company:"Promega",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"6カ月で135時間削減",bg:"ライフサイエンス企業Promegaが、経営層主導でChatGPT Enterpriseを全社導入。科学的な専門性が必要なマーケティングコンテンツの制作速度を倍増させ、戦略立案やUX改善に時間を再配分できる体制を作った。",method:"メールマーケティングキャンペーンの下書き作成にChatGPTを活用し、ブリーフからコピー生成、広告フォーマットへの変換までをAIが処理。マーケティングメールの展開にかかる時間を半減させ、捻出した時間をUX改善プロジェクトに投資。",results:["6カ月で135時間削減","メール展開時間を半減"],flag:""},
+{company:"Octopus Energy",tool:"OpenAI GPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"AI満足度80%（人間65%を上回る）",bg:"英国のエネルギー企業が、顧客メール対応にAIを導入したところ、人間のオペレーターを上回る顧客満足度を記録した衝撃的な事例。「AIの対応は人間より劣る」という常識を覆した。",method:"1日5万通の顧客メールのうち50%以上をAIが自動対応。AIが生成した返信の顧客満足度は80%で、人間オペレーターの65%を大幅に上回った。CEO Greg Jackson氏は「AIが250人分以上の業務をこなしている」と公表。",results:["AI生成メール満足度 80%（人間65%）","1日5万通の50%以上をAI処理","250人分以上の業務をAIが代替"],flag:""},
+{company:"Instacart",tool:"ChatGPTプラグイン / OpenAI API",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"Celsius社売上20%増",bg:"食品デリバリー大手Instacartが、ChatGPT内で直接買い物ができる初のEC企業となった事例。広告主向けにAI生成ランディングページを提供し、ブランドのマーケティング効果を直接向上させるプラットフォームとしての価値を強化。",method:"1,000以上の提携店舗と150万以上の商品データをAIに接続し、ユーザーの食事の好みや栄養ニーズに基づくパーソナライズド提案を実現。広告主向けにはAI生成のランディングページを提供し、Celsiusのキャンペーンでは売上20%増を達成。",results:["Celsius社売上 20%増","1,000以上の提携店舗とAI連携","150万以上の商品データ活用"],flag:""},
+{company:"Indeed",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"求人発見7倍高速化・採用確率38%向上",bg:"世界最大の求人サイトIndeedが、AI「Career Scout」機能で求職者と企業のマッチング精度を飛躍的に向上させた事例。従来のキーワードベースの検索では見逃されていた適合求人をAIが発見する仕組み。",method:"ChatGPT Enterpriseを基盤にしたCareer Scout機能が、求職者のスキル・経験・希望を分析し、最適な求人をプロアクティブに提案。求職者が関連求人を見つけて応募するスピードが7倍に向上し、採用される確率は38%向上。",results:["求人発見スピード 7倍","採用確率 38%向上"],flag:""},
+{company:"サイバーエージェント",tool:"ChatGPT API / 独自LLM",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"広告ディレクター30人→0人",bg:"日本最大のインターネット広告代理店が、広告制作プロセスを根本から再設計。特にバナー広告のキャッチコピー生成においてAIが人間のディレクターを完全に代替し、広告業界に衝撃を与えた。",method:"「ChatGPTオペレーション変革室」を設立し、月間約23万時間のオペレーション時間の30%（約7万時間）削減を目標に設定。バナー広告のキャッチコピー生成を完全にAI化し、30人以上いた広告ディレクターのポジションがゼロに。顧客企業の8割にAI活用バナーを納品。",results:["広告ディレクター 30人→0人","3ヶ月あたり制作10万本（2年で4割増）","顧客の8割にAI活用バナー納品"],flag:"🇯🇵"},
+{company:"ベネッセ",tool:"Benesse GPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"CVR前年同期比1.39倍",bg:"教育大手ベネッセが、Azure OpenAIベースの社内AI「Benesse GPT」を全グループに展開し、さらにマーケティング特化のAIツールを独自開発。教育という信頼性が重要な業界で、AIが生成するマーケティングコピーの品質管理に成功した。",method:"グループ社員1.5万人に「Benesse GPT」を展開（4割がほぼ毎日使用）。マーケティング部門では独自のUIコピー作成AIツールを開発し、AIが生成した訴求コピーをA/Bテストで検証。前年同期比でCVR 1.39倍を達成。",results:["CVR 前年同期比1.39倍","社員1.5万人に展開","4割がほぼ毎日使用"],flag:"🇯🇵"},
+// === Claude x 開発 ===
+{company:"Spotify",tool:"Claude Agent SDK / Claude Code",provider:"claude",genre:"dev",scale:"enterprise",highlight:"エンジニアリング時間最大90%削減・月650PR",bg:"音楽ストリーミング最大手Spotifyが、Claude Agent SDKを使って「Honk」と呼ばれるバックグラウンドコーディングエージェントを独自構築した先進事例。JavaのAutoValueクラスからRecordsへの移行やフレームワークアップグレードなど、大規模コードベースの定型的な変更作業をAIエージェントに完全委任した。",method:"「Honk」エージェントがバックグラウンドで継続的にコード変換を実行し、PRを自動生成。人間のエンジニアはレビューとマージ判断に集中する体制に移行。Co-CEO Gustav Soderstrom氏は「シニアエンジニアは12月以降一行もコードを書いていない」と発言し、全アップデートの約半数がこのシステムを経由する規模に到達。",results:["エンジニアリング時間 最大90%削減","月間 650 PR自動生成","全アップデートの約半数がAI経由"],flag:""},
+{company:"Palo Alto Networks",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"機能開発20-30%向上・ジュニア70%高速化",bg:"サイバーセキュリティのグローバルリーダーが、セキュリティ製品という高信頼性が求められる領域でAIコーディング支援を導入。特にジュニア開発者のオンボーディング加速と、CI/CDパイプラインにおけるAI後処理でのコード品質自動改善が注目点。",method:"2,500名の開発者にClaudeを展開（目標3,500名）。新人開発者のオンボーディング期間を数カ月から数週間に短縮。CI/CDパイプラインにAI後処理を組み込み、コード品質の自動改善を実現。",results:["機能開発 20-30%向上","ジュニア開発者 70%高速化","2,500名に展開"],flag:""},
+{company:"TELUS",tool:"Claude（Fuel iXプラットフォーム）",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード出荷30%向上・累計$9,000万の効果",bg:"カナダ最大の通信企業TELUSが、全社57,000名が利用するAIプラットフォーム「Fuel iX」のコアエンジンとしてClaudeを採用。通信・ヘルスケア・デジタルの全事業領域で月間1,000億トークンを処理する大規模運用。",method:"Fuel iXプラットフォームを通じて13,000以上のカスタムAIソリューションを構築。47の大規模GenAIプロジェクトで累計9,000万ドル以上の測定可能な効果を生み出した。エンジニアリングチームではコード出荷速度が30%向上。",results:["コード出荷速度 30%向上","累計 $9,000万以上の効果","57,000名が利用","13,000以上のカスタムAIソリューション"],flag:""},
+{company:"Novo Nordisk",tool:"Claude（Bedrock）/ Claude Code",provider:"claude",genre:"dev",scale:"enterprise",highlight:"文書作成10週間→10分",bg:"デンマークの製薬大手（オゼンピック/ウゴービのメーカー）が、臨床文書作成の自動化プラットフォーム「NovoScribe」をClaudeで構築。製薬業界で最も時間のかかるプロセスの一つである臨床文書作成を99%以上削減した衝撃的な効率化。",method:"NovoScribeプラットフォームがClaude CodeとBedrock上のClaudeを組み合わせ、臨床試験の文書を自動作成。従来10週間以上かかっていた文書作成を10分に短縮し、レビューサイクルも50%短縮。",results:["文書作成 10週間→10分","レビューサイクル 50%短縮"],flag:""},
+{company:"Altana",tool:"Claude Code",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発速度2〜10倍向上",bg:"グローバルサプライチェーンのAI分析企業が、Claude Codeを全エンジニアリングチームに導入し、AI/MLシステムの開発速度を飛躍的に向上させた事例。専門性の高い領域でもAIコーディングが有効であることを証明した。",method:"エンジニアリングチーム全体でClaude Codeを活用し、AI/MLモデルの開発・テスト・デプロイを加速。共同創業者Peter Swartz氏は「以前は取り組めなかったほど野心的なプロジェクトにチャレンジできるようになった」と語った。",results:["開発速度 2〜10倍向上"],flag:""},
+{company:"Smartsheet",tool:"Claude（Bedrock）",provider:"claude",genre:"dev",scale:"enterprise",highlight:"運用コスト60%削減・ドキュメント生成2週間→4時間",bg:"プロジェクト管理SaaSのSmartsheetが、Amazon Bedrock経由でClaudeを導入し、開発者生産性の向上とコスト削減を同時に実現。特にコードドキュメントとアーキテクチャ図の自動生成で大幅な時間短縮を達成。",method:"Bedrock上のClaudeを活用して、コードベースからドキュメントやアーキテクチャ図を自動生成するワークフローを構築。従来2週間かかっていたドキュメント作成を4時間に短縮し、レスポンスレイテンシーを20%改善しながら運用コストを60%削減。",results:["運用コスト 60%削減","ドキュメント生成 2週間→4時間","レイテンシー 20%改善"],flag:""},
+{company:"Intercom",tool:"Claude（Fin AIエージェント）",provider:"claude",genre:"dev",scale:"enterprise",highlight:"最大86%の解決率",bg:"カスタマーサポートプラットフォームのIntercomが、AI搭載エージェント「Fin」のコアにClaudeを採用。従来のルールベースチャットボットでは対応できなかった複雑な顧客問い合わせにも対応し、サポートチームの負荷を大幅に軽減した。",method:"Fin AIエージェントがClaudeの推論能力を活用して、顧客の問い合わせ内容を理解し、ナレッジベースから最適な回答を生成。最も成功している企業では86%の解決率を達成し、全体でも平均51%の自動解決率を実現。",results:["最大 86%の解決率","平均 51%の自動解決率"],flag:""},
+{company:"Gamma",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"満足度30%向上・有料転換率20%向上",bg:"AIプレゼンテーションツールのGammaが、プロダクトのAI機能の半数以上をClaudeで駆動している事例。AIの出力品質がユーザー満足度と有料転換率の両方に直接的なビジネスインパクトをもたらした。",method:"スライド生成、コンテンツ提案、デザイン最適化などの主要AI機能にClaudeを採用。AIが生成するプレゼンテーションの品質向上により、ユーザー満足度が30%向上し、フリーミアムモデルにおける有料転換率が20%向上。",results:["ユーザー満足度 30%向上","有料転換率 20%向上"],flag:""},
+{company:"楽天",tool:"Claude Opus 4 / Claude Code",provider:"claude",genre:"dev",scale:"enterprise",highlight:"実装精度99.9%・市場投入79%改善",bg:"楽天のエンジニアリングチームが、1,250万行規模のオープンソースライブラリ（vLLM）に対するリファクタリング・機能実装にClaude Codeを活用。Claude Opus 4の長時間自律作業能力を実証し、7時間連続で人間の介入なしにコーディングを継続した。",method:"Claude Codeに対して機能要件を自然言語で指示し、7時間にわたって自律的にコード変更を実施。人間は進捗のモニタリングのみで一切介入せず、完了後のレビューで実装精度が参照メソッドと比較して99.9%であることを確認。",results:["実装精度 99.9%","市場投入期間 24営業日→5営業日（79%改善）","7時間の自律的コーディング"],flag:"🇯🇵"},
+{company:"READYFOR",tool:"Claude Code",provider:"claude",genre:"dev",scale:"enterprise",highlight:"83%が生産性向上・66%が1日1-2時間短縮",bg:"日本のクラウドファンディングプラットフォームREADYFORが、エンジニア全員にClaude Codeを導入し、3ヶ月後に社内アンケートで効果を検証。日本のスタートアップにおけるAIコーディング支援ツールの実態調査として貴重なデータを公開。",method:"コード生成、Git操作、プルリクエスト作成などの日常開発業務にClaude Codeを活用。3ヶ月後のアンケートでは利用者の83%が生産性向上を実感し、66%が1日1〜2時間の時間短縮を達成。エンジニアの半数以上がGit操作やPR作成にも積極的に活用。",results:["83%が生産性向上実感","66%が1日1-2時間短縮","半数以上がGit操作・PR作成にも活用"],flag:"🇯🇵"},
+// === Claude x マーケティング ===
+{company:"Anthropic（自社マーケチーム）",tool:"Claude Code / Claude Desktop（MCP）",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"チーム生産性前年比5倍",bg:"Anthropic自身のマーケティングチームが、自社製品をドッグフーディングしてマーケティング業務を変革した事例。インフルエンサーマーケティング、ケーススタディ制作、広告バリエーション生成など各工程でClaudeを活用した具体的なワークフローを公開。",method:"インフルエンサー部門ではクリエイターの過去コンテンツ分析からスクリプト作成までをClaudeに委任し月100時間以上を節約。カスタマーマーケティング部門ではケーススタディの初稿作成を2.5時間から30分に短縮。デジタル広告チームはMCPで連携し広告バリエーション生成を1バッチ0.5秒で実行。",results:["チーム生産性 前年比5倍","ケーススタディ初稿 2.5時間→30分","月100時間以上の節約"],flag:""},
+{company:"IG Group",tool:"Claude Enterprise",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"3カ月でROI全額回収",bg:"英国のオンライントレーディング企業が、マーケティング業務で外部代理店への依存度を大幅に下げ、社内でのキャンペーン実行速度を劇的に向上させた事例。導入からわずか3ヶ月で投資を全額回収した高いROI。",method:"Claude Enterpriseを導入し、マーケティングキャンペーンの企画・制作・分析を社内完結に移行。アナリティクスチームがデータ分析ワークフローを自動化して週70時間を節約。一部のユースケースでは生産性が100%向上。",results:["3カ月でROI全額回収","週70時間の節約","スピード・トゥ・マーケット 3桁%改善"],flag:""},
+{company:"BlueOcean AI",tool:"Claude 3（Bedrock）",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"業務効率97%改善（5日→2時間）",bg:"AWS、Cisco、SAP、Intelなどのエンタープライズ顧客を持つマーケティングテック企業が、Claude 3をコアエンジンとするブランド分析プラットフォーム「Spark」を構築。月間約12億トークンを処理し、10,000以上のマーケティング特化の質問に回答する規模で運用。",method:"Amazon Bedrock経由でClaude 3を統合し、ブランドマーケティングの競合分析・インサイト生成・戦略提案を自動化。従来5日かかっていたブランド分析を2時間に短縮（97%改善）し、クライアント企業のアナリティクスコストを66〜96%削減。",results:["業務効率 97%改善（5日→2時間）","アナリティクスコスト 66-96%削減","月間12億トークン処理"],flag:""},
+{company:"Netcore Cloud",tool:"Claude Sonnet 3.7（Bedrock）",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"ROI最大10倍",bg:"インド発のマーケティングオートメーション企業が、Claude Sonnet 3.7を基盤にAIマーケティングアシスタント「Co-Marketer」を構築。キャンペーンのセットアップからパーソナライゼーション、最適化までの一連のプロセスをAIが支援。",method:"マルチエージェントフレームワークでCo-Marketerを開発し、マーケターがキャンペーンのセットアップ、ターゲティング設定、コンテンツパーソナライゼーション、配信最適化をAIと対話しながら実行。",results:["ROI 最大10倍","セットアップ時間 最大50%高速化"],flag:""},
+{company:"Cox Automotive",tool:"Claude（Sonnet/Haiku）",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"リード応答2倍以上",bg:"米国最大の自動車販売ソリューション企業が、VinSolutions CRM、Autotrader、Dealer.comの3つの主力製品にClaudeを統合。ディーラー向けCRMのAI化から消費者向けの車両リスティング自動生成まで、自動車販売のバリューチェーン全体をAIで変革。",method:"VinSolutions CRMにClaudeを組み込み、消費者リードへの応答とテストドライブ予約を自動化。Autotraderでは車両の特徴・状態・価値を分析してSEO最適化されたリスティング文を自動生成し、80%のディーラーから好評価。",results:["リード応答 2倍以上","80%のディーラーから好評価","9,000件以上のクライアント向け成果物生成"],flag:""},
+{company:"Zapier",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"50万スタッフ時間以上節約・AI導入率89%",bg:"ワークフロー自動化のリーディング企業Zapierが、社内業務にClaude駆動のAIエージェントを800以上構築・運用。マーケティング、カスタマーサクセス、エンジニアリングの全部門にAIエージェントが浸透し、組織全体のAI導入率が89%に到達。",method:"Claude APIを使った内部エージェントを各部門が独自に開発・運用。マーケティングチームではコンテンツ生成やキャンペーン分析を自動化し、カスタマーサクセスチームでは顧客対応の下書き生成やチケット分類を効率化。",results:["50万スタッフ時間以上節約","$9,000万以上の効果","AI導入率 89%","800以上のAIエージェント"],flag:""},
+{company:"Showpad",tool:"Claude 3 Haiku（Bedrock）",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"1年で12の新規AI機能リリース",bg:"セールスイネーブルメントプラットフォームのShowpadが、営業・マーケティング連携の強化にClaudeを活用。AI搭載の検索機能、アセット要約、メッセージ作成など、営業担当者が適切なコンテンツを素早く見つけて活用できる仕組みを構築。",method:"当初はClaude Instantで開始し、Claude 3 Haikuリリース後わずか1日で移行を完了。推論速度が30%向上しコストは1/3に削減。この俊敏性により1年間で12の新規AI機能をリリースした。",results:["1年で12の新規AI機能リリース","推論速度 30%向上","コスト 1/3に削減"],flag:""},
+{company:"みずほFG",tool:"Claude Enterprise",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"30,000人が業務活用",bg:"日本最大級の金融グループみずほフィナンシャルグループが、金融業界の厳格な規制環境下でClaude Enterpriseの大規模導入を実現。30,000人規模という国内金融機関では最大級のAI導入として注目されている。",method:"高度な金融規制・コンプライアンス要件に対応するため、Claude Enterpriseのセキュリティ機能を活用してデータ保護を確保。ドキュメント作成、データ分析、業務効率化全般で30,000人の従業員がClaudeを日常的に活用する体制を構築。",results:["30,000人が業務活用","国内金融機関最大級のAI導入"],flag:"🇯🇵"},
+// === Gemini x 開発 ===
+{company:"HCLTech",tool:"Gemini Code Assist",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発25%短縮・テスト生産性60%向上",bg:"インド最大手のITサービス企業の一つHCLTechが、ミドルウェア開発プロジェクトにGemini Code Assistを導入。特にユニットテストの自動生成で顕著な効果を発揮し、テストカバレッジの目標達成が大幅に加速した。",method:"ミドルウェアの新規サービス開発にGemini Code Assistを統合し、ボイラープレートコードの自動生成とユニットテストの自動作成を実施。スクラッチ開発で25%の時間短縮を実現した。",results:["開発時間 25%短縮","テスト生産性 60%向上"],flag:""},
+{company:"Delivery Hero",tool:"Gemini Code Assist（GitHub連携）",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"15,000リポジトリ展開・DORA Award受賞",bg:"世界最大級のフードデリバリー企業が、15,000以上のGitHubリポジトリにGemini Code Assistを全社展開。コードレビューの自動化とプルリクエストの自動要約により、開発者体験の改善で2025年Google DORA Awardを受賞。",method:"GitHubと連携したGemini Code Assistがすべてのプルリクエストに対して変更内容の要約を自動生成し、適切なレビュアーの割り当てを提案。コードのセキュリティ欠陥も早期に検出する体制を構築した。",results:["15,000以上のリポジトリに展開","2025年 Google DORA Award受賞","レビュー時間の大幅短縮"],flag:""},
+{company:"Dun & Bradstreet",tool:"Gemini Code Assist Enterprise",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"SDLC変革",bg:"グローバルビジネスデータ企業が、ソフトウェア開発ライフサイクル全体にGemini Code Assist Enterpriseを統合。自社のコードベース、コーディング規約、設計標準をAIが理解した状態で開発支援を行うカスタマイズが特徴。",method:"Gemini Code Assist Enterpriseのカスタマイズ機能を活用し、自社固有のコードベースとコーディング標準をAIに学習させた上で開発チームに展開。新規開発者のオンボーディング支援やレガシーアプリケーションの近代化にも活用。",results:["SDLC全体へのAI統合","カスタムコードベース対応","レガシー近代化を加速"],flag:""},
+{company:"Renault Group (Ampere)",tool:"Gemini Code Assist + Cloud Workstations",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"SDV開発にAI統合",bg:"フランスの自動車大手ルノーグループのソフトウェア子会社Ampereが、ソフトウェア定義車両（SDV）の開発にGemini Code Assistを採用。RAGによるプライベートコードベースへのアクセスを活用し、自社固有の車載ソフトウェア規約を理解したAI支援を実現。",method:"Google Cloud Workstations上にAndroid StudioとCode OSS IDEを構築し、Gemini Code Assistを統合。RAGにより自社のプライベートコードベースとコーディング規約をAIが参照。関数説明やモジュール要約の自動生成で新規開発者の立ち上がりを加速。",results:["SDV開発にAIを統合","RAGによるプライベートコード参照","新規開発者の立ち上がり加速"],flag:""},
+{company:"Quantiphi",tool:"Gemini Code Assist",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"30%以上の効率向上",bg:"AIソリューション専業のコンサルティング企業が、自社の開発チームにGemini Code Assistを導入し、SDLC全体で30%以上の効率向上を達成。クライアント向けのAIシステム開発において、コード補完とバグ解決の速度が大幅に改善した。",method:"LLMベースのコードアクセラレーションワークフローを構築し、コード補完、バグ検出・修正提案、コードレビュー支援を統合的に実現。開発者の生産性を30%以上向上させた。",results:["SDLC効率 30%以上向上","コード補完・バグ修正の加速"],flag:""},
+{company:"Deutsche Bank",tool:"Gemini + Vertex AI",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"400ページを3ページに要約",bg:"ドイツ最大の銀行Deutsche Bankが、Gemini + Vertex AIを活用してAIリサーチエージェント「DB Lumina」を構築。金融調査レポートの自動生成と要約により、アナリストの情報処理速度を飛躍的に向上させた。",method:"DB Luminaは膨大な市場データ・決算資料・アナリストレポートを分析し、400ページのリサーチレポートを3ページに自動要約。アナリストが重要な洞察に素早くアクセスし、投資判断を迅速化する環境を構築。",results:["400ページ→3ページに自動要約","投資判断の迅速化"],flag:""},
+{company:"JCOM",tool:"Gemini Enterprise",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"月1,500時間の業務削減",bg:"日本最大のケーブルテレビ・通信事業者JCOMが、アクセンチュアの開発支援のもとGemini Enterpriseを活用したコールセンターAIツール群「JAICO」を構築。通話要約、ナレッジレコメンド、顧客満足度評価、応対品質評価の4機能を統合。",method:"1,000人以上のオペレーターが利用するJAICOは、通話内容をリアルタイムで要約し関連するナレッジ記事を自動レコメンド。月間20万件の通話要約データを生成し、2024年7月から本格運用を開始。",results:["月1,500時間以上の業務削減（約10人分）","月間20万件の通話要約","1,000人以上のオペレーターが利用"],flag:"🇯🇵"},
+{company:"第一興商",tool:"Vertex AI（Gemini 1.5 Pro）",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"楽曲情報収集の自動化",bg:"カラオケ「DAM」を運営する第一興商が、Vertex AI上のGemini 1.5 Proを活用して楽曲データ管理業務を自動化。カラオケリクエストデータの集計で最も手間のかかる「名寄せ」問題（同一アーティストの表記揺れ統合）をAIで解決。",method:"ユーザーが入力する曖昧な歌手名・楽曲名をGemini 1.5 Proが解析し、正式な名称にマッチング。Vertex AI Grounding for Google Searchを組み合わせ、毎週200曲前後の新曲情報収集とファクトチェックを自動化。",results:["楽曲情報収集の自動化","表記揺れの自動名寄せ","毎週200曲の新曲情報を自動収集"],flag:"🇯🇵"},
+{company:"HIGUCHI GROUP",tool:"Google Workspace with Gemini",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発期間75%削減",bg:"不動産・サービス業のHIGUCHI GROUPが、ITの専門部門が限られた中小企業でもAIで業務アプリケーションの内製開発を加速できることを示した事例。Gemini for Google Workspaceを全社的に導入し、情報開発部でのアプリ開発速度を飛躍的に向上。",method:"Google Workspace with Geminiを全社導入し、情報開発部がGeminiの支援を受けながらGoogle Apps Scriptベースの業務アプリを開発。従来1ヶ月かかっていたアプリ開発期間を1週間に短縮（75%削減）。",results:["開発期間 1ヶ月→1週間（75%削減）","文書作成業務の大幅効率化"],flag:"🇯🇵"},
+// === Gemini x マーケティング ===
+{company:"Radisson Hotel Group",tool:"Vertex AI / Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"広告収益22%増・ROAS 35%向上",bg:"世界的ホテルチェーンのRadisson Hotel Groupが、Accentureとの協業でVertex AI上のGeminiを導入し、30言語以上の広告コピー生成とローカライズを自動化。従来8週間かかっていた多言語広告制作プロセスを数時間に短縮した。",method:"Vertex AIのGeminiモデルで広告コピーを自動生成し、30以上の言語にリアルタイム翻訳・ローカライズ。各市場の文化的ニュアンスを考慮した広告文を効率的に制作できる体制を構築。",results:["広告収益 22%増","ROAS 35%向上","広告チーム生産性 50%向上","30言語以上のローカライズ"],flag:""},
+{company:"L'Oreal",tool:"AI Max / Performance Max / Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"CVR 2倍・ROAS 5倍",bg:"世界最大の化粧品メーカーL'Orealが、Google AIスタックを全面的に活用してデジタルマーケティングを変革。マーケティングファネルの全段階でGeminiを活用し、独自のAIラボ「CREAITECH」を設立してAIクリエイティブの量産体制を構築。",method:"AI Max for Searchで従来のキーワードでは到達できなかった検索クエリを発掘しCVR 2倍。Performance Maxをマルチチャネルで展開しタイ市場ではROAS 5倍。CREAITECHラボではGemini・Imagen 3・Veo 2を使いクリエイティブ制作期間を数週間から数時間に短縮。",results:["CVR 2倍","ROAS 5倍（タイ市場）","クリエイティブ制作 数週間→数時間"],flag:""},
+{company:"Viral Nation",tool:"Gemini / Vertex AI",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"インフラコスト92%削減",bg:"インフルエンサーマーケティング企業が、Gemini / Vertex AIでブランドセーフティ分析プラットフォーム「Secure」を構築。15年分のソーシャルメディアコンテンツを48時間でスキャンし、86,000チャンネルを毎日モニタリングするマルチモーダルAIシステム。",method:"テキスト・動画・画像・音声をマルチモーダルに分析し、インフルエンサーのブランド適合性とリスクを自動評価。Vertex AI上で効率的に再構築し、インフラコストを92%、エンジニアリングリソースを70%削減。",results:["インフラコスト 92%削減","エンジニアリングリソース 70%削減","86,000チャンネルを毎日モニタリング"],flag:""},
+{company:"Incubeta",tool:"Gemini for Workspace",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"短期キャンペーンROI最大50%向上",bg:"800名以上の社員を擁するデジタルマーケティングエージェンシーが、Gemini for Google Workspaceを全社導入。クライアント向けの広告キャンペーンインサイト生成とクリエイティブ制作を劇的に効率化。",method:"全社800名以上にGeminiを配布し、キャンペーンデータ分析のインサイト生成、クリエイティブのドラフト作成、クライアントレポートの自動生成に活用。クリエイティブ制作期間を数日から数分に短縮。",results:["短期キャンペーンROI 最大50%向上","クリエイティブ制作 数日→数分"],flag:""},
+{company:"Dept Agency（Pit Viper）",tool:"Gemini 2.5 Pro / Veo / Imagen",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"制作期間400%短縮",bg:"クリエイティブエージェンシーDeptが、アイウェアブランドPit Viper向けにGoogleのAIツール群で「The Impossible Ad」（不可能な広告）を制作。従来のプロダクション手法では実現不可能だった広告映像をAIで生成。",method:"Gemini 2.5 Proでコンセプト立案とスクリプト生成を行い、Imagenで静止画素材、Veoで動画素材を生成。YouTube プレロールとPerformance Maxキャンペーンで展開し、制作期間を400%短縮。",results:["制作期間 400%短縮","従来不可能だったクリエイティブの実現"],flag:""},
+{company:"Converteo",tool:"Gemini Enterprise Plus",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"反復業務で20-30%の生産性向上",bg:"フランスのマーケティング・データコンサルティング企業が、全社をAIネイティブなコンサルティングファームに変革する取り組みの中核にGeminiを据えた事例。420ライセンスのGemini Enterprise Plus導入を計画し、2ヶ月で複数のオペレーショナルAIエージェントを構築・稼働。",method:"社内ナレッジの統合検索、ドキュメント管理の自動化、HR業務の効率化にGeminiを活用。反復業務で20-30%の生産性向上を達成し、コンサルタントが戦略的業務に集中できる環境を構築。",results:["反復業務 20-30%の生産性向上","2ヶ月で複数AIエージェント構築"],flag:""},
+{company:"Precis Digital",tool:"Gemini 1.5 Flash / Vertex AI",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"300ミリ秒でフォーム自動入力",bg:"スウェーデンのデジタルマーケティングエージェンシーが、自社プラットフォーム「Alvie」にGemini 1.5 Flashを統合。広告ビジュアルのタグ付け・パフォーマンス分析を自動化し、顧客が自然言語でデータに問い合わせるアシスタントを構築。",method:"15名の開発チームでGemini 1.5 Flashを活用し、1日数十万件のジョブを処理する分析基盤を構築。広告クリエイティブの要素を自動タグ付けしてパフォーマンスとの相関を分析。フォームデータの自動入力を300ミリ秒で実現。",results:["フォーム自動入力 300ミリ秒","1日数十万件のジョブ処理"],flag:""},
+{company:"三菱自動車",tool:"Google広告AI（P-MAX / Gemini統合）",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"ROAS 107%向上・CPA 47%削減",bg:"三菱自動車がGoogle広告AIの価値に基づく入札を導入し、より質の高い見込み顧客の獲得に成功。単なるリード数ではなく、実際の購入に至る可能性の高いリードを優先的に獲得する戦略をAIで実現。",method:"Google AIの入札最適化により、コンバージョンの「質」に基づいた自動入札を実装。購買意欲の高いユーザーへの広告配信を優先することで、複数の指標で同時改善を達成。",results:["ROAS 107%向上","CVR 104%向上","CPA 47%削減"],flag:"🇯🇵"},
+{company:"ライフネット生命",tool:"Google広告AI / P-MAX / Gemini全社導入",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"契約件数11%増",bg:"ネット生命保険のパイオニアが、デジタルマーケティングの全面的なAI化に取り組んだ事例。目標ROAS入札とP-MAXキャンペーンの組み合わせで、効率と獲得量の両方を改善。さらにGeminiを全社導入しアクティブ率90%超を達成。",method:"目標ROAS入札戦略でコンバージョン値を35%増加させ、P-MAXキャンペーンではCPAを25%削減しつつ獲得件数を90%増加。投資額を前年比50%引き上げながらも効率改善を両立。",results:["契約件数 11%増","コンバージョン値 35%増","CPA 25%削減","Geminiアクティブ率 90%超"],flag:"🇯🇵"},
+{company:"電通デジタル",tool:"Vertex AI / Gemini（∞AI）",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"100社以上導入・開発期間2年→半年",bg:"電通デジタルがVertex AIを基盤に次世代マーケティング支援ツール群「∞AI（ムゲンAI）」ブランドを構築。認知拡大・理解促進・ロイヤリティ醸成の4ソリューションでマーケティングファネル全体をカバーする。",method:"Vertex AI上でGeminiを活用し、広告クリエイティブの自動生成・最適化、チャットボットによる顧客対話、コンテンツパーソナライゼーションを統合的に提供。通常2年以上かかる開発プロジェクトを約半年でリリース。",results:["100社以上が導入","月次10-20社ペースで成長","開発期間 2年→半年"],flag:"🇯🇵"},
+{company:"Geotab",tool:"Google Workspace with Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"89%が採用・月110,000件のクエリ",bg:"車両管理テレマティクス企業のGeotabが、Google Workspace with Geminiを全社導入。社員2,300名のうち89%がGeminiを採用し、月間110,000件のクエリを実行するという高い浸透率を達成。",method:"社内のリサーチ・ドキュメント要約・ステータスレポート作成・顧客インサイト抽出にGeminiを全部門で活用。1人あたり1日平均40件のクエリを実行し、情報収集と報告業務の生産性を全社的に向上。",results:["採用率 89%","月間110,000件のクエリ","1人あたり1日平均40件"],flag:""},
+// === 個人事業・小規模ビジネス — 開発 ===
+{company:"Pieter Levels（@levelsio）",tool:"ChatGPT / AI画像生成",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"年商$3M超・従業員ゼロ",bg:"デジタルノマドのアイコンとして知られるPieter Levels氏が、ChatGPTやAI画像生成ツールを駆使して40以上のプロダクト（NomadList、RemoteOK、PhotoAI、InteriorAI等）を完全に1人で開発・運営。VC資金調達ゼロ、従業員ゼロで年間売上300万ドル超（約4.5億円）を実現。",method:"PHPとjQueryという「枯れた技術」をベースにしつつ、AI画像生成サービスのPhotoAI（プロフィール写真のAI生成）やInteriorAI（インテリアデザインのAI提案）など、生成AIをコア機能に据えたプロダクトを次々とリリース。マーケティングもX（Twitter）での個人発信のみで広告費ゼロ。",results:["年商 $3M超","従業員ゼロ","40以上のプロダクト","VC資金調達ゼロ"],flag:""},
+{company:"Cameron Trew",tool:"AI活用SaaS",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"MRR $82K（3ヶ月で達成）",bg:"高給のソフトウェアエンジニア職を辞めて実家に戻り、AIを活用した2つのSaaSプロダクト（LinkedInプロフィール最適化ツール「Kleo」MRR $62K、メンション分析ツール「Mentions」MRR $20K）を開発。従来なら半年以上かかるプロダクト開発をAIの支援で大幅に圧縮。",method:"リーンスタートアップの手法とAIコーディング支援を組み合わせ、最小限のMVPを素早くリリースして顧客フィードバックをもとに高速改善。合計MRR $82K（約1,230万円/月）をわずか3ヶ月で達成。",results:["MRR $82K（3ヶ月で達成）","2つのSaaSプロダクト運営"],flag:""},
+{company:"Richard Wang（Leadmore AI）",tool:"AI/LLM",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"MRR $30K超・マーケ費用ゼロ",bg:"ソロファウンダーのRichard Wang氏が、B2B向けAIマーケティングツール「Leadmore AI」を1人で開発。事前にコミュニティで300人のユーザーを集めて需要を検証し、約1ヶ月でプロダクトを開発。マーケティング費用ゼロで月間売上$30K超。",method:"コミュニティ主導のプロダクト開発で、リリース初週に10人以上の有料ユーザーを獲得。広告やPRに一切投資せず、口コミとコンテンツマーケティングのみで成長を継続。",results:["MRR $30K超","マーケティング費用ゼロ","1ヶ月でプロダクト開発"],flag:""},
+{company:"匿名 Indie Hacker",tool:"AIコーディングアシスタント",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"MRR $2K→$50K（8ヶ月）",bg:"AIを活用してSaaSプロダクトを開発し、コンテンツ主導のグロース戦略で8ヶ月間でMRRを$2,000から$50,000に成長させた事例。AIコーディングアシスタントによる開発スピードとユーザーリテンション戦略の組み合わせが成功の鍵。",method:"AIコーディングアシスタントで開発を加速しつつ、SEOとコンテンツマーケティングで持続的なトラフィックを構築。ユーザーの声を反映した機能追加で高いリテンション率を維持した。",results:["MRR $2K→$50K（8ヶ月）","コンテンツ主導のグロース"],flag:""},
+{company:"匿名・事務職女性（28歳）",tool:"Claude Code",provider:"claude",genre:"dev",scale:"solo",highlight:"副収入月3万→15万円",bg:"プログラミング経験ゼロの事務職が、Claude Codeを使ってInstagramキャプション生成ツールを開発・収益化した事例。日本語で機能要件を伝えるだけでコードが生成され、エラーもコピペで解決。サブスクリプション型で収益化し、3ヶ月以内に月15万円の副収入を実現。",method:"Claude Codeに日本語で機能要件を伝え、コード生成からデバッグまでAIに委ねる開発手法を確立。エラーが発生してもコピペでClaudeに解決させ、プログラミング知識ゼロでもサービスを完成させた。",results:["副収入 月3万→15万円","プログラミング経験ゼロで開発","3ヶ月以内に収益化"],flag:"🇯🇵"},
+{company:"匿名・非エンジニア",tool:"ChatGPT / Cursor等",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"月間売上$28,000",bg:"エンジニアリング経験のない人物が、AIコーディングツールを使ってプログラミングを学びながら複数のSaaSポートフォリオを構築し、月間売上$28,000（約420万円）を達成。AIがプログラミング教育と実プロダクト開発を同時に実現する可能性を示した。",method:"ChatGPTとCursorを併用しながら、プログラミングの基礎を学習しつつ実際のプロダクトを開発。複数のSaaSを並行運営するポートフォリオアプローチで安定収益を構築。",results:["月間売上 $28,000","非エンジニアが開発","複数SaaSのポートフォリオ運営"],flag:""},
+{company:"匿名・ソロファウンダー",tool:"AIコーディングツール",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"MRR $15,000（12時間で構築）",bg:"AIを駆使してわずか12時間でSaaS MVPを構築・リリースし、MRR $15,000（約225万円/月）を達成した事例。従来なら数ヶ月かかる開発サイクルをAIにより極限まで圧縮した。",method:"AIコーディングツールを駆使してMVPの設計・実装・デプロイを12時間で完了。素早い市場投入で先行者利益を獲得し、早期のユーザーフィードバックをもとに改善サイクルを回した。",results:["MRR $15,000","12時間でMVP構築・リリース"],flag:""},
+{company:"フリーランスWebエンジニア",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"月額$10で120〜180倍のROI",bg:"フリーランス開発者がGitHub Copilotを活用し、API、DBモデル、Reactコンポーネントなどの反復コーディングを自動化した事例。月額わずか$10の投資で週3〜4時間を節約し、120〜180倍のROIを実現。",method:"反復的なボイラープレートコード（API実装、データベースモデル、Reactコンポーネント）の生成にCopilotを活用。手作業では退屈で時間のかかるコーディングをAIに任せ、設計やロジックに集中する時間を確保。",results:["ROI 120〜180倍","週3〜4時間の節約","月額$10の投資"],flag:""},
+{company:"Barron van Den Berg",tool:"Claude vs ChatGPT比較",provider:"claude",genre:"dev",scale:"solo",highlight:"Claude 30日で$1,247 vs ChatGPT $600",bg:"フリーランスライター兼開発者が、同じ副業タスクをClaudeとChatGPTの両方で30日間実施し、収益を直接比較した事例。Claudeが約2倍の収益効率を示し、AIツール選択がビジネス成果に直結することを実証。",method:"同一の副業タスク（コンテンツ作成・コーディング等）を30日間、ClaudeとChatGPTの両方で実施して収益を比較。Claudeでは$1,247、ChatGPTでは$600の収益を記録し、出力品質の差が収益差に反映されることを確認。",results:["Claude: 30日で$1,247","ChatGPT: 30日で$600","約2倍の収益差"],flag:""},
+{company:"匿名・個人開発者（副業）",tool:"ChatGPT（GPTs / API）",provider:"chatgpt",genre:"dev",scale:"solo",highlight:"月収$300→$3,000超（3-4ヶ月）",bg:"コンテンツ作成ではなくAI活用のマイクロアプリ（小さなツール）を複数開発・販売するアプローチで、月収を3〜4ヶ月で10倍に成長させた事例。",method:"ChatGPTのGPTsとAPIを活用してニッチなマイクロツールを複数リリース。各ツールは小規模ながら安定した需要があり、ポートフォリオ全体で月収$3,000超に成長。",results:["月収 $300→$3,000超","3-4ヶ月で10倍成長","複数マイクロアプリのポートフォリオ"],flag:""},
+{company:"minorun365",tool:"Claude Code",provider:"claude",genre:"dev",scale:"solo",highlight:"個人開発ワークフロー構築",bg:"エンジニアがClaude Codeを使い、ドキュメント作成やテストコード記述などの定型作業を自動化して「何を創るか」に集中できる個人開発ワークフローを構築した事例。企画から実装・運用までを1人でこなす体制を実現。",method:"Claude Codeにドキュメント生成、テストコード作成、リファクタリングなどの定型タスクを委ね、自身はアーキテクチャ設計と創造的な意思決定に集中。個人でも品質の高いプロダクトを継続的にリリースできる体制を構築。",results:["企画から運用まで1人で完結","定型作業の自動化","創造的業務への集中"],flag:"🇯🇵"},
+// === 個人事業・小規模ビジネス — マーケティング ===
+{company:"Sweta Bose",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"月収$5,000（8収入源）",bg:"フリーランスとしてChatGPTを活用し、8つの異なる収入源を構築した事例。コンテンツカレンダー作成（$600/月）、YouTuber向け動画スクリプト（$400/月）、SEOパッケージ（$300/月）、翻訳サービス（$250/月）など多面的に活用。",method:"ChatGPTを各サービスのドラフト作成と品質向上に活用。クライアントごとにカスタマイズしたプロンプトを蓄積し、効率的に高品質なアウトプットを提供する体制を確立。8つの収入源で月収$5,000を達成。",results:["月収 $5,000","8つの異なる収入源"],flag:""},
+{company:"Barron van Den Berg",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"月収$847→$8,560（6ヶ月で10倍）",bg:"時給25ドルのフリーランスライターが、ChatGPTを活用して品質と生産量を両立するプレミアムコンテンツサービスに転換した事例。6ヶ月で月収を10倍に成長させた。",method:"ChatGPTでリサーチ・ドラフト作成を効率化し、人間ならではの編集・品質管理に集中するハイブリッド手法を確立。高品質・高生産量を両立することでプレミアム価格帯への移行に成功。",results:["月収 $847→$8,560","6ヶ月で10倍成長"],flag:""},
+{company:"Jennifer L.",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"年間$69,600",bg:"ChatGPTを使ってニュースレターコンテンツを一貫制作し、チームなし・1人で購読者2,400人のサブスクリプションメディアを運営。月額29ドルの有料購読で年間$69,600（約1,050万円）の定期収入を実現。",method:"ChatGPTでニュースレターのリサーチ・下書きを効率化し、独自の視点と編集で差別化。一貫した品質のコンテンツを定期的に配信することで高い継続率を維持。",results:["年間 $69,600","購読者 2,400人","月額$29の有料購読"],flag:""},
+{company:"Marcus Rodriguez",tool:"Jasper AI",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"月$4,800のコスト削減",bg:"ソロSaaSファウンダーが、1記事300ドルのフリーランスライターから月額AIツールに切り替え、ブログ記事数を月4本→20本（5倍）に増加しながら月$4,800を節約した事例。",method:"Jasper AIでブログ記事のドラフトを生成し、自身の専門知識で編集・加筆するワークフローを確立。外注コストを大幅に削減しつつ、コンテンツ量を5倍に増加させた。",results:["月$4,800のコスト削減","記事数 月4本→20本（5倍）"],flag:""},
+{company:"匿名・YouTubeソロプレナー",tool:"ChatGPT / AI動画生成",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"月$10,000",bg:"スクリプト・ナレーション・サムネイル・編集をすべてAIで自動化してYouTubeチャンネルを1人で運営し、広告収入で月$10,000（約150万円）の推定収益を上げている事例。",method:"ChatGPTでスクリプトを生成し、AIナレーション・AI画像生成・AI動画編集を組み合わせて動画制作を完全自動化。1人でも高い投稿頻度を維持できる体制を構築。",results:["月 $10,000の推定収益","動画制作の完全AI化","1人でチャンネル運営"],flag:""},
+{company:"匿名・フリーランスマーケター",tool:"ChatGPT / AI自動化",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"月$2,500×2件・利益率約70%",bg:"地元中小企業向けにAIリード獲得自動化サービスを提供するフリーランスマーケター。45日以内に月額$2,500のリテイナー契約を2件獲得し、利益率約70%を維持している事例。",method:"ChatGPTとAI自動化ツールを組み合わせ、リードの獲得・スコアリング・ナーチャリングを自動化するパッケージサービスを提供。クライアントの営業パイプラインを効率化し高い継続率を実現。",results:["月$2,500×2件のリテイナー","利益率 約70%","45日以内に契約獲得"],flag:""},
+{company:"匿名・個人ブロガー",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"月20万円",bg:"ChatGPTを活用してSEO記事を効率的に作成し、アフィリエイト収益月20万円を達成した事例。AI生成コンテンツをベースに人間が編集・加筆するハイブリッド手法を採用。",method:"ChatGPTでSEOキーワードに基づいた記事のドラフトを生成し、自身の経験や独自の視点を追加して編集。AIによる効率化と人間の専門性を組み合わせたコンテンツ制作フローを確立。",results:["アフィリエイト収益 月20万円","AI+人間のハイブリッド手法"],flag:"🇯🇵"},
+{company:"匿名・小規模マーケエージェンシー",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"管理業務週8-10時間削減",bg:"少人数のデジタルマーケティングエージェンシーが、管理業務の自動化で週8-10時間を節約し、請求可能時間を20%増加させた事例。",method:"レポート作成、クライアントへの定例報告資料、キャンペーン分析の下書きなどの管理業務にChatGPTを活用。浮いた時間をクライアントワークに充て、売上向上に直結させた。",results:["管理業務 週8-10時間削減","請求可能時間 20%増加"],flag:""},
+{company:"ゑびや（伊勢神宮門前の食堂）",tool:"独自AI",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"売上5倍・利益率10倍",bg:"伊勢神宮の門前にある老舗食堂「ゑびや」が、400項目近いデータの相関関係をAIで分析し翌日の来客数を予測する仕組みを構築。来客予測的中率95%超を達成し、品切れ防止と機会損失の削減により、従業員数をほぼ変えずに5年間で売上4.8〜5倍、利益率10倍を実現。",method:"天候・曜日・イベント・SNSデータなど400項目近いデータをAIで分析し、翌日の来客数を95%以上の精度で予測。食材の仕入れ量を最適化することで食品ロスを削減し、品切れによる機会損失も防止。",results:["売上 5倍","利益率 10倍","来客予測的中率 95%超","従業員数ほぼ変更なし"],flag:"🇯🇵"},
+{company:"匿名・個人事業主",tool:"Google Gemini",provider:"gemini",genre:"mkt",scale:"solo",highlight:"確定申告作業時間半分以下",bg:"個人事業主がGoogleドライブとGeminiを組み合わせ、確定申告の経費整理を自動化した事例。品目ごとのフォルダに1年分の請求書をアップロードし、Geminiに月別の経費一覧表を作成させることで、作業時間を体感で半分以下に短縮。",method:"Googleドライブに品目別フォルダを作成し、1年分の請求書をアップロード。GeminiがPDFや画像から請求情報を抽出し、月別の経費一覧表を自動生成。手作業での転記・集計作業を大幅に削減した。",results:["確定申告作業時間 半分以下","経費整理の自動化"],flag:"🇯🇵"},
+{company:"匿名・小規模D2Cブランド",tool:"AI広告最適化",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"ROI 353%向上",bg:"小規模なEC/D2Cブランドが、AI広告最適化ツールを導入してCPO（注文あたりコスト）を$41→$19に54%削減し、ROI 353%向上、CAC 30%削減を達成した事例。",method:"AI広告最適化ツールが入札戦略・ターゲティング・クリエイティブの最適化を自動的に実行。人手では対応しきれない細かな調整をAIが24時間行うことで、限られた広告予算の効率を最大化。",results:["ROI 353%向上","CPO $41→$19（54%削減）","CAC 30%削減"],flag:""},
+{company:"Nikita Soloviov",tool:"Elai.io（AI動画）",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"2人で「10倍大きく見える」品質",bg:"2人だけのコンテンツエージェンシーが、AIアバターとAIナレーションでクライアント向け商品動画を制作し、「10倍大きな制作会社」と同等品質のサービスを提供している事例。",method:"Elai.ioのAIアバターとAIナレーション機能を活用し、スタジオ撮影やプロのナレーターなしで高品質な商品紹介動画を制作。制作コストと時間を大幅に削減しつつ、大手制作会社と遜色ないクオリティを実現。",results:["2人で10倍の制作規模を実現","撮影・ナレーター不要","制作コストの大幅削減"],flag:""}
+];
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
+const SECTIONS=[
+{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
+{id:"chatgpt-mkt",title:"ChatGPT × マーケティング",provider:"chatgpt",genre:"mkt",color:"var(--chatgpt)"},
+{id:"claude-dev",title:"Claude × 開発",provider:"claude",genre:"dev",color:"var(--claude)"},
+{id:"claude-mkt",title:"Claude × マーケティング",provider:"claude",genre:"mkt",color:"var(--claude)"},
+{id:"gemini-dev",title:"Gemini × 開発",provider:"gemini",genre:"dev",color:"var(--gemini)"},
+{id:"gemini-mkt",title:"Gemini × マーケティング",provider:"gemini",genre:"mkt",color:"var(--gemini)"},
+{id:"solo-dev",title:"個人・小規模ビジネス × 開発",provider:null,genre:"dev",color:"var(--tag-solo)",scale:"solo"},
+{id:"solo-mkt",title:"個人・小規模ビジネス × マーケティング",provider:null,genre:"mkt",color:"var(--tag-solo)",scale:"solo"}
+];
 
-      // Toggle active
-      if (filter === 'all') {
-        btns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      } else {
-        document.querySelector('[data-filter="all"]').classList.remove('active');
-        // If same filter type group, toggle within group
-        const isAi = ['chatgpt','claude','gemini'].includes(filter);
-        const isCat = ['dev','mkt'].includes(filter);
-        const isScale = filter === 'solo';
+const chevronSVG='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>';
 
-        if (isAi) {
-          btns.forEach(b => { if (['chatgpt','claude','gemini'].includes(b.dataset.filter)) b.classList.remove('active'); });
-        }
-        if (isCat) {
-          btns.forEach(b => { if (['dev','mkt'].includes(b.dataset.filter)) b.classList.remove('active'); });
-        }
-        btn.classList.toggle('active');
-      }
+function getCases(sec){
+  return CASES.filter(c=>{
+    if(sec.scale==="solo") return c.scale==="solo"&&c.genre===sec.genre;
+    if(sec.provider&&sec.genre) return c.provider===sec.provider&&c.genre===sec.genre&&c.scale!=="solo";
+    return false;
+  });
+}
 
-      // Get active filters
-      const activeAi = [...document.querySelectorAll('.filter-btn.active')].map(b => b.dataset.filter).filter(f => ['chatgpt','claude','gemini'].includes(f));
-      const activeCat = [...document.querySelectorAll('.filter-btn.active')].map(b => b.dataset.filter).filter(f => ['dev','mkt'].includes(f));
-      const soloActive = document.querySelector('[data-filter="solo"]').classList.contains('active');
-      const isAll = document.querySelector('[data-filter="all"]').classList.contains('active');
+function renderItem(c){
+  const genreTag=c.genre==="dev"?'<span class="acc-tag dev">開発</span>':'<span class="acc-tag mkt">マーケ</span>';
+  const scaleTag=c.scale==="solo"?'<span class="acc-tag solo">個人</span>':'';
+  const flag=c.flag?` <span class="flag">${c.flag}</span>`:'';
+  const resultsHTML=c.results.map(r=>`<li>${r}</li>`).join('');
+  return `<div class="acc-item" data-provider="${c.provider}" data-genre="${c.genre}" data-scale="${c.scale}">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <span class="acc-company">${c.company}${flag}</span>
+    <span class="acc-separator">—</span>
+    <span class="acc-tool">${c.tool}</span>
+    <span class="acc-highlight">${c.highlight}</span>
+    <span class="acc-tags">${genreTag}${scaleTag}</span>
+    <span class="acc-chevron">${chevronSVG}</span>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="detail-block"><div class="detail-label">背景</div><div class="detail-text">${c.bg}</div></div>
+      <div class="detail-block"><div class="detail-label">導入方法</div><div class="detail-text">${c.method}</div></div>
+      <div class="detail-block"><div class="detail-label">成果</div><ul class="detail-list">${resultsHTML}</ul></div>
+    </div>
+  </div>
+</div>`;
+}
 
-      // No active filters = show all
-      if (!isAll && activeAi.length === 0 && activeCat.length === 0 && !soloActive) {
-        document.querySelector('[data-filter="all"]').classList.add('active');
-      }
+function renderSections(){
+  const container=document.getElementById('cases');
+  let html='';
+  SECTIONS.forEach(sec=>{
+    const items=getCases(sec);
+    if(!items.length)return;
+    html+=`<div class="section" data-section-provider="${sec.provider||''}" data-section-genre="${sec.genre}" data-section-scale="${sec.scale||''}">
+      <div class="section-title"><span class="dot" style="background:${sec.color}"></span>${sec.title}<span class="count">${items.length}件</span></div>
+      <div class="accordion-list">${items.map(renderItem).join('')}</div>
+    </div>`;
+  });
+  container.innerHTML=html;
+}
 
-      const showAll = document.querySelector('[data-filter="all"]').classList.contains('active');
+function toggleAcc(header){
+  const item=header.parentElement;
+  const body=item.querySelector('.acc-body');
+  if(item.classList.contains('open')){
+    body.style.maxHeight='0';
+    item.classList.remove('open');
+  }else{
+    item.classList.add('open');
+    body.style.maxHeight=body.scrollHeight+'px';
+  }
+}
 
-      cards.forEach(card => {
-        const ai = card.dataset.ai;
-        const cat = card.dataset.cat;
-        const scale = card.dataset.scale;
-        const matchAi = activeAi.length === 0 || activeAi.includes(ai);
-        const matchCat = activeCat.length === 0 || activeCat.includes(cat);
-        const matchScale = !soloActive || scale === 'solo';
-        card.style.display = (showAll || (matchAi && matchCat && matchScale)) ? '' : 'none';
-      });
+// Filtering
+let activeFilters={provider:'all',genre:'all',scale:'all'};
 
-      // Hide/show section titles
-      document.querySelectorAll('.section-title').forEach(title => {
-        let next = title.nextElementSibling;
-        if (next && next.classList.contains('cards')) {
-          const visibleCards = [...next.querySelectorAll('.card')].filter(c => c.style.display !== 'none');
-          title.style.display = visibleCards.length > 0 ? '' : 'none';
-        }
-      });
-    });
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const group=btn.dataset.group;
+    document.querySelectorAll(`.filter-btn[data-group="${group}"]`).forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    if(btn.dataset.filter==='all'){
+      activeFilters[group]='all';
+    }else if(btn.dataset.provider){
+      activeFilters.provider=btn.dataset.provider;
+    }else if(btn.dataset.genre){
+      activeFilters.genre=btn.dataset.genre;
+    }else if(btn.dataset.scale){
+      activeFilters.scale=btn.dataset.scale;
+    }
+    applyFilters();
   });
 });
-</script>
 
+function applyFilters(){
+  document.querySelectorAll('.section').forEach(sec=>{
+    const sp=sec.dataset.sectionProvider;
+    const sg=sec.dataset.sectionGenre;
+    const ss=sec.dataset.sectionScale;
+    let show=true;
+    if(activeFilters.provider!=='all'){
+      if(ss==='solo'){
+        // solo sections: show if items match provider
+      }else if(sp!==activeFilters.provider){
+        show=false;
+      }
+    }
+    if(activeFilters.genre!=='all'&&sg!==activeFilters.genre) show=false;
+    if(activeFilters.scale==='solo'&&ss!=='solo') show=false;
+    sec.style.display=show?'':'none';
+
+    // Filter individual items in solo sections
+    if(ss==='solo'&&show){
+      sec.querySelectorAll('.acc-item').forEach(item=>{
+        let itemShow=true;
+        if(activeFilters.provider!=='all'&&item.dataset.provider!==activeFilters.provider) itemShow=false;
+        item.dataset.hidden=itemShow?'false':'true';
+      });
+      // Hide section if no visible items
+      const visibleItems=sec.querySelectorAll('.acc-item[data-hidden="false"]');
+      if(!visibleItems.length) sec.style.display='none';
+    }
+  });
+}
+
+renderSections();
+</script>
 </body>
 </html>
