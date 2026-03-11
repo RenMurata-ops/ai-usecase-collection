@@ -109,6 +109,36 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
 .acc-item[data-provider="claude"]{border-left:3px solid var(--claude);}
 .acc-item[data-provider="gemini"]{border-left:3px solid var(--gemini);}
 
+/* Tab navigation */
+.tab-nav{max-width:960px;margin:0 auto;padding:40px 24px 0;display:flex;gap:0;border-bottom:2px solid var(--border);}
+.tab-btn{padding:12px 24px;font-size:.95rem;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--text);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* Influencer section */
+.inf-platform-title{max-width:960px;margin:32px auto 16px;padding:0 24px;font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:10px;}
+.inf-platform-title .platform-icon{width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:#fff;}
+.inf-platform-title .platform-icon.yt{background:#FF0000;}
+.inf-platform-title .platform-icon.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+.inf-platform-title .platform-icon.th{background:#000;}
+.inf-platform-title .count{font-size:.8rem;color:var(--text-muted);font-weight:500;}
+.inf-grid{max-width:960px;margin:0 auto;padding:0 24px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.inf-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:box-shadow .2s;}
+.inf-card:hover{box-shadow:var(--shadow-md);}
+.inf-card-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.inf-card-name{font-weight:700;font-size:.92rem;}
+.inf-card-name .flag{margin-left:2px;}
+.inf-card-handle{font-size:.78rem;color:var(--text-muted);}
+.inf-card-handle a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--border);}
+.inf-card-handle a:hover{color:var(--text);}
+.inf-card-followers{margin-left:auto;font-size:.75rem;font-weight:700;color:var(--text);white-space:nowrap;}
+.inf-card-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;}
+.inf-card-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.inf-card-tag{padding:2px 8px;border-radius:10px;font-size:.68rem;font-weight:600;background:var(--surface-hover);color:var(--text-muted);}
+.inf-filter-row{max-width:960px;margin:24px auto 0;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap;}
+
 /* Mobile */
 @media(max-width:640px){
   .site-header{padding:24px 16px 0;}
@@ -120,21 +150,32 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   .acc-tags{margin-left:0;}
   .acc-body-inner{padding:0 14px 16px;}
   .header-stats{gap:16px;}
+  .tab-nav{padding:32px 16px 0;}
+  .tab-btn{padding:10px 16px;font-size:.85rem;}
+  .inf-platform-title{padding:0 16px;}
+  .inf-grid{padding:0 16px 16px;grid-template-columns:1fr;}
+  .inf-filter-row{padding:0 16px;}
 }
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  <h1>AI導入事例集</h1>
-  <p>ChatGPT・Claude・Gemini を活用した開発 &amp; マーケティングの実践事例</p>
+  <h1>AI導入事例 & インフルエンサー集</h1>
+  <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
     <span><strong>84</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
-    <span><strong>6</strong> カテゴリ</span>
+    <span><strong>60+</strong> インフルエンサー</span>
   </div>
 </header>
 
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('cases')">導入事例</button>
+  <button class="tab-btn" onclick="switchTab('influencers')">AIインフルエンサー</button>
+</nav>
+
+<div id="tab-cases" class="tab-content active">
 <nav class="filters">
   <div class="filter-row">
     <span class="filter-label">AI:</span>
@@ -157,6 +198,24 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
 </nav>
 
 <div id="cases"></div>
+</div><!-- /tab-cases -->
+
+<div id="tab-influencers" class="tab-content">
+<div class="inf-filter-row">
+  <span class="filter-label">Platform:</span>
+  <button class="filter-btn active" data-inf-filter="all" onclick="filterInf('all',this)">すべて</button>
+  <button class="filter-btn" data-inf-filter="youtube" onclick="filterInf('youtube',this)">YouTube</button>
+  <button class="filter-btn" data-inf-filter="instagram" onclick="filterInf('instagram',this)">Instagram</button>
+  <button class="filter-btn" data-inf-filter="threads" onclick="filterInf('threads',this)">Threads</button>
+</div>
+<div class="inf-filter-row" style="margin-top:8px">
+  <span class="filter-label">地域:</span>
+  <button class="filter-btn active" data-inf-region="all" onclick="filterInfRegion('all',this)">すべて</button>
+  <button class="filter-btn" data-inf-region="jp" onclick="filterInfRegion('jp',this)">日本 🇯🇵</button>
+  <button class="filter-btn" data-inf-region="global" onclick="filterInfRegion('global',this)">海外</button>
+</div>
+<div id="influencer-list"></div>
+</div><!-- /tab-influencers -->
 
 <script>
 const CASES=[
@@ -384,6 +443,122 @@ function applyFilters(){
 }
 
 renderSections();
+
+// === Tab switching ===
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+// === Influencer Data ===
+const INFLUENCERS=[
+// YouTube
+{name:"Two Minute Papers",handle:"@TwoMinutePapers",platform:"youtube",url:"https://youtube.com/@TwoMinutePapers",followers:"1.7M",desc:"AI・機械学習の最新論文を2分で分かりやすく解説。学術研究をエンターテインメントに昇華させたパイオニア的チャンネル。",tags:["AI研究","論文解説"],region:"global"},
+{name:"Andrej Karpathy",handle:"@andaborhatkarpathy",platform:"youtube",url:"https://youtube.com/@AndrejKarpathy",followers:"990K",desc:"元Tesla AI責任者・OpenAI創設メンバー。ニューラルネットワークやLLMの仕組みを深く解説する技術教育の最高峰。",tags:["深層学習","LLM"],region:"global"},
+{name:"Matt Wolfe",handle:"@maboroshi",platform:"youtube",url:"https://youtube.com/@maboroshi",followers:"900K",desc:"毎週のAIツール・ニュースまとめで知られる。FutureTools.ioも運営し、AIツールのキュレーションで業界随一の存在。",tags:["AIツール","週刊ニュース"],region:"global"},
+{name:"3Blue1Brown",handle:"@3blue1brown",platform:"youtube",url:"https://youtube.com/@3blue1brown",followers:"7.4M",desc:"数学とAIの概念を美しいアニメーションで視覚的に解説。ニューラルネットワーク解説シリーズは数千万回再生。",tags:["数学","ビジュアル解説"],region:"global"},
+{name:"Fireship",handle:"@Fireship",platform:"youtube",url:"https://youtube.com/@Fireship",followers:"4M",desc:"「100 seconds of...」シリーズで技術概念を超短時間で解説。AI/ML関連のコンテンツも豊富で、開発者コミュニティで絶大な人気。",tags:["開発","速習"],region:"global"},
+{name:"AI Explained",handle:"@AIExplained-official",platform:"youtube",url:"https://youtube.com/@AIExplained-official",followers:"384K",desc:"AIモデルのベンチマーク比較や能力分析に特化。GPT・Claude・Geminiの性能を客観的に検証する深掘り分析が特徴。",tags:["モデル比較","分析"],region:"global"},
+{name:"TheAIGRID",handle:"@TheAIGRID",platform:"youtube",url:"https://youtube.com/@TheAIGRID",followers:"374K",desc:"AI業界の最新ニュースと技術動向を毎日カバー。速報性の高い情報発信で急成長中のチャンネル。",tags:["AIニュース","速報"],region:"global"},
+{name:"Wes Roth",handle:"@WesRoth",platform:"youtube",url:"https://youtube.com/@WesRoth",followers:"305K",desc:"AIの社会的影響やAGIの展望など、技術の先にあるビジョンを議論。思考を刺激する長尺コンテンツが特徴。",tags:["AGI","社会影響"],region:"global"},
+{name:"Yannic Kilcher",handle:"@YannicKilcher",platform:"youtube",url:"https://youtube.com/@YannicKilcher",followers:"271K",desc:"AI/ML論文の詳細レビューで研究者コミュニティから高い信頼。技術的な深さと分かりやすさを両立。",tags:["論文レビュー","研究"],region:"global"},
+{name:"DeepLearning.AI",handle:"@Deeplearningai",platform:"youtube",url:"https://youtube.com/@Deeplearningai",followers:"300K",desc:"Andrew Ng率いるAI教育プラットフォームの公式チャンネル。体系的なAI/ML学習コンテンツを無料で提供。",tags:["教育","Andrew Ng"],region:"global"},
+{name:"Krish Naik",handle:"@krishnaik06",platform:"youtube",url:"https://youtube.com/@krishnaik06",followers:"1.9M",desc:"データサイエンスとAI/MLのチュートリアルを大量に公開。インド発で世界中の学習者に支持される教育チャンネル。",tags:["チュートリアル","データサイエンス"],region:"global"},
+{name:"Tina Huang",handle:"@TinaHuang1",platform:"youtube",url:"https://youtube.com/@TinaHuang1",followers:"1M",desc:"データサイエンティストによるAIツール活用と生産性向上のコンテンツ。実務者目線のAI活用術が人気。",tags:["生産性","実務活用"],region:"global"},
+{name:"The AI Advantage",handle:"@aiadvantage",platform:"youtube",url:"https://youtube.com/@aiadvantage",followers:"260K",desc:"AIツールの実践的な使い方に特化。ビジネスパーソン向けにAIを業務で活かすノウハウを発信。",tags:["ビジネス活用","ツール"],region:"global"},
+{name:"Skill Leap AI",handle:"@SkillLeapAI",platform:"youtube",url:"https://youtube.com/@SkillLeapAI",followers:"200K",desc:"ChatGPT・Midjourney等の具体的な使い方チュートリアル。初心者にも分かりやすい実践ガイドが充実。",tags:["初心者向け","チュートリアル"],region:"global"},
+{name:"All About AI",handle:"@AllAboutAI",platform:"youtube",url:"https://youtube.com/@AllAboutAI",followers:"217K",desc:"オープンソースAIモデルのインストール・活用方法に特化。ローカルLLMやStable Diffusionの実践ガイドが豊富。",tags:["オープンソース","ローカルAI"],region:"global"},
+{name:"Google Cloud Tech",handle:"@googlecloudtech",platform:"youtube",url:"https://youtube.com/@googlecloudtech",followers:"1.15M",desc:"Google CloudのAI/ML機能やVertex AIの公式チュートリアル。エンタープライズAI活用の最新情報源。",tags:["GCP","エンタープライズ"],region:"global"},
+{name:"mikimiki web school",handle:"@mikimikischool",platform:"youtube",url:"https://youtube.com/@mikimikischool",followers:"300K",desc:"ChatGPTやAIツールの使い方を日本語で丁寧に解説。初心者〜中級者向けのAI活用術で日本最大級のAI教育チャンネル。",tags:["日本語","初心者向け"],region:"jp",flag:"🇯🇵"},
+{name:"マナブ",handle:"@manabuch",platform:"youtube",url:"https://youtube.com/@manabuch",followers:"600K",desc:"プログラミング・ブログ・AIを軸にした情報発信。近年はAIを活用した個人の稼ぎ方・働き方にフォーカス。",tags:["日本語","AI副業"],region:"jp",flag:"🇯🇵"},
+{name:"KEITO【AI&WEB ch】",handle:"@keito_ai",platform:"youtube",url:"https://youtube.com/@keito_ai",followers:"170K",desc:"ChatGPT・Claude・画像生成AIの実践的な使い方を分かりやすく解説。日本語AIチュートリアルの定番チャンネル。",tags:["日本語","実践ガイド"],region:"jp",flag:"🇯🇵"},
+{name:"平岡雄太 / KEYTIP",handle:"@keytip",platform:"youtube",url:"https://youtube.com/@keytip",followers:"150K",desc:"ガジェットとAIツールを組み合わせた生産性向上術。Apple製品×AIの活用法で独自のポジションを確立。",tags:["日本語","ガジェット×AI"],region:"jp",flag:"🇯🇵"},
+{name:"AI様の下僕ch",handle:"@ai-sama",platform:"youtube",url:"https://youtube.com/@ai-sama",followers:"50K",desc:"生成AIの最新ニュースと活用法を独自の視点で解説。ユニークなキャラクターで差別化した日本語AI情報チャンネル。",tags:["日本語","AIニュース"],region:"jp",flag:"🇯🇵"},
+// Instagram
+{name:"OpenAI",handle:"@openai",platform:"instagram",url:"https://instagram.com/openai",followers:"4M",desc:"ChatGPT・GPT・DALL-Eの開発元公式アカウント。製品アップデート、研究成果、AIの未来ビジョンを発信。",tags:["公式","ChatGPT"],region:"global"},
+{name:"NVIDIA",handle:"@nvidia",platform:"instagram",url:"https://instagram.com/nvidia",followers:"3M",desc:"AI計算インフラの世界的リーダー。GPU技術、AI研究、最新デモを視覚的に発信。",tags:["公式","GPU・AI基盤"],region:"global"},
+{name:"Vaibhav Sisinty",handle:"@vaibhavsisinty",platform:"instagram",url:"https://instagram.com/vaibhavsisinty",followers:"2M",desc:"GrowthSchool創設者。AIとビジネス戦略を掛け合わせたコンテンツで、AI系Instagram最大級の個人アカウント。",tags:["AIビジネス","教育"],region:"global"},
+{name:"Liber（リベル）",handle:"@liberxx0",platform:"instagram",url:"https://instagram.com/liberxx0",followers:"1.31M",desc:"映画や日本文化をベースにしたAI生成動画・ビジュアルアート。日本発で世界最大級のAIアートクリエイター。",tags:["AIアート","動画"],region:"jp",flag:"🇯🇵"},
+{name:"DUMMY CREATION",handle:"@ai_freak_",platform:"instagram",url:"https://instagram.com/ai_freak_",followers:"610K",desc:"AI映像制作の先駆者。AIで生成したビジュアルアートと動画作品で、日本のAIクリエイティブシーンを牽引。",tags:["AI動画","クリエイティブ"],region:"jp",flag:"🇯🇵"},
+{name:"Josh Gottsegen (Tropland)",handle:"@tropland",platform:"instagram",url:"https://instagram.com/tropland",followers:"634K",desc:"AIで架空の世界「Tropland Universe」を構築。シュールなAI生成ビジュアルストーリーで独自の世界観を展開。",tags:["AIアート","ワールドビルディング"],region:"global"},
+{name:"The AI Page",handle:"@theaipage",platform:"instagram",url:"https://instagram.com/theaipage",followers:"523K",desc:"毎日のAI教育コンテンツとニュース更新。AI専門教育ページとしてInstagram最大級の存在。",tags:["AI教育","ニュース"],region:"global"},
+{name:"Suzan Valois",handle:"@iva_ai_popsurreal",platform:"instagram",url:"https://instagram.com/iva_ai_popsurreal",followers:"408K",desc:"ポップシュルレアリスムのAIアート。夢幻的な高彩度ビジュアルで、AIアート界に独自のスタイルを確立。",tags:["AIアート","シュルレアリスム"],region:"global"},
+{name:"imma（イマ）",handle:"@imma.gram",platform:"instagram",url:"https://instagram.com/imma.gram",followers:"388K",desc:"日本を代表するバーチャルインフルエンサー。ピンクボブが特徴で、IKEA・Porsche・SK-IIなど大手ブランドとコラボ。",tags:["バーチャル","ファッション"],region:"jp",flag:"🇯🇵"},
+{name:"NVIDIA AI",handle:"@nvidiaai",platform:"instagram",url:"https://instagram.com/nvidiaai",followers:"311K",desc:"NVIDIA AI専門サブアカウント。AI研究デモ、エンタープライズAI活用事例を発信。",tags:["公式","AI研究"],region:"global"},
+{name:"Fabion Kallaku",handle:"@fabionkallaku",platform:"instagram",url:"https://instagram.com/fabionkallaku",followers:"208K",desc:"AIと生産性向上のティップスを発信。エンゲージメント率12.8%という異常に高い反応率が特徴。",tags:["生産性","ティップス"],region:"global"},
+{name:"Midjourney Artwork",handle:"@midjourneyartwork",platform:"instagram",url:"https://instagram.com/midjourneyartwork",followers:"161K",desc:"Midjourneyで生成されたAIアートのキュレーションアカウント。コミュニティのハブとしてインスピレーション源に。",tags:["Midjourney","コミュニティ"],region:"global"},
+{name:"Allie K. Miller",handle:"@alliekmiller",platform:"instagram",url:"https://instagram.com/alliekmiller",followers:"141K",desc:"元Amazon・IBM AI責任者。AI業界で最もフォローされるビジネスボイスの一人。Fortune 500企業のAIアドバイザー。",tags:["AIビジネス","キャリア"],region:"global"},
+{name:"Lil Miquela",handle:"@lilmiquela",platform:"instagram",url:"https://instagram.com/lilmiquela",followers:"2.3M",desc:"2016年に登場した世界初のバイラルAIバーチャルインフルエンサー。Prada・Calvin Klein・Samsungとコラボ。",tags:["バーチャル","ファッション"],region:"global"},
+{name:"Kim Alban",handle:"@kimalban",platform:"instagram",url:"https://instagram.com/kimalban",followers:"73K",desc:"プロダクトデザイナーによるAIワークフロー活用術。実践的なAIツールの使い方を共有。",tags:["デザイン","ワークフロー"],region:"global"},
+// Threads
+{name:"Mark Zuckerberg",handle:"@zuck",platform:"threads",url:"https://threads.net/@zuck",followers:"5.4M",desc:"Meta CEO。Threads創設者自らがAI戦略やMeta AIの展望を発信。「スーパーインテリジェンスとMMA」が定番トピック。",tags:["経営者","Meta AI"],region:"global"},
+{name:"Yann LeCun",handle:"@yannlecun",platform:"threads",url:"https://threads.net/@yannlecun",followers:"298K",desc:"MetaチーフAIサイエンティスト・チューリング賞受賞者。オープンソースAI推進とAI安全性議論で最も影響力のある研究者の一人。",tags:["AI研究","チューリング賞"],region:"global"},
+{name:"power.ai",handle:"@power.ai",platform:"threads",url:"https://threads.net/@power.ai",followers:"214K",desc:"Threads最大級のAI専門コンテンツアカウント。毎日のAIツール紹介とニュースまとめで急成長。",tags:["AIツール","ニュース"],region:"global"},
+{name:"Andrej Karpathy",handle:"@karpathy",platform:"threads",url:"https://threads.net/@karpathy",followers:"197K",desc:"元Tesla AI責任者・OpenAI創設メンバー。LLMエンジニアリングと深層学習の最前線を発信。",tags:["LLM","研究者"],region:"global"},
+{name:"Sam Altman",handle:"@sama",platform:"threads",url:"https://threads.net/@sama",followers:"156K",desc:"OpenAI CEO。ChatGPTの生みの親として、AI業界の方向性を左右する発言で常に注目を集める。",tags:["経営者","OpenAI"],region:"global"},
+{name:"Kara Swisher",handle:"@karaswisher",platform:"threads",url:"https://threads.net/@karaswisher",followers:"419K",desc:"米国で最も影響力のあるテックジャーナリストの一人。Pivotポッドキャスト共同ホスト。AI業界への鋭い批評で知られる。",tags:["ジャーナリスト","テック批評"],region:"global"},
+{name:"Casey Newton",handle:"@crumbler",platform:"threads",url:"https://threads.net/@crumbler",followers:"86K",desc:"Platformerニュースレター創設者・NYT Hard Forkポッドキャスト共同ホスト。AI政策とプラットフォームガバナンスの専門家。",tags:["ジャーナリスト","AI政策"],region:"global"},
+{name:"uncover.ai",handle:"@uncover.ai",platform:"threads",url:"https://threads.net/@uncover.ai",followers:"62K",desc:"毎日のAIアップデートとキュレーションニュースを発信するAI情報アカウント。動画コンテンツも充実。",tags:["AIニュース","キュレーション"],region:"global"},
+{name:"落合陽一",handle:"@ochyai",platform:"threads",url:"https://threads.net/@ochyai",followers:"32K",desc:"筑波大学教授・メディアアーティスト。AIと社会の関わりについて、日本で最も影響力のある論客の一人。著書多数。",tags:["研究者","AI×社会"],region:"jp",flag:"🇯🇵"},
+{name:"深津貴之",handle:"@fladdict",platform:"threads",url:"https://threads.net/@fladdict",followers:"—",desc:"note CXO・THE GUILD代表。日本におけるChatGPT活用の第一人者。プロンプトエンジニアリングとUXデザインの知見を発信。",tags:["プロンプト設計","UX"],region:"jp",flag:"🇯🇵"},
+{name:"Rowan Cheung",handle:"@rowancheung",platform:"threads",url:"https://threads.net/@rowancheung",followers:"—",desc:"The Rundown AIニュースレター創設者（200万+購読者）。AIツール発見と業界分析で世界的に知られるAIエデュケーター。",tags:["ニュースレター","AIツール"],region:"global"}
+];
+
+const PLATFORM_INFO={
+  youtube:{label:"YouTube",icon:"▶",iconClass:"yt"},
+  instagram:{label:"Instagram",icon:"◎",iconClass:"ig"},
+  threads:{label:"Threads",icon:"@",iconClass:"th"}
+};
+
+let infFilters={platform:'all',region:'all'};
+
+function renderInfluencers(){
+  const container=document.getElementById('influencer-list');
+  let html='';
+  ['youtube','instagram','threads'].forEach(platform=>{
+    const items=INFLUENCERS.filter(i=>{
+      if(i.platform!==platform) return false;
+      if(infFilters.platform!=='all'&&i.platform!==infFilters.platform) return false;
+      if(infFilters.region!=='all'&&i.region!==infFilters.region) return false;
+      return true;
+    });
+    if(!items.length) return;
+    const info=PLATFORM_INFO[platform];
+    html+=`<div class="inf-platform-title" data-platform="${platform}"><span class="platform-icon ${info.iconClass}">${info.icon}</span>${info.label}<span class="count">${items.length}件</span></div>`;
+    html+=`<div class="inf-grid" data-platform="${platform}">`;
+    items.forEach(i=>{
+      const flag=i.flag?` <span class="flag">${i.flag}</span>`:'';
+      const tagsHTML=i.tags.map(t=>`<span class="inf-card-tag">${t}</span>`).join('');
+      html+=`<a href="${i.url}" target="_blank" rel="noopener" class="inf-card" style="text-decoration:none;color:inherit;">
+        <div class="inf-card-header">
+          <div><div class="inf-card-name">${i.name}${flag}</div><div class="inf-card-handle">${i.handle}</div></div>
+          <div class="inf-card-followers">${i.followers}</div>
+        </div>
+        <div class="inf-card-desc">${i.desc}</div>
+        <div class="inf-card-tags">${tagsHTML}</div>
+      </a>`;
+    });
+    html+='</div>';
+  });
+  container.innerHTML=html;
+}
+
+function filterInf(val,btn){
+  infFilters.platform=val;
+  document.querySelectorAll('[data-inf-filter]').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderInfluencers();
+}
+function filterInfRegion(val,btn){
+  infFilters.region=val;
+  document.querySelectorAll('[data-inf-region]').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderInfluencers();
+}
+
+renderInfluencers();
 </script>
 </body>
 </html>
