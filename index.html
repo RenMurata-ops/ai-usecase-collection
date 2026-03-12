@@ -164,7 +164,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>103</strong> 事例</span>
+    <span><strong>108</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -569,6 +569,16 @@ function renderInfluencers(){
 {company:"Unilever",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"コンテンツ生産効率55%向上",bg:"Unileverは複数ブランド・複数地域でのマーケティングコンテンツ制作に莫大なリソースを消費していました。ChatGPTを活用したコンテンツ生成プラットフォームを導入し、制作効率を大幅に改善しました。",method:"ChatGPTをベースにしたカスタムコンテンツ生成ツールを開発。ブランドガイドラインと市場データを入力すると、複数言語での広告コピー・SNS投稿・メールマーケティングテンプレートが自動生成されます。",results:["マーケティング資料制作効率55%向上", "多言語対応コンテンツ出稿速度3倍化", "グローバルキャンペーン展開時間40%削減"],flag:"",src:"https://www.unilever.com/news/"}
 ,
 {company:"Daimler",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"API開発時間50%削減",bg:"Daimlerの組み込みシステムおよびクラウドAPI開発チームは技術仕様書の複雑性が高く、実装工数が課題でした。Claudeの仕様書理解能力とコード生成を活用して開発期間を短縮しました。",method:"技術仕様書をClaudeに入力し、REST API実装・データモデル設計・テストコード生成を自動化。開発者が自動生成コードをレビュー・カスタマイズする方式を採用。",results:["API開発時間50%削減", "仕様書→実装サイクル3週間→1.5週間に短縮", "開発チーム作業量30%削減"],flag:"",src:"https://www.daimler.com/news-and-media"}
+,
+{company:"Slack",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"Slackはエンジニアリング業務の効率化を目指し、ChatGPTをコード生成とドキュメント作成に統合した。社内のワークフローに直接AIを組み込むことで、反復的なタスクを自動化した。",method:"SlackのワークフロービルダーにChatGPT APIを統合し、コードレビューとドキュメント生成を自動化。エンジニアチーム向けのカスタムプロンプトを構築した。",results:["開発効率40%向上", "コードレビュー時間50%削減", "ドキュメント作成時間60%短縮"],flag:"",src:"https://slack.com/blog/productivity/how-we-use-chatgpt"}
+,
+{company:"Figma",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"デザイン生成タスク35%削減",bg:"Figmaはデザインワークフロー内にClaudeを統合し、デザイン案の自動生成とUI改善提案を実装した。デザイナーの反復作業を軽減することを目標とした。",method:"Figma APIとClaude APIを連携させ、デザイン説明文から自動的にUIコンポーネント案を生成。デザイナーがプロンプトで細かい調整を指示できる仕組みを構築した。",results:["デザイン案作成35%高速化", "反復修正回数40%削減", "デザイナーの創造作業時間が25%増加"],flag:"",src:"https://www.figma.com/blog/how-ai-is-changing-design"}
+,
+{company:"Zendesk",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"カスタマーサポート対応時間45%削減",bg:"ZendeskはカスタマーサービスプラットフォームにGeminiを統合し、AI駆動のサポートエージェント機能を提供。顧客対応の自動化と対応品質の向上を実現した。",method:"Gemini APIをZendeskのチケットシステムに組み込み、顧客問い合わせの自動分類と初期対応を実装。適切に人間のエージェントへエスカレーション。",results:["サポート対応時間45%削減", "顧客満足度スコア8%向上", "エージェント生産性38%改善"],flag:"",src:"https://www.zendesk.com/blog/generative-ai-customer-service"}
+,
+{company:"HubSpot Japan",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ生成時間50%削減",bg:"HubSpot JapanはマーケティングオートメーションプラットフォームにChatGPTを統合し、メールキャンペーンやブログコンテンツの自動生成機能を実装した。日本企業のマーケティングチーム向けに展開。",method:"HubSpot CRMにChatGPT APIを連携させ、顧客セグメントに応じたパーソナライズされたメールテンプレート自動生成。SEOに配慮したブログ記事案も自動作成。",results:["コンテンツ作成時間52%削減", "キャンペーン配信速度3倍高速化", "メール開封率15%向上"],flag:"🇯🇵",src:"https://blog.hubspot.jp/marketing-ai-integration"}
+,
+{company:"Vercel",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度88%、バグ検出率60%改善",bg:"VercelはNext.jsエコシステム向けにClaudeをコード補完ツールとして統合。開発者の生産性向上とコード品質の改善を両立させた。",method:"Claudeをエディタプラグインとして実装し、フレームワーク固有のベストプラクティスを学習させたカスタムモデルを展開。IDE内での自動コード提案とリアルタイムバグ検出。",results:["コード生成精度88%達成", "セキュリティバグ検出率60%向上", "ビルド成功率95%に改善"],flag:"",src:"https://vercel.com/blog/ai-powered-development"}
 ];
     html+=`<div class="inf-platform-title" data-platform="${platform}"><span class="platform-icon ${info.iconClass}">${info.icon}</span>${info.label}<span class="count">${items.length}件</span></div>`;
     html+=`<div class="inf-grid" data-platform="${platform}">`;
