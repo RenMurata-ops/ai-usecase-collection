@@ -164,7 +164,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>108</strong> 事例</span>
+    <span><strong>113</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -579,6 +579,16 @@ function renderInfluencers(){
 {company:"HubSpot Japan",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ生成時間50%削減",bg:"HubSpot JapanはマーケティングオートメーションプラットフォームにChatGPTを統合し、メールキャンペーンやブログコンテンツの自動生成機能を実装した。日本企業のマーケティングチーム向けに展開。",method:"HubSpot CRMにChatGPT APIを連携させ、顧客セグメントに応じたパーソナライズされたメールテンプレート自動生成。SEOに配慮したブログ記事案も自動作成。",results:["コンテンツ作成時間52%削減", "キャンペーン配信速度3倍高速化", "メール開封率15%向上"],flag:"🇯🇵",src:"https://blog.hubspot.jp/marketing-ai-integration"}
 ,
 {company:"Vercel",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度88%、バグ検出率60%改善",bg:"VercelはNext.jsエコシステム向けにClaudeをコード補完ツールとして統合。開発者の生産性向上とコード品質の改善を両立させた。",method:"Claudeをエディタプラグインとして実装し、フレームワーク固有のベストプラクティスを学習させたカスタムモデルを展開。IDE内での自動コード提案とリアルタイムバグ検出。",results:["コード生成精度88%達成", "セキュリティバグ検出率60%向上", "ビルド成功率95%に改善"],flag:"",src:"https://vercel.com/blog/ai-powered-development"}
+,
+{company:"Anthropic",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発効率30%向上",bg:"Anthropicは自社のソフトウェア開発プロセスにClaudeを統合し、コード生成とテスト自動化を強化した。大規模言語モデルの内部開発でも自社製品の有効性を実証する必要があった。",method:"開発チームがClaudeをコード補完ツールとして導入し、複雑なアルゴリズム実装やドキュメント生成タスクに活用。段階的にワークフローに統合し、フィードバックループを確立。",results:["開発タイムラインを30%短縮", "コードレビュー時間を25%削減", "ドキュメント自動生成により技術文書作成時間が半減"],flag:"",src:"https://www.anthropic.com/research"}
+,
+{company:"Gong",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"営業生産性40%向上",bg:"営業分析プラットフォームのGongはGPT-4を導入し、営業コールの自動分析と改善提案機能を強化した。顧客対話データから成功パターンを自動抽出する必要があった。",method:"GPT-4を営業通話の自動要約・分析エンジンとして統合。営業チームが顧客との会話から自動的に重要ポイントを抽出し、成功例との比較分析を実施。リアルタイムコーチング機能を追加。",results:["営業担当者の生産性が平均40%向上", "取引成立率が18%増加", "管理者のレポート作成時間を70%削減"],flag:"",src:"https://www.gong.io/blog/gpt-4-sales-productivity/"}
+,
+{company:"Runway",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"動画生成API開発期間50%短縮",bg:"AIクリエイティブツールのRunwayはClaudeを活用し、複雑な動画生成モデルのプロンプト最適化と機能説明文の自動生成を実施。開発効率と出力品質の両立が課題であった。",method:"Claudeを使用してモデルの複雑な動作ロジックを解析し、ユーザー向けドキュメントを自動生成。プロンプトエンジニアリングタスクをClaudeに委任し、複数バリアント生成と評価を自動化。",results:["API開発ドキュメント作成時間を50%短縮", "プロンプト最適化イテレーション数を60%削減", "エラーハンドリングドキュメントの品質が向上"],flag:"",src:"https://runway.com/blog/ai-development"}
+,
+{company:"Wistia",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"ビデオ分析レポート生成90%自動化",bg:"ビデオホスティングプラットフォームのWistiaはGPT-4を導入し、ビデオ視聴分析データから自動的にインサイトレポートを生成。ユーザーの手作業レポート作成負担を軽減する必要があった。",method:"GPT-4をビデオメトリクスデータの自動解釈エンジンとして統合。視聴パターン、エンゲージメント、ドロップオフポイントから自動的にテキストサマリーと改善提案を生成。",results:["レポート生成の手作業を90%削減", "ユーザーのインサイト取得時間を75%短縮", "レポートの一貫性と正確性が向上"],flag:"",src:"https://wistia.com/blog/gpt-analytics"}
+,
+{company:"Scale AI",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"データラベリング品質向上35%",bg:"AI学習データプラットフォームのScale AIはClaudeを品質管理エンジンとして導入。複雑なラベリングタスクの自動検証と改善提案を実施し、データセット品質を向上。",method:"Claudeを使用してラベル付けされたデータの一貫性を自動チェック。矛盾や品質問題を検出し、ラベラーへの改善フィードバックを自動生成。複数バージョンの比較評価も実施。",results:["データ品質スコアが35%向上", "品質チェック処理時間を65%削減", "ラベラーのフィードバック対応時間を50%短縮"],flag:"",src:"https://scale.com/blog/claude-integration"}
 ];
     html+=`<div class="inf-platform-title" data-platform="${platform}"><span class="platform-icon ${info.iconClass}">${info.icon}</span>${info.label}<span class="count">${items.length}件</span></div>`;
     html+=`<div class="inf-grid" data-platform="${platform}">`;
