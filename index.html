@@ -164,7 +164,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>120</strong> 事例</span>
+    <span><strong>124</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -603,6 +603,14 @@ function renderInfluencers(){
 {company:"KDDI",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"ドキュメント作成を60%高速化",bg:"KDDIは大規模なシステム開発プロジェクトにおいて、技術ドキュメント作成とコード分析の効率化が課題であった。",method:"ChatGPT Enterprise版を導入し、システム設計書や技術仕様書の自動生成、レガシーコード分析を実装。",results:["ドキュメント作成時間を60%削減", "技術仕様書の品質スコアが23%向上", "プロジェクト納期を3週間短縮"],flag:"🇯🇵",src:"https://www.kddi.com/"}
 ,
 {company:"任天堂",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"テスト自動化により品質検証を45%加速",bg:"任天堂はゲーム開発におけるQA・テスト業務の効率化を目指していた。Claudeを活用したテストケース生成とバグ分析を実施。",method:"Claude APIをゲーム開発パイプラインに統合し、テストシナリオ生成とバグレポート自動分類を実装。",results:["テスト実行時間を45%短縮", "バグ検出率が32%向上", "リリース前品質保証期間を2週間削減"],flag:"🇯🇵",src:"https://www.nintendo.co.jp/"}
+,
+{company:"Khan Academy",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"練習問題の自動生成で開発工数を60%削減",bg:"教育プラットフォームにおいて、大量の練習問題作成が人的負担となっていた。スケーラビリティと品質のバランスが課題。",method:"Claudeを活用した練習問題の自動生成パイプラインを構築。教育学的妥当性を確保しつつ、問題作成の自動化を実現。",results:["開発工数を60%削減", "問題生成速度が10倍以上に高速化"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Jasper",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ作成で生産性が3倍に",bg:"マーケティングエージェンシーがクライアント案件の増加に対応するため、コンテンツ作成の効率化が急務。",method:"GPT-4統合により、ブログ記事、メールキャンペーン、ソーシャルメディア投稿を自動生成。クリエイターはレビューと編集に集中。",results:["コンテンツ作成の生産性が3倍向上", "月間マーケティングコスト30%削減"],flag:"",src:"https://www.jasper.ai/customers"}
+,
+{company:"Retool",tool:"GPT-4",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"内部ツール開発時間を70%短縮",bg:"エンタープライズ企業が社内システム開発に費やす時間が増加。開発リソースの効率化が重要課題。",method:"Retoolプラットフォーム内にGPT-4を統合。自然言語からUIコンポーネントの自動生成、データベーク連携コードの自動作成を実現。",results:["内部ツール開発時間を70%短縮", "開発チームの生産性が2.5倍に向上"],flag:"",src:"https://retool.com/blog/gpt-integration"}
+,
+{company:"Copy.ai",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"solo",highlight:"SEOコンテンツ作成で執筆時間を80%削減",bg:"フリーランスライターやSEOエージェンシーがコンテンツ制作の時間負荷に対応する必要があった。",method:"GeminiをSEOテンプレートと組み合わせ、キーワード分析からドラフト作成まで自動化。ライターは編集とファクトチェックに注力。",results:["執筆時間を80%削減", "月間コンテンツ生産量が4倍に増加"],flag:"",src:"https://copy.ai/case-studies"}
 ];
     html+=`<div class="inf-platform-title" data-platform="${platform}"><span class="platform-icon ${info.iconClass}">${info.icon}</span>${info.label}<span class="count">${items.length}件</span></div>`;
     html+=`<div class="inf-grid" data-platform="${platform}">`;
