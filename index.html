@@ -164,7 +164,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>124</strong> 事例</span>
+    <span><strong>127</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -611,6 +611,12 @@ function renderInfluencers(){
 {company:"Retool",tool:"GPT-4",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"内部ツール開発時間を70%短縮",bg:"エンタープライズ企業が社内システム開発に費やす時間が増加。開発リソースの効率化が重要課題。",method:"Retoolプラットフォーム内にGPT-4を統合。自然言語からUIコンポーネントの自動生成、データベーク連携コードの自動作成を実現。",results:["内部ツール開発時間を70%短縮", "開発チームの生産性が2.5倍に向上"],flag:"",src:"https://retool.com/blog/gpt-integration"}
 ,
 {company:"Copy.ai",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"solo",highlight:"SEOコンテンツ作成で執筆時間を80%削減",bg:"フリーランスライターやSEOエージェンシーがコンテンツ制作の時間負荷に対応する必要があった。",method:"GeminiをSEOテンプレートと組み合わせ、キーワード分析からドラフト作成まで自動化。ライターは編集とファクトチェックに注力。",results:["執筆時間を80%削減", "月間コンテンツ生産量が4倍に増加"],flag:"",src:"https://copy.ai/case-studies"}
+,
+{company:"McKinsey & Company",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"コンサルタントの生産性が40%向上",bg:"McKinseyはChatGPTを導入して、戦略立案やリサーチの効率化を推進。クライアント向けの分析資料作成やアイデア出しの過程を加速させた。",method:"社内のコンサルタント向けにChatGPTへのアクセスを提供し、トレーニングプログラムを実施。プロンプトテンプレートを整備してベストプラクティスを共有。",results:["コンサルタントの生産性が約40%向上", "資料作成にかかる時間が30%削減", "クライアント提案の質が向上"],flag:"",src:"https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights"}
+,
+{company:"Freshworks",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成の精度が85%、開発速度が35%向上",bg:"Freshworksはカスタマーサポートプラットフォームの開発においてClaudeを活用。バグ修正やコード レビューを自動化し、開発チームの効率を大幅に改善。",method:"開発パイプラインにClaudeのAPIを統合。コードレビューとテスト生成を自動化するワークフローを構築。",results:["コード生成の精度が85%に達した", "開発速度が35%向上", "バグ検出率が28%改善"],flag:"",src:"https://www.freshworks.com/blog/"}
+,
+{company:"Glassdoor",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"求人広告作成時間が50%削減、応募数が22%増加",bg:"Glassdoorは企業向けの求人広告最適化にChatGPTを導入。AIを活用した求人説明文の自動生成とパーソナライズで、マッチング精度を向上。",method:"ChatGPTを使用して求人広告のテンプレート生成と最適化を行うツールを開発。複数バージョンのA/Bテストを実施。",results:["求人広告の作成時間が50%削減", "応募数が22%増加", "採用マッチング精度が向上"],flag:"",src:"https://www.glassdoor.com/research"}
 ];
     html+=`<div class="inf-platform-title" data-platform="${platform}"><span class="platform-icon ${info.iconClass}">${info.icon}</span>${info.label}<span class="count">${items.length}件</span></div>`;
     html+=`<div class="inf-grid" data-platform="${platform}">`;
