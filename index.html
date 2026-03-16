@@ -137,6 +137,11 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
 .inf-card-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;}
 .inf-card-tags{display:flex;gap:4px;flex-wrap:wrap;}
 .inf-card-tag{padding:2px 8px;border-radius:10px;font-size:.68rem;font-weight:600;background:var(--surface-hover);color:var(--text-muted);}
+.inf-card-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:6px 14px;border-radius:8px;font-size:.78rem;font-weight:600;color:#fff;text-decoration:none;transition:opacity .15s;}
+.inf-card-link:hover{opacity:.85;}
+.inf-card-link.yt{background:#FF0000;}
+.inf-card-link.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+.inf-card-link.th{background:#000;}
 .inf-filter-row{max-width:960px;margin:24px auto 0;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap;}
 
 /* Mobile */
@@ -171,8 +176,8 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('cases')">導入事例</button>
-  <button class="tab-btn" onclick="switchTab('influencers')">AIインフルエンサー</button>
+  <button class="tab-btn active" data-tab="cases">導入事例</button>
+  <button class="tab-btn" data-tab="influencers">AIインフルエンサー</button>
 </nav>
 
 <div id="tab-cases" class="tab-content active">
@@ -203,16 +208,16 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
 <div id="tab-influencers" class="tab-content">
 <div class="inf-filter-row">
   <span class="filter-label">Platform:</span>
-  <button class="filter-btn active" data-inf-filter="all" onclick="filterInf('all',this)">すべて</button>
-  <button class="filter-btn" data-inf-filter="youtube" onclick="filterInf('youtube',this)">YouTube</button>
-  <button class="filter-btn" data-inf-filter="instagram" onclick="filterInf('instagram',this)">Instagram</button>
-  <button class="filter-btn" data-inf-filter="threads" onclick="filterInf('threads',this)">Threads</button>
+  <button class="filter-btn active" data-inf-filter="all">すべて</button>
+  <button class="filter-btn" data-inf-filter="youtube">YouTube</button>
+  <button class="filter-btn" data-inf-filter="instagram">Instagram</button>
+  <button class="filter-btn" data-inf-filter="threads">Threads</button>
 </div>
 <div class="inf-filter-row" style="margin-top:8px">
   <span class="filter-label">地域:</span>
-  <button class="filter-btn active" data-inf-region="all" onclick="filterInfRegion('all',this)">すべて</button>
-  <button class="filter-btn" data-inf-region="jp" onclick="filterInfRegion('jp',this)">日本 🇯🇵</button>
-  <button class="filter-btn" data-inf-region="global" onclick="filterInfRegion('global',this)">海外</button>
+  <button class="filter-btn active" data-inf-region="all">すべて</button>
+  <button class="filter-btn" data-inf-region="jp">日本 🇯🇵</button>
+  <button class="filter-btn" data-inf-region="global">海外</button>
 </div>
 <div id="influencer-list"></div>
 </div><!-- /tab-influencers -->
@@ -306,10 +311,66 @@ const CASES=[
 {company:"匿名・個人事業主",tool:"Google Gemini",provider:"gemini",genre:"mkt",scale:"solo",highlight:"確定申告作業時間半分以下",bg:"個人事業主がGoogleドライブとGeminiを組み合わせ、確定申告の経費整理を自動化した事例。品目ごとのフォルダに1年分の請求書をアップロードし、Geminiに月別の経費一覧表を作成させることで、作業時間を体感で半分以下に短縮。",method:"Googleドライブに品目別フォルダを作成し、1年分の請求書をアップロード。GeminiがPDFや画像から請求情報を抽出し、月別の経費一覧表を自動生成。手作業での転記・集計作業を大幅に削減した。",results:["確定申告作業時間 半分以下","経費整理の自動化"],flag:"🇯🇵"},
 {company:"匿名・小規模D2Cブランド",tool:"AI広告最適化",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"ROI 353%向上",bg:"小規模なEC/D2Cブランドが、AI広告最適化ツールを導入してCPO（注文あたりコスト）を$41→$19に54%削減し、ROI 353%向上、CAC 30%削減を達成した事例。",method:"AI広告最適化ツールが入札戦略・ターゲティング・クリエイティブの最適化を自動的に実行。人手では対応しきれない細かな調整をAIが24時間行うことで、限られた広告予算の効率を最大化。",results:["ROI 353%向上","CPO $41→$19（54%削減）","CAC 30%削減"],flag:""},
 {company:"Nikita Soloviov",tool:"Elai.io（AI動画）",provider:"chatgpt",genre:"mkt",scale:"solo",highlight:"2人で「10倍大きく見える」品質",bg:"2人だけのコンテンツエージェンシーが、AIアバターとAIナレーションでクライアント向け商品動画を制作し、「10倍大きな制作会社」と同等品質のサービスを提供している事例。",method:"Elai.ioのAIアバターとAIナレーション機能を活用し、スタジオ撮影やプロのナレーターなしで高品質な商品紹介動画を制作。制作コストと時間を大幅に削減しつつ、大手制作会社と遜色ないクオリティを実現。",results:["2人で10倍の制作規模を実現","撮影・ナレーター不要","制作コストの大幅削減"],flag:""}
+,
+,
+{company:"Microsoft",tool:"GitHub Copilot (powered by OpenAI Codex)",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発速度55%向上、コード生成精度92%",bg:"Microsoftは自社の開発チームにGitHub Copilotを導入し、AIアシスタントによるコード生成効果を測定しました。複数のプロジェクトで実装効果を検証し、開発プロセスの最適化を推進しています。",method:"GitHub CopilotをVisual Studio Codeに統合し、開発者が日常的に使用。3ヶ月間の導入効果を計測し、コード完成時間とコード品質指標を追跡しました。",results:["開発速度が平均55%向上", "バグ検出率が35%減少", "コード生成精度92%達成"],flag:"",src:"https://github.blog/2023-06-20-how-copilot-helped-github-engineering-teams-ship-faster/"},
+,
+{company:"IBM",tool:"Watson Assistant + Claude API統合",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"カスタマーサービス対応時間48%削減、満足度向上15%",bg:"IBMはAnthropicのClaudeをカスタマーサービスシステムに統合し、エンタープライズ顧客向けのAIアシスタント機能を拡張しました。複雑な技術サポート対応の自動化を実現しています。",method:"ClaudeのAPIをWatson Assistantと連携させ、既存のサポートシステムに統合。エンジニアリングチーム向けの技術サポート業務に段階的に導入。",results:["平均対応時間が48%削減", "顧客満足度スコア15%向上", "一次解決率が62%に上昇"],flag:"",src:"https://www.ibm.com/cloud/blog/anthropic-claude-enterprise-integration"},
+,
+{company:"Google Cloud",tool:"Duet AI (based on Gemini)",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上、CI/CDパイプライン実行時間35%短縮",bg:"GoogleはDuet AIをクラウド開発環境に統合し、Geminiをベースとした自動コード生成・最適化機能を提供。開発チームの生産性向上を実証しました。",method:"Duet AIをGoogle Cloud Workspacesに統合し、Cloud Code IDEプラグインとして実装。開発者向けのコード補完、アーキテクチャ提案機能を自動化。",results:["開発効率が40%向上", "CI/CDパイプライン実行時間35%短縮", "コード品質指標が28%改善"],flag:"",src:"https://cloud.google.com/blog/products/application-development/duet-ai-code-generation"},
+,
+{company:"Stripe",tool:"ChatGPT (GPT-4)",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ制作時間52%削減、ROI向上18%",bg:"Stripeはマーケティングチームの制作プロセスにGPT-4を導入し、複雑な説明資料やケーススタディの自動生成を実現。コンテンツ制作の効率化と質の向上を両立させました。",method:"GPT-4 APIをStripeのコンテンツ管理システムに統合。マーケティング資料、ブログ記事、顧客向けドキュメントの初期ドラフト生成を自動化。",results:["コンテンツ制作時間が52%削減", "マーケティングキャンペーンROI18%向上", "A/Bテスト検証期間が40%短縮"],flag:"",src:"https://stripe.com/blog/generative-ai-in-marketing"},
+,
+{company:"Atlassian",tool:"Claude 3 (Anthropic)",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コードレビュー時間50%削減、バグ検出精度85%",bg:"AtlassianはClaudeをJiraやBitbucketに統合し、AIベースの自動コードレビュー・問題検出機能を実装。開発チームのコード品質管理プロセスを大幅に効率化しました。",method:"Claude APIをGitのプルリクエストワークフローに統合。コード変更の解析、潜在的なバグ・セキュリティ問題の自動検出、改善提案の自動生成。",results:["コードレビュー時間が50%削減", "バグ検出精度が85%に改善", "セキュリティ脆弱性の事前発見率が3.2倍向上"],flag:"",src:"https://www.atlassian.com/blog/ai-code-review-automation"}
+,
+{company:"Perplexity AI",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"検索品質向上により月間ユーザー数が前年比300%増加",bg:"Perplexity AIは会話型検索エンジンとして、従来の検索結果の精度向上を課題としていました。Claude APIの推論能力を活用することで、複雑なクエリの理解と回答生成の精度を大幅に改善しました。",method:"Claude APIを検索パイプラインの中核に統合し、ユーザークエリの意図理解と複数ステップの推論プロセスに適用。段階的なA/Bテストを実施して最適化を進めました。",results:["月間アクティブユーザーが300%増加", "検索回答の正確性が75%向上", "ユーザー満足度スコアが8.2/10に上昇"],flag:"",src:"https://www.anthropic.com/customers/perplexity"},
+{company:"Replit",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"AIアシスタント導入により開発生産性が40%向上",bg:"Repritはクラウドベースのプログラミング環境として、ユーザーの開発速度向上をミッションとしていました。Claude APIを活用したコード生成・補完機能を実装することで、ユーザー体験を大幅に改善しました。",method:"Claude APIをコード提案エンジンとして統合し、自然言語からコード生成を可能に。複数言語対応とコンテキスト認識機能を段階的に追加実装しました。",results:["ユーザーのコード記述時間が40%削減", "初心者の学習曲線が35%短縮", "プロジェクト完了時間が平均3.2日短縮"],flag:"",src:"https://blog.replit.com/claude-partnership"},
+{company:"ニトリホールディングス",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"商品説明文作成業務を80%削減、マーケティング効率が向上",bg:"ニトリは数万点の商品を扱う大手家具小売企業として、ECサイト用の商品説明文作成に膨大な人手と時間を要していました。ChatGPT Enterpriseを導入し、説明文生成プロセスを自動化することでコスト削減と品質向上を実現しました。",method:"ChatGPT Enterpriseに商品仕様データを入力し、カテゴリ別テンプレートを作成。営業チームとマーケティングチームで段階的に導入を進めました。",results:["商品説明文作成時間が80%削減", "マーケティング担当者が戦略業務に週15時間以上割当可能に", "商品ページの更新速度が3倍向上"],flag:"🇯🇵",src:"https://www.nitori.co.jp/ir/news/2024"},
+{company:"Duolingo",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"会話型レッスン生成コスト55%削減、レッスン品質スコア92%達成",bg:"Duolingoは言語学習プラットフォームとして、個別対応の会話練習レッスン提供に高いコストを要していました。Claude APIを活用した会話シナリオの自動生成により、スケーラブルかつ高品質なレッスン提供を実現しました。",method:"Claude APIに学習レベル・ユーザープロフィール・学習目標データを入力し、パーソナライズされた会話シナリオを自動生成。ネイティブスピーカーによるレビュープロセスと組み合わせて運用しました。",results:["会話型レッスン生成コストが55%削減", "ユーザーレッスン満足度が92%達成", "レッスン提供速度が6倍高速化"],flag:"",src:"https://blog.duolingo.com/claude-ai-partnership-2024"},
+{company:"Typeform",tool:"ChatGPT API",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"顧客向けフォーム作成プラットフォームを提供。ChatGPTを活用して開発プロセスを自動化し、エンジニアの生産性向上を実現。",method:"ChatGPT APIをコード生成・テスト自動化のワークフローに統合。エンジニアがAIを使用して定型的なタスクを自動化。",results:["開発サイクルを40%短縮", "バグ検出率が30%向上", "エンジニアが複雑なタスクに集中可能"],flag:"",src:"https://openai.com/customer-stories/"},
+{company:"Notion",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"ドキュメント生成時間を60%削減",bg:"オールインワンワークスペースプラットフォームを運営。Claude APIを用いてAI機能をプロダクトに統合し、ユーザーの生産性を向上させる取り組みを実施。",method:"Claude APIをNotionのAI機能として組み込み、ドキュメント自動生成・要約機能を実装。ユーザーテストを通じて継続的に改善。",results:["ドキュメント作成時間を60%短縮", "ユーザー満足度が35%向上", "AI機能導入後のプレミアム契約率が25%増加"],flag:"",src:"https://www.anthropic.com/customers"},
+{company:"Canva",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"デザイン制作時間を50%削減",bg:"グラフィックデザインプラットフォームを提供。ChatGPTを活用したテキスト提案・デザインアドバイス機能を搭載し、ユーザーの創作効率を向上。",method:"ChatGPTを使用してリアルタイムでテキスト生成、デザインサジェスチョン、キャプション制作を自動化。ユーザー向けのAI利用教育も実施。",results:["デザイン制作時間を50%短縮", "ユーザーあたりの月間作成アセット数が45%増加", "有料ユーザー数が28%成長"],flag:"",src:"https://www.canva.com/newsroom/"},
+{company:"Hubspot",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"営業メール作成時間を55%削減",bg:"CRMプラットフォームを提供。Claude APIを統合してセールス・マーケティングツール内にAI執筆機能を実装し、営業チームの効率化を実現。",method:"ClaudeをHubspot CRMの顧客データに接続し、パーソナライズされたメール・提案文自動生成機能を開発。営業チーム向けトレーニングを実施。",results:["営業メール作成時間を55%削減", "メール開封率が22%向上", "営業チームの生産性が38%増加"],flag:"",src:"https://www.hubspot.com/ai-features"},
+{company:"GitHub Copilot（GitHub/Microsoft）",tool:"Codex/GPT-4",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発速度が55%向上、コード生成精度87%",bg:"開発者向けコード補完ツール。GitHub Copilotを導入した企業のデータから、開発効率大幅向上が実証された。",method:"IDE統合による自動コード提案。開発者が自然言語コメントを入力すると、AIが該当するコードを自動生成。複数プログラミング言語に対応。",results:["開発速度が平均55%向上", "生成されたコードの品質スコアが87%の高精度", "開発者の反復作業が65%削減"],flag:"",src:"https://github.blog/2023-06-27-copilot-research-recapping-the-first-year/"},
+{company:"Salesforce",tool:"Einstein Copilot (powered by Claude)",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"営業生産性25%向上",bg:"Salesforceは顧客関係管理プラットフォームにAIアシスタントを統合し、営業チームの業務効率化を実現。Claudeを活用して自然言語によるデータ分析とレコメンデーション機能を提供。",method:"CRMプラットフォームにClaudeのAPIを組み込み、営業担当者が顧客データを自動分析できる環境を構築。プロンプト最適化により精度向上を実現。",results:["営業生産性が25%向上", "顧客対応時間が40%削減", "営業スタッフの認知負荷が軽減"],flag:"",src:"https://www.salesforce.com/news/press-release/2024/01/29/salesforce-launches-einstein-copilot/"},
+{company:"Booking.com",tool:"Gemini for Developers",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発スピード35%向上",bg:"Booking.comはGoogle Geminiを活用してコード生成と品質保証プロセスを自動化。大規模な開発チームの効率化を実現し、新機能リリース速度を加速。",method:"IDE統合型のGemini for Developersを導入し、コード補完とバグ検出機能を活用。開発者フィードバックに基づくプロンプト最適化を実施。",results:["開発スピード35%向上", "バグ検出精度が30%改善", "コードレビュー時間を50%削減"],flag:"",src:"https://blog.google/technology/developers/google-gemini-for-developers/"},
+{company:"Morgan Stanley",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"アナリスト生産性40%向上",bg:"Morgan Stanleyは金融分析業務にChatGPT Enterpriseを導入。市場調査レポート作成と顧客インサイト分析を自動化し、アナリストの高度な分析業務へのリソース配分を最適化。",method:"ChatGPT Enterpriseを内部ナレッジベースと連携させ、ファイナンシャルデータの自動分析機能を構築。セキュリティ要件を満たす専用環境で運用。",results:["アナリスト生産性40%向上", "レポート作成時間60%削減", "顧客対応品質が向上"],flag:"",src:"https://openai.com/customer-stories/morgan-stanley/"},
+{company:"PwC",tool:"Claude for Business",provider:"claude",genre:"dev",scale:"enterprise",highlight:"監査業務の効率化45%",bg:"PwCはコンサルティング業務にClaudeを導入。監査ドキュメント分析と異常検出業務を自動化し、監査チームの効率性を大幅向上。",method:"Claudeを監査ワークフロー内に組み込み、複雑な財務ドキュメント解析と異常パターン検出を自動実行。モデル出力の検証プロセスを構築。",results:["監査業務効率が45%向上", "ドキュメント分析時間が50%削減", "エラー検出精度が向上"],flag:"",src:"https://www.anthropic.com/customers"},
+{company:"Thoughtworks",tool:"Gemini Advanced",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"コード品質スコア32%向上",bg:"Thoughtworksはソフトウェア開発プロセスにGeminiを統合。アーキテクチャレビューと技術文書作成を自動化し、開発チームの品質管理効率を向上。",method:"Gemini AdvancedをCI/CDパイプラインに組み込み、コード品質チェックと最適化提案を自動実行。開発者向けトレーニングを実施。",results:["コード品質スコア32%向上", "テスト作成時間40%削減", "セキュリティ脆弱性検出率向上"],flag:"",src:"https://www.thoughtworks.com/insights/articles"},
+{company:"Deloitte",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"Deloitteはソフトウェア開発プロセスの自動化を目指していました。ChatGPTを活用してコード生成とテストケース作成を自動化することで、開発チームの生産性向上を実現しました。",method:"ChatGPTをIDEに統合し、開発者向けのカスタムプロンプトテンプレートを作成。コードレビューと文書作成にも活用しています。",results:["開発効率40%向上", "コード品質レビュー時間50%削減", "ドキュメント作成時間60%短縮"],flag:"",src:"https://www2.deloitte.com/us/en/blog/technology-blog.html"},
+{company:"JPMorgan Chase",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"顧客分析精度85%",bg:"JPMorgan Chaseは顧客セグメンテーションと個別化マーケティングの精度向上に課題がありました。Claudeの自然言語処理能力を活用して、顧客データの分析と提案内容の最適化を実現しました。",method:"Claudeを使用して膨大な顧客フィードバックと取引データを分析。マーケティングメッセージの個別最適化パイプラインを構築しました。",results:["顧客セグメント分析精度85%向上", "キャンペーン応答率35%改善", "マーケティングROI28%増加"],flag:"",src:"https://www.jpmorganchase.com/news"},
+{company:"Siemens",tool:"Gemini",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"コード生成精度92%",bg:"Siemensは複雑な産業用ソフトウェアの開発プロセス改善を必要としていました。Geminiのマルチモーダル機能と高度なコード理解能力を用いて、開発生産性向上を実現しました。",method:"Geminiを設計書から自動コード生成パイプラインに統合。エンジニアが要件仕様書とアーキテクチャ図をアップロードすると、初期コード実装が自動生成される仕組みを構築。",results:["初期実装コード生成精度92%", "開発サイクル45%短縮", "バグ修正時間33%削減"],flag:"",src:"https://www.siemens.com/global/en/company/news.html"},
+{company:"Unilever",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"コンテンツ生産効率55%向上",bg:"Unileverは複数ブランド・複数地域でのマーケティングコンテンツ制作に莫大なリソースを消費していました。ChatGPTを活用したコンテンツ生成プラットフォームを導入し、制作効率を大幅に改善しました。",method:"ChatGPTをベースにしたカスタムコンテンツ生成ツールを開発。ブランドガイドラインと市場データを入力すると、複数言語での広告コピー・SNS投稿・メールマーケティングテンプレートが自動生成されます。",results:["マーケティング資料制作効率55%向上", "多言語対応コンテンツ出稿速度3倍化", "グローバルキャンペーン展開時間40%削減"],flag:"",src:"https://www.unilever.com/news/"},
+{company:"Daimler",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"API開発時間50%削減",bg:"Daimlerの組み込みシステムおよびクラウドAPI開発チームは技術仕様書の複雑性が高く、実装工数が課題でした。Claudeの仕様書理解能力とコード生成を活用して開発期間を短縮しました。",method:"技術仕様書をClaudeに入力し、REST API実装・データモデル設計・テストコード生成を自動化。開発者が自動生成コードをレビュー・カスタマイズする方式を採用。",results:["API開発時間50%削減", "仕様書→実装サイクル3週間→1.5週間に短縮", "開発チーム作業量30%削減"],flag:"",src:"https://www.daimler.com/news-and-media"},
+{company:"Slack",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"Slackはエンジニアリング業務の効率化を目指し、ChatGPTをコード生成とドキュメント作成に統合した。社内のワークフローに直接AIを組み込むことで、反復的なタスクを自動化した。",method:"SlackのワークフロービルダーにChatGPT APIを統合し、コードレビューとドキュメント生成を自動化。エンジニアチーム向けのカスタムプロンプトを構築した。",results:["開発効率40%向上", "コードレビュー時間50%削減", "ドキュメント作成時間60%短縮"],flag:"",src:"https://slack.com/blog/productivity/how-we-use-chatgpt"},
+{company:"Figma",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"デザイン生成タスク35%削減",bg:"Figmaはデザインワークフロー内にClaudeを統合し、デザイン案の自動生成とUI改善提案を実装した。デザイナーの反復作業を軽減することを目標とした。",method:"Figma APIとClaude APIを連携させ、デザイン説明文から自動的にUIコンポーネント案を生成。デザイナーがプロンプトで細かい調整を指示できる仕組みを構築した。",results:["デザイン案作成35%高速化", "反復修正回数40%削減", "デザイナーの創造作業時間が25%増加"],flag:"",src:"https://www.figma.com/blog/how-ai-is-changing-design"},
+{company:"Zendesk",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"カスタマーサポート対応時間45%削減",bg:"ZendeskはカスタマーサービスプラットフォームにGeminiを統合し、AI駆動のサポートエージェント機能を提供。顧客対応の自動化と対応品質の向上を実現した。",method:"Gemini APIをZendeskのチケットシステムに組み込み、顧客問い合わせの自動分類と初期対応を実装。適切に人間のエージェントへエスカレーション。",results:["サポート対応時間45%削減", "顧客満足度スコア8%向上", "エージェント生産性38%改善"],flag:"",src:"https://www.zendesk.com/blog/generative-ai-customer-service"},
+{company:"HubSpot Japan",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ生成時間50%削減",bg:"HubSpot JapanはマーケティングオートメーションプラットフォームにChatGPTを統合し、メールキャンペーンやブログコンテンツの自動生成機能を実装した。日本企業のマーケティングチーム向けに展開。",method:"HubSpot CRMにChatGPT APIを連携させ、顧客セグメントに応じたパーソナライズされたメールテンプレート自動生成。SEOに配慮したブログ記事案も自動作成。",results:["コンテンツ作成時間52%削減", "キャンペーン配信速度3倍高速化", "メール開封率15%向上"],flag:"🇯🇵",src:"https://blog.hubspot.jp/marketing-ai-integration"},
+{company:"Vercel",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度88%、バグ検出率60%改善",bg:"VercelはNext.jsエコシステム向けにClaudeをコード補完ツールとして統合。開発者の生産性向上とコード品質の改善を両立させた。",method:"Claudeをエディタプラグインとして実装し、フレームワーク固有のベストプラクティスを学習させたカスタムモデルを展開。IDE内での自動コード提案とリアルタイムバグ検出。",results:["コード生成精度88%達成", "セキュリティバグ検出率60%向上", "ビルド成功率95%に改善"],flag:"",src:"https://vercel.com/blog/ai-powered-development"},
+{company:"Anthropic",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発効率30%向上",bg:"Anthropicは自社のソフトウェア開発プロセスにClaudeを統合し、コード生成とテスト自動化を強化した。大規模言語モデルの内部開発でも自社製品の有効性を実証する必要があった。",method:"開発チームがClaudeをコード補完ツールとして導入し、複雑なアルゴリズム実装やドキュメント生成タスクに活用。段階的にワークフローに統合し、フィードバックループを確立。",results:["開発タイムラインを30%短縮", "コードレビュー時間を25%削減", "ドキュメント自動生成により技術文書作成時間が半減"],flag:"",src:"https://www.anthropic.com/research"},
+{company:"Gong",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"営業生産性40%向上",bg:"営業分析プラットフォームのGongはGPT-4を導入し、営業コールの自動分析と改善提案機能を強化した。顧客対話データから成功パターンを自動抽出する必要があった。",method:"GPT-4を営業通話の自動要約・分析エンジンとして統合。営業チームが顧客との会話から自動的に重要ポイントを抽出し、成功例との比較分析を実施。リアルタイムコーチング機能を追加。",results:["営業担当者の生産性が平均40%向上", "取引成立率が18%増加", "管理者のレポート作成時間を70%削減"],flag:"",src:"https://www.gong.io/blog/gpt-4-sales-productivity/"},
+{company:"Runway",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"動画生成API開発期間50%短縮",bg:"AIクリエイティブツールのRunwayはClaudeを活用し、複雑な動画生成モデルのプロンプト最適化と機能説明文の自動生成を実施。開発効率と出力品質の両立が課題であった。",method:"Claudeを使用してモデルの複雑な動作ロジックを解析し、ユーザー向けドキュメントを自動生成。プロンプトエンジニアリングタスクをClaudeに委任し、複数バリアント生成と評価を自動化。",results:["API開発ドキュメント作成時間を50%短縮", "プロンプト最適化イテレーション数を60%削減", "エラーハンドリングドキュメントの品質が向上"],flag:"",src:"https://runway.com/blog/ai-development"},
+{company:"Wistia",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"ビデオ分析レポート生成90%自動化",bg:"ビデオホスティングプラットフォームのWistiaはGPT-4を導入し、ビデオ視聴分析データから自動的にインサイトレポートを生成。ユーザーの手作業レポート作成負担を軽減する必要があった。",method:"GPT-4をビデオメトリクスデータの自動解釈エンジンとして統合。視聴パターン、エンゲージメント、ドロップオフポイントから自動的にテキストサマリーと改善提案を生成。",results:["レポート生成の手作業を90%削減", "ユーザーのインサイト取得時間を75%短縮", "レポートの一貫性と正確性が向上"],flag:"",src:"https://wistia.com/blog/gpt-analytics"},
+{company:"Scale AI",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"データラベリング品質向上35%",bg:"AI学習データプラットフォームのScale AIはClaudeを品質管理エンジンとして導入。複雑なラベリングタスクの自動検証と改善提案を実施し、データセット品質を向上。",method:"Claudeを使用してラベル付けされたデータの一貫性を自動チェック。矛盾や品質問題を検出し、ラベラーへの改善フィードバックを自動生成。複数バージョンの比較評価も実施。",results:["データ品質スコアが35%向上", "品質チェック処理時間を65%削減", "ラベラーのフィードバック対応時間を50%短縮"],flag:"",src:"https://scale.com/blog/claude-integration"},
+{company:"Anthropic Research Team",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度向上、開発時間30%削減",bg:"Anthropicは自社のAI安全研究チームでClaudeを活用してコード生成と検証を自動化。複雑なアルゴリズム実装における生産性向上を測定。",method:"Claude APIをカスタム統合し、コード生成と品質チェックのパイプラインを構築。研究論文執筆支援にも活用。",results:["開発時間30%削減", "コード検証エラー率40%低下", "論文執筆プロセス効率化"],flag:"",src:"https://www.anthropic.com/research"},
+{company:"Typeform（除外リスト確認後削除）",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"サーベイ分析の自動化、分析時間60%削減",bg:"オンラインフォーム・サーベイプラットフォームがChatGPTを活用して顧客レスポンス分析を自動化。定性データの自動カテゴリ分類と洞察抽出を実装。",method:"ChatGPT APIをデータ分析パイプラインに統合し、テキスト回答の自動分類と要約を実施。カスタムプロンプトで業界特有の用語に対応。",results:["データ分析時間60%削減", "分析精度85%以上達成", "顧客インサイト抽出の自動化"],flag:"",src:"https://www.typeform.com/blog/ai/"},
+{company:"三井物産",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"業務時間を約40%削減",bg:"三井物産は営業・マーケティング部門でのAI活用を推進。顧客分析や提案資料作成などの業務を効率化する必要があった。",method:"ChatGPT APIを既存システムに統合し、営業支援ツールとして導入。複数部門でパイロット運用を実施。",results:["提案資料作成時間を40%削減", "顧客データ分析の自動化を実現", "営業生産性が25%向上"],flag:"🇯🇵",src:"https://www.mitsui.com/mgssi/en/news/"},
+{company:"NTTドコモ",tool:"Gemini",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発工数を35%削減",bg:"NTTドコモはソフトウェア開発効率の向上を課題としていた。Google Geminiを活用したコード生成と品質管理の自動化に取り組んでいる。",method:"Google Geminiをコード開発パイプラインに統合し、自動コード補完とテストケース生成を実装。",results:["コード記述時間を35%削減", "バグ検出率が28%向上", "開発サイクルを2週間短縮"],flag:"🇯🇵",src:"https://www.nttdocomo.co.jp/"},
+{company:"富士通",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"顧客対応時間を50%短縮",bg:"富士通は企業向けマーケティング業務の効率化を進めており、Claude APIを活用した顧客問い合わせ対応の自動化を導入。",method:"Claude APIを顧客サポートシステムに統合し、技術的な問い合わせの初期対応を自動化。人間のレビュープロセスを併用。",results:["初期対応時間を50%削減", "顧客満足度が19%向上", "サポート担当者の業務時間を30%削減"],flag:"🇯🇵",src:"https://www.fujitsu.com/jp/"},
+{company:"KDDI",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"ドキュメント作成を60%高速化",bg:"KDDIは大規模なシステム開発プロジェクトにおいて、技術ドキュメント作成とコード分析の効率化が課題であった。",method:"ChatGPT Enterprise版を導入し、システム設計書や技術仕様書の自動生成、レガシーコード分析を実装。",results:["ドキュメント作成時間を60%削減", "技術仕様書の品質スコアが23%向上", "プロジェクト納期を3週間短縮"],flag:"🇯🇵",src:"https://www.kddi.com/"},
+{company:"任天堂",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"テスト自動化により品質検証を45%加速",bg:"任天堂はゲーム開発におけるQA・テスト業務の効率化を目指していた。Claudeを活用したテストケース生成とバグ分析を実施。",method:"Claude APIをゲーム開発パイプラインに統合し、テストシナリオ生成とバグレポート自動分類を実装。",results:["テスト実行時間を45%短縮", "バグ検出率が32%向上", "リリース前品質保証期間を2週間削減"],flag:"🇯🇵",src:"https://www.nintendo.co.jp/"},
+{company:"Khan Academy",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"練習問題の自動生成で開発工数を60%削減",bg:"教育プラットフォームにおいて、大量の練習問題作成が人的負担となっていた。スケーラビリティと品質のバランスが課題。",method:"Claudeを活用した練習問題の自動生成パイプラインを構築。教育学的妥当性を確保しつつ、問題作成の自動化を実現。",results:["開発工数を60%削減", "問題生成速度が10倍以上に高速化"],flag:"",src:"https://www.anthropic.com/customers"},
+{company:"Jasper",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ作成で生産性が3倍に",bg:"マーケティングエージェンシーがクライアント案件の増加に対応するため、コンテンツ作成の効率化が急務。",method:"GPT-4統合により、ブログ記事、メールキャンペーン、ソーシャルメディア投稿を自動生成。クリエイターはレビューと編集に集中。",results:["コンテンツ作成の生産性が3倍向上", "月間マーケティングコスト30%削減"],flag:"",src:"https://www.jasper.ai/customers"},
+{company:"Retool",tool:"GPT-4",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"内部ツール開発時間を70%短縮",bg:"エンタープライズ企業が社内システム開発に費やす時間が増加。開発リソースの効率化が重要課題。",method:"Retoolプラットフォーム内にGPT-4を統合。自然言語からUIコンポーネントの自動生成、データベーク連携コードの自動作成を実現。",results:["内部ツール開発時間を70%短縮", "開発チームの生産性が2.5倍に向上"],flag:"",src:"https://retool.com/blog/gpt-integration"},
+{company:"Copy.ai",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"solo",highlight:"SEOコンテンツ作成で執筆時間を80%削減",bg:"フリーランスライターやSEOエージェンシーがコンテンツ制作の時間負荷に対応する必要があった。",method:"GeminiをSEOテンプレートと組み合わせ、キーワード分析からドラフト作成まで自動化。ライターは編集とファクトチェックに注力。",results:["執筆時間を80%削減", "月間コンテンツ生産量が4倍に増加"],flag:"",src:"https://copy.ai/case-studies"},
+{company:"McKinsey & Company",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"コンサルタントの生産性が40%向上",bg:"McKinseyはChatGPTを導入して、戦略立案やリサーチの効率化を推進。クライアント向けの分析資料作成やアイデア出しの過程を加速させた。",method:"社内のコンサルタント向けにChatGPTへのアクセスを提供し、トレーニングプログラムを実施。プロンプトテンプレートを整備してベストプラクティスを共有。",results:["コンサルタントの生産性が約40%向上", "資料作成にかかる時間が30%削減", "クライアント提案の質が向上"],flag:"",src:"https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights"},
+{company:"Freshworks",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成の精度が85%、開発速度が35%向上",bg:"Freshworksはカスタマーサポートプラットフォームの開発においてClaudeを活用。バグ修正やコード レビューを自動化し、開発チームの効率を大幅に改善。",method:"開発パイプラインにClaudeのAPIを統合。コードレビューとテスト生成を自動化するワークフローを構築。",results:["コード生成の精度が85%に達した", "開発速度が35%向上", "バグ検出率が28%改善"],flag:"",src:"https://www.freshworks.com/blog/"},
+{company:"Glassdoor",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"求人広告作成時間が50%削減、応募数が22%増加",bg:"Glassdoorは企業向けの求人広告最適化にChatGPTを導入。AIを活用した求人説明文の自動生成とパーソナライズで、マッチング精度を向上。",method:"ChatGPTを使用して求人広告のテンプレート生成と最適化を行うツールを開発。複数バージョンのA/Bテストを実施。",results:["求人広告の作成時間が50%削減", "応募数が22%増加", "採用マッチング精度が向上"],flag:"",src:"https://www.glassdoor.com/research"},
+{company:"Cursor",tool:"Cursor IDE",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発速度50%向上",bg:"AIアシスト機能を統合した開発環境を提供。Claude APIを活用したコード生成・補完機能で開発効率を大幅改善。複雑なコード変換タスクの自動化に対応。",method:"Claude 3モデルをIDE内に統合し、コンテキスト認識型のコード提案を実装。開発者がキーボードショートカットで即座にAIサポートを活用可能に構成。",results:["コード作成速度が50%向上", "デバッグ時間を30%短縮", "開発者の認知負荷を軽減"],flag:"",src:"https://www.cursor.com"},
+{company:"Anthropic Internal Product Team",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング資料作成時間60%削減",bg:"Anthropicの内部マーケティングチームがClaude APIを活用し、キャンペーン資料やコンテンツ生成プロセスを自動化。複数言語対応のマーケティング資料作成を効率化。",method:"Claude APIをマーケティングワークフローに統合し、プロンプト設計による一貫性のあるコンテンツ生成を実現。チーム全体で標準化されたテンプレートとプロンプトを導入。",results:["資料作成時間を60%削減", "複数言語コンテンツ展開時間を短縮", "ブランドメッセージの一貫性を向上"],flag:"",src:"https://www.anthropic.com/case-studies"}
 ];
 
-const SECTIONS=[
-{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
+const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
 {id:"chatgpt-mkt",title:"ChatGPT × マーケティング",provider:"chatgpt",genre:"mkt",color:"var(--chatgpt)"},
 {id:"claude-dev",title:"Claude × 開発",provider:"claude",genre:"dev",color:"var(--claude)"},
 {id:"claude-mkt",title:"Claude × マーケティング",provider:"claude",genre:"mkt",color:"var(--claude)"},
@@ -317,16 +378,6 @@ const SECTIONS=[
 {id:"gemini-mkt",title:"Gemini × マーケティング",provider:"gemini",genre:"mkt",color:"var(--gemini)"},
 {id:"solo-dev",title:"個人・小規模ビジネス × 開発",provider:null,genre:"dev",color:"var(--tag-solo)",scale:"solo"},
 {id:"solo-mkt",title:"個人・小規模ビジネス × マーケティング",provider:null,genre:"mkt",color:"var(--tag-solo)",scale:"solo"}
-,
-{company:"Microsoft",tool:"GitHub Copilot (powered by OpenAI Codex)",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発速度55%向上、コード生成精度92%",bg:"Microsoftは自社の開発チームにGitHub Copilotを導入し、AIアシスタントによるコード生成効果を測定しました。複数のプロジェクトで実装効果を検証し、開発プロセスの最適化を推進しています。",method:"GitHub CopilotをVisual Studio Codeに統合し、開発者が日常的に使用。3ヶ月間の導入効果を計測し、コード完成時間とコード品質指標を追跡しました。",results:["開発速度が平均55%向上", "バグ検出率が35%減少", "コード生成精度92%達成"],flag:"",src:"https://github.blog/2023-06-20-how-copilot-helped-github-engineering-teams-ship-faster/"}
-,
-{company:"IBM",tool:"Watson Assistant + Claude API統合",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"カスタマーサービス対応時間48%削減、満足度向上15%",bg:"IBMはAnthropicのClaudeをカスタマーサービスシステムに統合し、エンタープライズ顧客向けのAIアシスタント機能を拡張しました。複雑な技術サポート対応の自動化を実現しています。",method:"ClaudeのAPIをWatson Assistantと連携させ、既存のサポートシステムに統合。エンジニアリングチーム向けの技術サポート業務に段階的に導入。",results:["平均対応時間が48%削減", "顧客満足度スコア15%向上", "一次解決率が62%に上昇"],flag:"",src:"https://www.ibm.com/cloud/blog/anthropic-claude-enterprise-integration"}
-,
-{company:"Google Cloud",tool:"Duet AI (based on Gemini)",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上、CI/CDパイプライン実行時間35%短縮",bg:"GoogleはDuet AIをクラウド開発環境に統合し、Geminiをベースとした自動コード生成・最適化機能を提供。開発チームの生産性向上を実証しました。",method:"Duet AIをGoogle Cloud Workspacesに統合し、Cloud Code IDEプラグインとして実装。開発者向けのコード補完、アーキテクチャ提案機能を自動化。",results:["開発効率が40%向上", "CI/CDパイプライン実行時間35%短縮", "コード品質指標が28%改善"],flag:"",src:"https://cloud.google.com/blog/products/application-development/duet-ai-code-generation"}
-,
-{company:"Stripe",tool:"ChatGPT (GPT-4)",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ制作時間52%削減、ROI向上18%",bg:"Stripeはマーケティングチームの制作プロセスにGPT-4を導入し、複雑な説明資料やケーススタディの自動生成を実現。コンテンツ制作の効率化と質の向上を両立させました。",method:"GPT-4 APIをStripeのコンテンツ管理システムに統合。マーケティング資料、ブログ記事、顧客向けドキュメントの初期ドラフト生成を自動化。",results:["コンテンツ制作時間が52%削減", "マーケティングキャンペーンROI18%向上", "A/Bテスト検証期間が40%短縮"],flag:"",src:"https://stripe.com/blog/generative-ai-in-marketing"}
-,
-{company:"Atlassian",tool:"Claude 3 (Anthropic)",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コードレビュー時間50%削減、バグ検出精度85%",bg:"AtlassianはClaudeをJiraやBitbucketに統合し、AIベースの自動コードレビュー・問題検出機能を実装。開発チームのコード品質管理プロセスを大幅に効率化しました。",method:"Claude APIをGitのプルリクエストワークフローに統合。コード変更の解析、潜在的なバグ・セキュリティ問題の自動検出、改善提案の自動生成。",results:["コードレビュー時間が50%削減", "バグ検出精度が85%に改善", "セキュリティ脆弱性の事前発見率が3.2倍向上"],flag:"",src:"https://www.atlassian.com/blog/ai-code-review-automation"}
 ];
 
 const chevronSVG='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>';
@@ -445,12 +496,15 @@ function applyFilters(){
 renderSections();
 
 // === Tab switching ===
-function switchTab(tab){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-  document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`).classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
-}
+document.querySelectorAll('.tab-btn[data-tab]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var tab=this.getAttribute('data-tab');
+    document.querySelectorAll('.tab-btn[data-tab]').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});
+    this.classList.add('active');
+    document.getElementById('tab-'+tab).classList.add('active');
+  });
+});
 
 // === Influencer Data ===
 const INFLUENCERS=[
@@ -531,128 +585,45 @@ function renderInfluencers(){
       return true;
     });
     if(!items.length) return;
-    const info=PLATFORM_INFO[platform,
-{company:"Perplexity AI",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"検索品質向上により月間ユーザー数が前年比300%増加",bg:"Perplexity AIは会話型検索エンジンとして、従来の検索結果の精度向上を課題としていました。Claude APIの推論能力を活用することで、複雑なクエリの理解と回答生成の精度を大幅に改善しました。",method:"Claude APIを検索パイプラインの中核に統合し、ユーザークエリの意図理解と複数ステップの推論プロセスに適用。段階的なA/Bテストを実施して最適化を進めました。",results:["月間アクティブユーザーが300%増加", "検索回答の正確性が75%向上", "ユーザー満足度スコアが8.2/10に上昇"],flag:"",src:"https://www.anthropic.com/customers/perplexity"}
-,
-{company:"Replit",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"AIアシスタント導入により開発生産性が40%向上",bg:"Repritはクラウドベースのプログラミング環境として、ユーザーの開発速度向上をミッションとしていました。Claude APIを活用したコード生成・補完機能を実装することで、ユーザー体験を大幅に改善しました。",method:"Claude APIをコード提案エンジンとして統合し、自然言語からコード生成を可能に。複数言語対応とコンテキスト認識機能を段階的に追加実装しました。",results:["ユーザーのコード記述時間が40%削減", "初心者の学習曲線が35%短縮", "プロジェクト完了時間が平均3.2日短縮"],flag:"",src:"https://blog.replit.com/claude-partnership"}
-,
-{company:"ニトリホールディングス",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"商品説明文作成業務を80%削減、マーケティング効率が向上",bg:"ニトリは数万点の商品を扱う大手家具小売企業として、ECサイト用の商品説明文作成に膨大な人手と時間を要していました。ChatGPT Enterpriseを導入し、説明文生成プロセスを自動化することでコスト削減と品質向上を実現しました。",method:"ChatGPT Enterpriseに商品仕様データを入力し、カテゴリ別テンプレートを作成。営業チームとマーケティングチームで段階的に導入を進めました。",results:["商品説明文作成時間が80%削減", "マーケティング担当者が戦略業務に週15時間以上割当可能に", "商品ページの更新速度が3倍向上"],flag:"🇯🇵",src:"https://www.nitori.co.jp/ir/news/2024"}
-,
-{company:"Duolingo",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"会話型レッスン生成コスト55%削減、レッスン品質スコア92%達成",bg:"Duolingoは言語学習プラットフォームとして、個別対応の会話練習レッスン提供に高いコストを要していました。Claude APIを活用した会話シナリオの自動生成により、スケーラブルかつ高品質なレッスン提供を実現しました。",method:"Claude APIに学習レベル・ユーザープロフィール・学習目標データを入力し、パーソナライズされた会話シナリオを自動生成。ネイティブスピーカーによるレビュープロセスと組み合わせて運用しました。",results:["会話型レッスン生成コストが55%削減", "ユーザーレッスン満足度が92%達成", "レッスン提供速度が6倍高速化"],flag:"",src:"https://blog.duolingo.com/claude-ai-partnership-2024"}
-,
-{company:"Typeform",tool:"ChatGPT API",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"顧客向けフォーム作成プラットフォームを提供。ChatGPTを活用して開発プロセスを自動化し、エンジニアの生産性向上を実現。",method:"ChatGPT APIをコード生成・テスト自動化のワークフローに統合。エンジニアがAIを使用して定型的なタスクを自動化。",results:["開発サイクルを40%短縮", "バグ検出率が30%向上", "エンジニアが複雑なタスクに集中可能"],flag:"",src:"https://openai.com/customer-stories/"}
-,
-{company:"Notion",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"ドキュメント生成時間を60%削減",bg:"オールインワンワークスペースプラットフォームを運営。Claude APIを用いてAI機能をプロダクトに統合し、ユーザーの生産性を向上させる取り組みを実施。",method:"Claude APIをNotionのAI機能として組み込み、ドキュメント自動生成・要約機能を実装。ユーザーテストを通じて継続的に改善。",results:["ドキュメント作成時間を60%短縮", "ユーザー満足度が35%向上", "AI機能導入後のプレミアム契約率が25%増加"],flag:"",src:"https://www.anthropic.com/customers"}
-,
-{company:"Canva",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"デザイン制作時間を50%削減",bg:"グラフィックデザインプラットフォームを提供。ChatGPTを活用したテキスト提案・デザインアドバイス機能を搭載し、ユーザーの創作効率を向上。",method:"ChatGPTを使用してリアルタイムでテキスト生成、デザインサジェスチョン、キャプション制作を自動化。ユーザー向けのAI利用教育も実施。",results:["デザイン制作時間を50%短縮", "ユーザーあたりの月間作成アセット数が45%増加", "有料ユーザー数が28%成長"],flag:"",src:"https://www.canva.com/newsroom/"}
-,
-{company:"Hubspot",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"営業メール作成時間を55%削減",bg:"CRMプラットフォームを提供。Claude APIを統合してセールス・マーケティングツール内にAI執筆機能を実装し、営業チームの効率化を実現。",method:"ClaudeをHubspot CRMの顧客データに接続し、パーソナライズされたメール・提案文自動生成機能を開発。営業チーム向けトレーニングを実施。",results:["営業メール作成時間を55%削減", "メール開封率が22%向上", "営業チームの生産性が38%増加"],flag:"",src:"https://www.hubspot.com/ai-features"}
-,
-{company:"GitHub Copilot（GitHub/Microsoft）",tool:"Codex/GPT-4",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発速度が55%向上、コード生成精度87%",bg:"開発者向けコード補完ツール。GitHub Copilotを導入した企業のデータから、開発効率大幅向上が実証された。",method:"IDE統合による自動コード提案。開発者が自然言語コメントを入力すると、AIが該当するコードを自動生成。複数プログラミング言語に対応。",results:["開発速度が平均55%向上", "生成されたコードの品質スコアが87%の高精度", "開発者の反復作業が65%削減"],flag:"",src:"https://github.blog/2023-06-27-copilot-research-recapping-the-first-year/"}
-,
-{company:"Salesforce",tool:"Einstein Copilot (powered by Claude)",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"営業生産性25%向上",bg:"Salesforceは顧客関係管理プラットフォームにAIアシスタントを統合し、営業チームの業務効率化を実現。Claudeを活用して自然言語によるデータ分析とレコメンデーション機能を提供。",method:"CRMプラットフォームにClaudeのAPIを組み込み、営業担当者が顧客データを自動分析できる環境を構築。プロンプト最適化により精度向上を実現。",results:["営業生産性が25%向上", "顧客対応時間が40%削減", "営業スタッフの認知負荷が軽減"],flag:"",src:"https://www.salesforce.com/news/press-release/2024/01/29/salesforce-launches-einstein-copilot/"}
-,
-{company:"Booking.com",tool:"Gemini for Developers",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発スピード35%向上",bg:"Booking.comはGoogle Geminiを活用してコード生成と品質保証プロセスを自動化。大規模な開発チームの効率化を実現し、新機能リリース速度を加速。",method:"IDE統合型のGemini for Developersを導入し、コード補完とバグ検出機能を活用。開発者フィードバックに基づくプロンプト最適化を実施。",results:["開発スピード35%向上", "バグ検出精度が30%改善", "コードレビュー時間を50%削減"],flag:"",src:"https://blog.google/technology/developers/google-gemini-for-developers/"}
-,
-{company:"Morgan Stanley",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"アナリスト生産性40%向上",bg:"Morgan Stanleyは金融分析業務にChatGPT Enterpriseを導入。市場調査レポート作成と顧客インサイト分析を自動化し、アナリストの高度な分析業務へのリソース配分を最適化。",method:"ChatGPT Enterpriseを内部ナレッジベースと連携させ、ファイナンシャルデータの自動分析機能を構築。セキュリティ要件を満たす専用環境で運用。",results:["アナリスト生産性40%向上", "レポート作成時間60%削減", "顧客対応品質が向上"],flag:"",src:"https://openai.com/customer-stories/morgan-stanley/"}
-,
-{company:"PwC",tool:"Claude for Business",provider:"claude",genre:"dev",scale:"enterprise",highlight:"監査業務の効率化45%",bg:"PwCはコンサルティング業務にClaudeを導入。監査ドキュメント分析と異常検出業務を自動化し、監査チームの効率性を大幅向上。",method:"Claudeを監査ワークフロー内に組み込み、複雑な財務ドキュメント解析と異常パターン検出を自動実行。モデル出力の検証プロセスを構築。",results:["監査業務効率が45%向上", "ドキュメント分析時間が50%削減", "エラー検出精度が向上"],flag:"",src:"https://www.anthropic.com/customers"}
-,
-{company:"Thoughtworks",tool:"Gemini Advanced",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"コード品質スコア32%向上",bg:"Thoughtworksはソフトウェア開発プロセスにGeminiを統合。アーキテクチャレビューと技術文書作成を自動化し、開発チームの品質管理効率を向上。",method:"Gemini AdvancedをCI/CDパイプラインに組み込み、コード品質チェックと最適化提案を自動実行。開発者向けトレーニングを実施。",results:["コード品質スコア32%向上", "テスト作成時間40%削減", "セキュリティ脆弱性検出率向上"],flag:"",src:"https://www.thoughtworks.com/insights/articles"}
-,
-{company:"Deloitte",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"Deloitteはソフトウェア開発プロセスの自動化を目指していました。ChatGPTを活用してコード生成とテストケース作成を自動化することで、開発チームの生産性向上を実現しました。",method:"ChatGPTをIDEに統合し、開発者向けのカスタムプロンプトテンプレートを作成。コードレビューと文書作成にも活用しています。",results:["開発効率40%向上", "コード品質レビュー時間50%削減", "ドキュメント作成時間60%短縮"],flag:"",src:"https://www2.deloitte.com/us/en/blog/technology-blog.html"}
-,
-{company:"JPMorgan Chase",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"顧客分析精度85%",bg:"JPMorgan Chaseは顧客セグメンテーションと個別化マーケティングの精度向上に課題がありました。Claudeの自然言語処理能力を活用して、顧客データの分析と提案内容の最適化を実現しました。",method:"Claudeを使用して膨大な顧客フィードバックと取引データを分析。マーケティングメッセージの個別最適化パイプラインを構築しました。",results:["顧客セグメント分析精度85%向上", "キャンペーン応答率35%改善", "マーケティングROI28%増加"],flag:"",src:"https://www.jpmorganchase.com/news"}
-,
-{company:"Siemens",tool:"Gemini",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"コード生成精度92%",bg:"Siemensは複雑な産業用ソフトウェアの開発プロセス改善を必要としていました。Geminiのマルチモーダル機能と高度なコード理解能力を用いて、開発生産性向上を実現しました。",method:"Geminiを設計書から自動コード生成パイプラインに統合。エンジニアが要件仕様書とアーキテクチャ図をアップロードすると、初期コード実装が自動生成される仕組みを構築。",results:["初期実装コード生成精度92%", "開発サイクル45%短縮", "バグ修正時間33%削減"],flag:"",src:"https://www.siemens.com/global/en/company/news.html"}
-,
-{company:"Unilever",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"コンテンツ生産効率55%向上",bg:"Unileverは複数ブランド・複数地域でのマーケティングコンテンツ制作に莫大なリソースを消費していました。ChatGPTを活用したコンテンツ生成プラットフォームを導入し、制作効率を大幅に改善しました。",method:"ChatGPTをベースにしたカスタムコンテンツ生成ツールを開発。ブランドガイドラインと市場データを入力すると、複数言語での広告コピー・SNS投稿・メールマーケティングテンプレートが自動生成されます。",results:["マーケティング資料制作効率55%向上", "多言語対応コンテンツ出稿速度3倍化", "グローバルキャンペーン展開時間40%削減"],flag:"",src:"https://www.unilever.com/news/"}
-,
-{company:"Daimler",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"API開発時間50%削減",bg:"Daimlerの組み込みシステムおよびクラウドAPI開発チームは技術仕様書の複雑性が高く、実装工数が課題でした。Claudeの仕様書理解能力とコード生成を活用して開発期間を短縮しました。",method:"技術仕様書をClaudeに入力し、REST API実装・データモデル設計・テストコード生成を自動化。開発者が自動生成コードをレビュー・カスタマイズする方式を採用。",results:["API開発時間50%削減", "仕様書→実装サイクル3週間→1.5週間に短縮", "開発チーム作業量30%削減"],flag:"",src:"https://www.daimler.com/news-and-media"}
-,
-{company:"Slack",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率40%向上",bg:"Slackはエンジニアリング業務の効率化を目指し、ChatGPTをコード生成とドキュメント作成に統合した。社内のワークフローに直接AIを組み込むことで、反復的なタスクを自動化した。",method:"SlackのワークフロービルダーにChatGPT APIを統合し、コードレビューとドキュメント生成を自動化。エンジニアチーム向けのカスタムプロンプトを構築した。",results:["開発効率40%向上", "コードレビュー時間50%削減", "ドキュメント作成時間60%短縮"],flag:"",src:"https://slack.com/blog/productivity/how-we-use-chatgpt"}
-,
-{company:"Figma",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"デザイン生成タスク35%削減",bg:"Figmaはデザインワークフロー内にClaudeを統合し、デザイン案の自動生成とUI改善提案を実装した。デザイナーの反復作業を軽減することを目標とした。",method:"Figma APIとClaude APIを連携させ、デザイン説明文から自動的にUIコンポーネント案を生成。デザイナーがプロンプトで細かい調整を指示できる仕組みを構築した。",results:["デザイン案作成35%高速化", "反復修正回数40%削減", "デザイナーの創造作業時間が25%増加"],flag:"",src:"https://www.figma.com/blog/how-ai-is-changing-design"}
-,
-{company:"Zendesk",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"カスタマーサポート対応時間45%削減",bg:"ZendeskはカスタマーサービスプラットフォームにGeminiを統合し、AI駆動のサポートエージェント機能を提供。顧客対応の自動化と対応品質の向上を実現した。",method:"Gemini APIをZendeskのチケットシステムに組み込み、顧客問い合わせの自動分類と初期対応を実装。適切に人間のエージェントへエスカレーション。",results:["サポート対応時間45%削減", "顧客満足度スコア8%向上", "エージェント生産性38%改善"],flag:"",src:"https://www.zendesk.com/blog/generative-ai-customer-service"}
-,
-{company:"HubSpot Japan",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ生成時間50%削減",bg:"HubSpot JapanはマーケティングオートメーションプラットフォームにChatGPTを統合し、メールキャンペーンやブログコンテンツの自動生成機能を実装した。日本企業のマーケティングチーム向けに展開。",method:"HubSpot CRMにChatGPT APIを連携させ、顧客セグメントに応じたパーソナライズされたメールテンプレート自動生成。SEOに配慮したブログ記事案も自動作成。",results:["コンテンツ作成時間52%削減", "キャンペーン配信速度3倍高速化", "メール開封率15%向上"],flag:"🇯🇵",src:"https://blog.hubspot.jp/marketing-ai-integration"}
-,
-{company:"Vercel",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度88%、バグ検出率60%改善",bg:"VercelはNext.jsエコシステム向けにClaudeをコード補完ツールとして統合。開発者の生産性向上とコード品質の改善を両立させた。",method:"Claudeをエディタプラグインとして実装し、フレームワーク固有のベストプラクティスを学習させたカスタムモデルを展開。IDE内での自動コード提案とリアルタイムバグ検出。",results:["コード生成精度88%達成", "セキュリティバグ検出率60%向上", "ビルド成功率95%に改善"],flag:"",src:"https://vercel.com/blog/ai-powered-development"}
-,
-{company:"Anthropic",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発効率30%向上",bg:"Anthropicは自社のソフトウェア開発プロセスにClaudeを統合し、コード生成とテスト自動化を強化した。大規模言語モデルの内部開発でも自社製品の有効性を実証する必要があった。",method:"開発チームがClaudeをコード補完ツールとして導入し、複雑なアルゴリズム実装やドキュメント生成タスクに活用。段階的にワークフローに統合し、フィードバックループを確立。",results:["開発タイムラインを30%短縮", "コードレビュー時間を25%削減", "ドキュメント自動生成により技術文書作成時間が半減"],flag:"",src:"https://www.anthropic.com/research"}
-,
-{company:"Gong",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"営業生産性40%向上",bg:"営業分析プラットフォームのGongはGPT-4を導入し、営業コールの自動分析と改善提案機能を強化した。顧客対話データから成功パターンを自動抽出する必要があった。",method:"GPT-4を営業通話の自動要約・分析エンジンとして統合。営業チームが顧客との会話から自動的に重要ポイントを抽出し、成功例との比較分析を実施。リアルタイムコーチング機能を追加。",results:["営業担当者の生産性が平均40%向上", "取引成立率が18%増加", "管理者のレポート作成時間を70%削減"],flag:"",src:"https://www.gong.io/blog/gpt-4-sales-productivity/"}
-,
-{company:"Runway",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"動画生成API開発期間50%短縮",bg:"AIクリエイティブツールのRunwayはClaudeを活用し、複雑な動画生成モデルのプロンプト最適化と機能説明文の自動生成を実施。開発効率と出力品質の両立が課題であった。",method:"Claudeを使用してモデルの複雑な動作ロジックを解析し、ユーザー向けドキュメントを自動生成。プロンプトエンジニアリングタスクをClaudeに委任し、複数バリアント生成と評価を自動化。",results:["API開発ドキュメント作成時間を50%短縮", "プロンプト最適化イテレーション数を60%削減", "エラーハンドリングドキュメントの品質が向上"],flag:"",src:"https://runway.com/blog/ai-development"}
-,
-{company:"Wistia",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"ビデオ分析レポート生成90%自動化",bg:"ビデオホスティングプラットフォームのWistiaはGPT-4を導入し、ビデオ視聴分析データから自動的にインサイトレポートを生成。ユーザーの手作業レポート作成負担を軽減する必要があった。",method:"GPT-4をビデオメトリクスデータの自動解釈エンジンとして統合。視聴パターン、エンゲージメント、ドロップオフポイントから自動的にテキストサマリーと改善提案を生成。",results:["レポート生成の手作業を90%削減", "ユーザーのインサイト取得時間を75%短縮", "レポートの一貫性と正確性が向上"],flag:"",src:"https://wistia.com/blog/gpt-analytics"}
-,
-{company:"Scale AI",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"データラベリング品質向上35%",bg:"AI学習データプラットフォームのScale AIはClaudeを品質管理エンジンとして導入。複雑なラベリングタスクの自動検証と改善提案を実施し、データセット品質を向上。",method:"Claudeを使用してラベル付けされたデータの一貫性を自動チェック。矛盾や品質問題を検出し、ラベラーへの改善フィードバックを自動生成。複数バージョンの比較評価も実施。",results:["データ品質スコアが35%向上", "品質チェック処理時間を65%削減", "ラベラーのフィードバック対応時間を50%短縮"],flag:"",src:"https://scale.com/blog/claude-integration"}
-,
-{company:"Anthropic Research Team",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度向上、開発時間30%削減",bg:"Anthropicは自社のAI安全研究チームでClaudeを活用してコード生成と検証を自動化。複雑なアルゴリズム実装における生産性向上を測定。",method:"Claude APIをカスタム統合し、コード生成と品質チェックのパイプラインを構築。研究論文執筆支援にも活用。",results:["開発時間30%削減", "コード検証エラー率40%低下", "論文執筆プロセス効率化"],flag:"",src:"https://www.anthropic.com/research"}
-,
-{company:"Typeform（除外リスト確認後削除）",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"サーベイ分析の自動化、分析時間60%削減",bg:"オンラインフォーム・サーベイプラットフォームがChatGPTを活用して顧客レスポンス分析を自動化。定性データの自動カテゴリ分類と洞察抽出を実装。",method:"ChatGPT APIをデータ分析パイプラインに統合し、テキスト回答の自動分類と要約を実施。カスタムプロンプトで業界特有の用語に対応。",results:["データ分析時間60%削減", "分析精度85%以上達成", "顧客インサイト抽出の自動化"],flag:"",src:"https://www.typeform.com/blog/ai/"}
-,
-{company:"三井物産",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"業務時間を約40%削減",bg:"三井物産は営業・マーケティング部門でのAI活用を推進。顧客分析や提案資料作成などの業務を効率化する必要があった。",method:"ChatGPT APIを既存システムに統合し、営業支援ツールとして導入。複数部門でパイロット運用を実施。",results:["提案資料作成時間を40%削減", "顧客データ分析の自動化を実現", "営業生産性が25%向上"],flag:"🇯🇵",src:"https://www.mitsui.com/mgssi/en/news/"}
-,
-{company:"NTTドコモ",tool:"Gemini",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発工数を35%削減",bg:"NTTドコモはソフトウェア開発効率の向上を課題としていた。Google Geminiを活用したコード生成と品質管理の自動化に取り組んでいる。",method:"Google Geminiをコード開発パイプラインに統合し、自動コード補完とテストケース生成を実装。",results:["コード記述時間を35%削減", "バグ検出率が28%向上", "開発サイクルを2週間短縮"],flag:"🇯🇵",src:"https://www.nttdocomo.co.jp/"}
-,
-{company:"富士通",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"顧客対応時間を50%短縮",bg:"富士通は企業向けマーケティング業務の効率化を進めており、Claude APIを活用した顧客問い合わせ対応の自動化を導入。",method:"Claude APIを顧客サポートシステムに統合し、技術的な問い合わせの初期対応を自動化。人間のレビュープロセスを併用。",results:["初期対応時間を50%削減", "顧客満足度が19%向上", "サポート担当者の業務時間を30%削減"],flag:"🇯🇵",src:"https://www.fujitsu.com/jp/"}
-,
-{company:"KDDI",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"ドキュメント作成を60%高速化",bg:"KDDIは大規模なシステム開発プロジェクトにおいて、技術ドキュメント作成とコード分析の効率化が課題であった。",method:"ChatGPT Enterprise版を導入し、システム設計書や技術仕様書の自動生成、レガシーコード分析を実装。",results:["ドキュメント作成時間を60%削減", "技術仕様書の品質スコアが23%向上", "プロジェクト納期を3週間短縮"],flag:"🇯🇵",src:"https://www.kddi.com/"}
-,
-{company:"任天堂",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"テスト自動化により品質検証を45%加速",bg:"任天堂はゲーム開発におけるQA・テスト業務の効率化を目指していた。Claudeを活用したテストケース生成とバグ分析を実施。",method:"Claude APIをゲーム開発パイプラインに統合し、テストシナリオ生成とバグレポート自動分類を実装。",results:["テスト実行時間を45%短縮", "バグ検出率が32%向上", "リリース前品質保証期間を2週間削減"],flag:"🇯🇵",src:"https://www.nintendo.co.jp/"}
-,
-{company:"Khan Academy",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"練習問題の自動生成で開発工数を60%削減",bg:"教育プラットフォームにおいて、大量の練習問題作成が人的負担となっていた。スケーラビリティと品質のバランスが課題。",method:"Claudeを活用した練習問題の自動生成パイプラインを構築。教育学的妥当性を確保しつつ、問題作成の自動化を実現。",results:["開発工数を60%削減", "問題生成速度が10倍以上に高速化"],flag:"",src:"https://www.anthropic.com/customers"}
-,
-{company:"Jasper",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ作成で生産性が3倍に",bg:"マーケティングエージェンシーがクライアント案件の増加に対応するため、コンテンツ作成の効率化が急務。",method:"GPT-4統合により、ブログ記事、メールキャンペーン、ソーシャルメディア投稿を自動生成。クリエイターはレビューと編集に集中。",results:["コンテンツ作成の生産性が3倍向上", "月間マーケティングコスト30%削減"],flag:"",src:"https://www.jasper.ai/customers"}
-,
-{company:"Retool",tool:"GPT-4",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"内部ツール開発時間を70%短縮",bg:"エンタープライズ企業が社内システム開発に費やす時間が増加。開発リソースの効率化が重要課題。",method:"Retoolプラットフォーム内にGPT-4を統合。自然言語からUIコンポーネントの自動生成、データベーク連携コードの自動作成を実現。",results:["内部ツール開発時間を70%短縮", "開発チームの生産性が2.5倍に向上"],flag:"",src:"https://retool.com/blog/gpt-integration"}
-,
-{company:"Copy.ai",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"solo",highlight:"SEOコンテンツ作成で執筆時間を80%削減",bg:"フリーランスライターやSEOエージェンシーがコンテンツ制作の時間負荷に対応する必要があった。",method:"GeminiをSEOテンプレートと組み合わせ、キーワード分析からドラフト作成まで自動化。ライターは編集とファクトチェックに注力。",results:["執筆時間を80%削減", "月間コンテンツ生産量が4倍に増加"],flag:"",src:"https://copy.ai/case-studies"}
-,
-{company:"McKinsey & Company",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"コンサルタントの生産性が40%向上",bg:"McKinseyはChatGPTを導入して、戦略立案やリサーチの効率化を推進。クライアント向けの分析資料作成やアイデア出しの過程を加速させた。",method:"社内のコンサルタント向けにChatGPTへのアクセスを提供し、トレーニングプログラムを実施。プロンプトテンプレートを整備してベストプラクティスを共有。",results:["コンサルタントの生産性が約40%向上", "資料作成にかかる時間が30%削減", "クライアント提案の質が向上"],flag:"",src:"https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights"}
-,
-{company:"Freshworks",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成の精度が85%、開発速度が35%向上",bg:"Freshworksはカスタマーサポートプラットフォームの開発においてClaudeを活用。バグ修正やコード レビューを自動化し、開発チームの効率を大幅に改善。",method:"開発パイプラインにClaudeのAPIを統合。コードレビューとテスト生成を自動化するワークフローを構築。",results:["コード生成の精度が85%に達した", "開発速度が35%向上", "バグ検出率が28%改善"],flag:"",src:"https://www.freshworks.com/blog/"}
-,
-{company:"Glassdoor",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"求人広告作成時間が50%削減、応募数が22%増加",bg:"Glassdoorは企業向けの求人広告最適化にChatGPTを導入。AIを活用した求人説明文の自動生成とパーソナライズで、マッチング精度を向上。",method:"ChatGPTを使用して求人広告のテンプレート生成と最適化を行うツールを開発。複数バージョンのA/Bテストを実施。",results:["求人広告の作成時間が50%削減", "応募数が22%増加", "採用マッチング精度が向上"],flag:"",src:"https://www.glassdoor.com/research"}
-,
-{company:"Cursor",tool:"Cursor IDE",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発速度50%向上",bg:"AIアシスト機能を統合した開発環境を提供。Claude APIを活用したコード生成・補完機能で開発効率を大幅改善。複雑なコード変換タスクの自動化に対応。",method:"Claude 3モデルをIDE内に統合し、コンテキスト認識型のコード提案を実装。開発者がキーボードショートカットで即座にAIサポートを活用可能に構成。",results:["コード作成速度が50%向上", "デバッグ時間を30%短縮", "開発者の認知負荷を軽減"],flag:"",src:"https://www.cursor.com"}
-,
-{company:"Anthropic Internal Product Team",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング資料作成時間60%削減",bg:"Anthropicの内部マーケティングチームがClaude APIを活用し、キャンペーン資料やコンテンツ生成プロセスを自動化。複数言語対応のマーケティング資料作成を効率化。",method:"Claude APIをマーケティングワークフローに統合し、プロンプト設計による一貫性のあるコンテンツ生成を実現。チーム全体で標準化されたテンプレートとプロンプトを導入。",results:["資料作成時間を60%削減", "複数言語コンテンツ展開時間を短縮", "ブランドメッセージの一貫性を向上"],flag:"",src:"https://www.anthropic.com/case-studies"}
-];
+    const info=PLATFORM_INFO[platform];
     html+=`<div class="inf-platform-title" data-platform="${platform}"><span class="platform-icon ${info.iconClass}">${info.icon}</span>${info.label}<span class="count">${items.length}件</span></div>`;
     html+=`<div class="inf-grid" data-platform="${platform}">`;
     items.forEach(i=>{
       const flag=i.flag?` <span class="flag">${i.flag}</span>`:'';
       const tagsHTML=i.tags.map(t=>`<span class="inf-card-tag">${t}</span>`).join('');
-      html+=`<a href="${i.url}" target="_blank" rel="noopener" class="inf-card" style="text-decoration:none;color:inherit;">
+      const linkLabel={youtube:'YouTubeを見る',instagram:'Instagramを見る',threads:'Threadsを見る'}[i.platform]||'見る';
+      const linkClass={youtube:'yt',instagram:'ig',threads:'th'}[i.platform]||'';
+      html+=`<div class="inf-card">
         <div class="inf-card-header">
           <div><div class="inf-card-name">${i.name}${flag}</div><div class="inf-card-handle">${i.handle}</div></div>
           <div class="inf-card-followers">${i.followers}</div>
         </div>
         <div class="inf-card-desc">${i.desc}</div>
         <div class="inf-card-tags">${tagsHTML}</div>
-      </a>`;
+        <a href="${i.url}" target="_blank" rel="noopener" class="inf-card-link ${linkClass}">${linkLabel} ↗</a>
+      </div>`;
     });
     html+='</div>';
   });
   container.innerHTML=html;
 }
 
-function filterInf(val,btn){
-  infFilters.platform=val;
-  document.querySelectorAll('[data-inf-filter]').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderInfluencers();
-}
-function filterInfRegion(val,btn){
-  infFilters.region=val;
-  document.querySelectorAll('[data-inf-region]').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderInfluencers();
-}
+document.querySelectorAll('[data-inf-filter]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    infFilters.platform=this.getAttribute('data-inf-filter');
+    document.querySelectorAll('[data-inf-filter]').forEach(function(b){b.classList.remove('active');});
+    this.classList.add('active');
+    renderInfluencers();
+  });
+});
+document.querySelectorAll('[data-inf-region]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    infFilters.region=this.getAttribute('data-inf-region');
+    document.querySelectorAll('[data-inf-region]').forEach(function(b){b.classList.remove('active');});
+    this.classList.add('active');
+    renderInfluencers();
+  });
+});
 
 renderInfluencers();
 </script>
