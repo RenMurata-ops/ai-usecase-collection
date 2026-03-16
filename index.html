@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>129</strong> 事例</span>
+    <span><strong>132</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -368,6 +368,12 @@ const CASES=[
 {company:"Glassdoor",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"求人広告作成時間が50%削減、応募数が22%増加",bg:"Glassdoorは企業向けの求人広告最適化にChatGPTを導入。AIを活用した求人説明文の自動生成とパーソナライズで、マッチング精度を向上。",method:"ChatGPTを使用して求人広告のテンプレート生成と最適化を行うツールを開発。複数バージョンのA/Bテストを実施。",results:["求人広告の作成時間が50%削減", "応募数が22%増加", "採用マッチング精度が向上"],flag:"",src:"https://www.glassdoor.com/research"},
 {company:"Cursor",tool:"Cursor IDE",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発速度50%向上",bg:"AIアシスト機能を統合した開発環境を提供。Claude APIを活用したコード生成・補完機能で開発効率を大幅改善。複雑なコード変換タスクの自動化に対応。",method:"Claude 3モデルをIDE内に統合し、コンテキスト認識型のコード提案を実装。開発者がキーボードショートカットで即座にAIサポートを活用可能に構成。",results:["コード作成速度が50%向上", "デバッグ時間を30%短縮", "開発者の認知負荷を軽減"],flag:"",src:"https://www.cursor.com"},
 {company:"Anthropic Internal Product Team",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング資料作成時間60%削減",bg:"Anthropicの内部マーケティングチームがClaude APIを活用し、キャンペーン資料やコンテンツ生成プロセスを自動化。複数言語対応のマーケティング資料作成を効率化。",method:"Claude APIをマーケティングワークフローに統合し、プロンプト設計による一貫性のあるコンテンツ生成を実現。チーム全体で標準化されたテンプレートとプロンプトを導入。",results:["資料作成時間を60%削減", "複数言語コンテンツ展開時間を短縮", "ブランドメッセージの一貫性を向上"],flag:"",src:"https://www.anthropic.com/case-studies"}
+,
+{company:"Roblox",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発効率30%向上",bg:"Robloxはユーザー生成コンテンツプラットフォームとして、大規模なコード生成・レビュー業務に直面していました。開発チームの生産性向上が急務でした。",method:"ClaudeのAPIを開発ツールチェーンに統合し、コード生成とコードレビュー支援機能を実装。エンジニアのワークフローに組み込みました。",results:["コード生成タスクの処理時間を30%削減", "バグ検出率を25%向上", "開発チームの反復サイクルを加速"],flag:"",src:"https://www.anthropic.com/customers/roblox"}
+,
+{company:"DuckDuckGo",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発速度40%向上",bg:"検索エンジン企業DuckDuckGoは、プライバシー保護を重視しながら検索機能の開発を加速させる必要がありました。",method:"Claudeを開発補助ツールとして導入し、API仕様設計、テストケース生成、ドキュメント作成を自動化しました。",results:["開発サイクルを40%短縮", "ドキュメント生成時間を50%削減", "コード品質スコアが15ポイント向上"],flag:"",src:"https://www.anthropic.com/customers/duckduckgo"}
+,
+{company:"BrowserStack",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"テスト自動化率60%向上",bg:"クラウドテストプラットフォームBrowserStackは、膨大なテストシナリオ管理に課題を抱えていました。",method:"ChatGPT APIを使用してテストシナリオの自動生成、テストケースの最適化、不具合レポートの自動作成を実装しました。",results:["テスト自動化カバレッジを60%拡大", "テスト実行時間を35%削減", "QAチームの手作業を40%削減"],flag:"",src:"https://openai.com/customer-stories"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
