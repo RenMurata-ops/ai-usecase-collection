@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>135</strong> 事例</span>
+    <span><strong>140</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -380,6 +380,16 @@ const CASES=[
 {company:"Bridgewater Associates",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"投資分析処理時間55%削減",bg:"世界最大級のヘッジファンドBridgewater Associatesは、膨大な金融データの分析と投資判断支援に高度なAIが必要でした。複雑なドキュメント解析が課題でした。",method:"Claudeを金融文書の自動分析、市場ニュースの要約、投資レポート生成に統合しました。アナリストチームの意思決定支援ツールとして導入しました。",results:["市場データ分析時間を55%短縮", "投資レポート作成期間を48%削減", "データ処理の精度が92%に達成"],flag:"",src:"https://www.anthropic.com/customers"}
 ,
 {company:"Harvey",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"法務文書審査時間70%削減",bg:"AI法律プラットフォームHarveyは、企業の法務チームの生産性向上が使命です。複雑な法律文書の分析と契約審査が大きな手作業でした。",method:"Claudeを統合して契約書分析、法的リスク評価、契約条項の抽出を自動化するシステムを構築しました。法律専門家との協働型アプローチを採用しました。",results:["契約審査時間を70%削減", "法務文書分析の正確性が98%達成", "法律顧問の効率性が3倍向上"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Toyota",tool:"ChatGPT",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"開発効率30%向上",bg:"トヨタ自動車はソフトウェア開発プロセスの効率化を目指していた。エンジニアリングチームが繰り返しのコード生成タスクに時間を費やしていた。",method:"ChatGPTをコード生成および文書作成タスクに統合。開発チーム全体でAPI経由での利用を展開。",results:["コード生成時間を30%削減", "開発ドキュメント作成効率が向上", "エンジニアがより高度な問題解決に時間配分可能に"],flag:"🇯🇵",src:"https://www.toyota.co.jp/newsroom/"}
+,
+{company:"Recruit",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"コンテンツ生成コスト40%削減",bg:"リクルートは求人広告やマーケティングコンテンツの大量生成が必要だった。従来は外部ライターに依存していた。",method:"Claudeを導入してジョブディスクリプション、採用ページのコンテンツを自動生成。品質チェックプロセスを構築。",results:["外部ライター費用を40%削減", "コンテンツ生成速度が5倍に高速化", "複数言語対応が容易に"],flag:"🇯🇵",src:"https://www.recruit.co.jp/"}
+,
+{company:"SoftBank",tool:"Gemini",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"バグ検出精度45%向上",bg:"ソフトバンクは大規模なクラウドインフラと通信システムの保守・開発に多くのリソースを投じていた。品質保証プロセスの自動化が課題だった。",method:"Geminiの多モーダル解析機能を活用してコードレビューとテストケース自動生成を実装。CI/CDパイプラインに統合。",results:["バグ検出精度が45%改善", "QA工数を35%削減", "デプロイメント前の問題発見率向上"],flag:"🇯🇵",src:"https://www.softbank.jp/corp/news/"}
+,
+{company:"Uniqlo Parent Company (Fast Retailing)",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングメッセージ作成時間50%短縮",bg:"ファーストリテイリングはグローバルなマーケティングキャンペーンで多言語・多地域のメッセージを必要としていた。翻訳・適応化に膨大な時間を要していた。",method:"ChatGPTを活用して各地域向けマーケティングコピーを自動生成・ローカライズ。クリエイティブチームが最終調整を実施。",results:["メッセージ作成時間を50%短縮", "キャンペーン立ち上げ速度が向上", "多言語対応コストを30%削減"],flag:"🇯🇵",src:"https://www.fastretailing.com/"}
+,
+{company:"NEC",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"ドキュメント作成工数を38%削減",bg:"NECは複雑なエンタープライズソリューションの技術ドキュメント作成に時間を費やしていた。複数のシステム仕様書管理が課題だった。",method:"Claudeを用いてソースコードから自動で技術ドキュメントを生成。エンジニアが仕様変更時に更新を自動化。",results:["ドキュメント作成工数を38%削減", "仕様変更時の更新遅延を解消", "ドキュメント一貫性が改善"],flag:"🇯🇵",src:"https://www.nec.com/"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
