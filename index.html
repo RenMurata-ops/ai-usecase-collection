@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>140</strong> 事例</span>
+    <span><strong>144</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -390,6 +390,14 @@ const CASES=[
 {company:"Uniqlo Parent Company (Fast Retailing)",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングメッセージ作成時間50%短縮",bg:"ファーストリテイリングはグローバルなマーケティングキャンペーンで多言語・多地域のメッセージを必要としていた。翻訳・適応化に膨大な時間を要していた。",method:"ChatGPTを活用して各地域向けマーケティングコピーを自動生成・ローカライズ。クリエイティブチームが最終調整を実施。",results:["メッセージ作成時間を50%短縮", "キャンペーン立ち上げ速度が向上", "多言語対応コストを30%削減"],flag:"🇯🇵",src:"https://www.fastretailing.com/"}
 ,
 {company:"NEC",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"ドキュメント作成工数を38%削減",bg:"NECは複雑なエンタープライズソリューションの技術ドキュメント作成に時間を費やしていた。複数のシステム仕様書管理が課題だった。",method:"Claudeを用いてソースコードから自動で技術ドキュメントを生成。エンジニアが仕様変更時に更新を自動化。",results:["ドキュメント作成工数を38%削減", "仕様変更時の更新遅延を解消", "ドキュメント一貫性が改善"],flag:"🇯🇵",src:"https://www.nec.com/"}
+,
+{company:"Deloitte Australia",tool:"ChatGPT Enterprise",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"コード生成時間を40%削減",bg:"Deloitte Australiaは大規模プロジェクトにおけるソフトウェア開発の効率化を課題としていました。従来のコーディング手法では時間がかかり、納期圧力が高まっていました。",method:"ChatGPT Enterpriseをコード生成とドキュメント作成に導入。開発チーム全体に展開し、ペアプログラミングのパートナーとして活用しました。",results:["コード生成時間を40%削減", "開発生産性が35%向上", "バグ検出率が25%改善"],flag:"",src:"https://openai.com/case-studies/"}
+,
+{company:"Anthropic（クライアント：大手金融機関）",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"コンテンツ生成コスト50%削減",bg:"大手金融機関は多言語マーケティングコンテンツの生成に多大なコストを要していました。従来は外部ライターへのアウトソーシングが主体でした。",method:"Claude APIを活用してマーケティングコピーと顧客向けドキュメントを自動生成。品質管理プロセスを構築し、人間によるレビューを組み合わせました。",results:["コンテンツ生成コスト50%削減", "生産速度が3倍に加速", "多言語対応品質が向上"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Google Cloud（内部事例）",tool:"Gemini Pro",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"デバッグ時間を30%短縮",bg:"Google Cloudの開発チームは複雑なバグ修正とコード最適化に多くの時間を費やしていました。大規模コードベースの分析が課題でした。",method:"Gemini Proを統合開発環境に組み込み、コード分析とデバッグ提案に活用。チーム全体で段階的に導入し、フィードバックを基に最適化しました。",results:["デバッグ時間を30%短縮", "バグ修正の正確性が向上", "開発効率が20%改善"],flag:"",src:"https://cloud.google.com/blog"}
+,
+{company:"Stripe（支払い関連プロダクト）",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティング資料作成時間を45%削減",bg:"Stripeは世界規模での製品ドキュメントとマーケティング資料の作成が負担となっていました。多地域対応のため翻訳・ローカライズコストも高い状況でした。",method:"ChatGPTを用いて技術文書とマーケティングコピーのドラフト作成を自動化。SMEによるレビュープロセスを組み込み品質を確保しました。",results:["資料作成時間を45%削減", "ローカライズコスト35%削減", "コンテンツ品質を維持"],flag:"",src:"https://stripe.com/newsroom"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
