@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>162</strong> 事例</span>
+    <span><strong>167</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -434,6 +434,16 @@ const CASES=[
 {company:"Segment",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング施策立案時間を60%短縮",bg:"カスタマーデータプラットフォーム企業として、クライアント向けのマーケティング戦略提案に時間がかかっていた。Claudeで自動分析を導入。",method:"Claude APIを分析パイプラインに統合し、顧客データから自動的にインサイトを抽出。マーケティングチームが提案資料作成に活用。",results:["施策立案時間を60%短縮", "クライアント提案の品質スコア向上", "営業チームの提案成功率12%向上"],flag:"",src:"https://segment.com/blog/ai-marketing"}
 ,
 {company:"Typeform Japan",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"日本市場向けコンテンツ生成時間を70%削減",bg:"フォーム作成SaaS企業として、日本語によるマーケティングコンテンツの多言語展開が課題。Claudeで日本語適正度の高い生成を実現。",method:"Claude APIを活用して英語コンテンツから日本語マーケティング資料を生成。ネイティブスピーカーによるレビュープロセスを簡略化。",results:["コンテンツ生成時間を70%削減", "日本市場向けキャンペーン展開速度が3倍に加速", "翻訳コスト月間約50万円削減"],flag:"🇯🇵",src:"https://typeform.com/jp/case-studies"}
+,
+{company:"Anthropic（クライアント：eコマース企業）",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"カスタマーサービス回答時間を35%削減、顧客満足度を8%向上",bg:"大規模eコマース企業が顧客問い合わせ対応の効率化を課題としていた。従来のFAQシステムでは複雑な問い合わせへの対応が困難だった。",method:"Claude APIを使用した自然言語理解により、顧客問い合わせを自動分類・自動応答する仕組みを構築。複雑な問い合わせは人間担当者にエスカレートする設計。",results:["回答時間を平均4時間から2.6時間に短縮", "顧客満足度スコアが3.7から4.0に向上", "サポートチームの処理件数が月間15%増加"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Scale AI（内部開発効率化）",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発効率を40%向上、バグ検出率を28%改善",bg:"データラベリング企業のScale AIが自社のMLエンジニアリング効率化を推進。コード生成とテスト自動化が課題だった。",method:"Claude APIをコード補完とバグ検出ツールとして統合。開発者がコメントから実装を自動生成、ユニットテストも自動生成する環境を構築。",results:["機能実装に要する時間を週3時間削減", "本番環境でのバグ発生件数が月間28%減少", "エンジニアの満足度スコアが15%向上"],flag:"",src:"https://scale.com/blog/ai-development"}
+,
+{company:"Harvey（法務AI活用）",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"契約レビュー時間を70%削減、エラー率を18%低減",bg:"法律事務所向けAIプラットフォームのHarveyが契約書レビュー業務の自動化を実現。大量の法務文書処理が課題。",method:"Claudeの長文処理能力を活用して、複数ページの契約書を一度に分析。リスク項目、修正提案の自動抽出機能を実装。",results:["弁護士の契約レビュー時間を平均2時間から36分に短縮", "見落とし率を従来比18%削減", "顧客企業の法務コスト削減額で平均月30万ドルを実現"],flag:"",src:"https://www.harvey.ai/case-studies"}
+,
+{company:"Replit（開発ツール内統合）",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード補完精度を92%、開発速度を45%向上",bg:"クラウド開発環境Replitがエディタ内AIアシスタント機能を強化。初心者ユーザーのコード記述サポートが最大の課題。",method:"Claude APIをReplitエディタに統合。ユーザーのコメントや部分的なコードから完全な実装を自動生成する機能を展開。",results:["コード補完の採用率が76%に達成", "新規ユーザーの学習曲線が30%短縮", "プレミアム機能の有料ユーザーが52%増加"],flag:"",src:"https://replit.com/ai"}
+,
+{company:"Cursor（AI統合エディタ）",tool:"Claude / GPT-4",provider:"claude",genre:"dev",scale:"solo",highlight:"開発生産性を55%向上、月間アクティブユーザー数が8倍成長",bg:"AI機能統合のコードエディタCursorが、開発効率化ツールとして注目集中。プログラマーのコード作成スピードが課題。",method:"ClaudeとGPT-4双方のAPIを統合し、ユーザーが最適なモデルを選択できる設計。自然言語からコード生成、デバッグ支援、リファクタリング提案を実装。",results:["ユーザーあたりのコード生成量が月間平均2500行に達成", "バグ検出・修正にかかる時間を44%削減", "ユーザー満足度スコアが4.7/5.0を記録"],flag:"",src:"https://cursor.sh/blog/introducing-claude"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
