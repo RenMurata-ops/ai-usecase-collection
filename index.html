@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>159</strong> 事例</span>
+    <span><strong>162</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -428,6 +428,12 @@ const CASES=[
 {company:"OpenAI（API利用企業：SaaS企業）",tool:"GPT-4 API",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"API統合による機能開発を55%加速",bg:"複数のSaaS企業がAIベースの機能をプロダクトに組み込む必要がありました。内製開発では時間とコストが膨大になるという課題がありました。",method:"GPT-4 APIをプロダクトの核となるAI機能として統合しました。APIキー管理、レート制限、エラーハンドリングを実装し、ユーザーに透過的なAI機能を提供しました。",results:["機能開発期間を55%短縮", "開発コストを40%削減", "ユーザー満足度が42%向上"],flag:"",src:"https://openai.com/enterprise"}
 ,
 {company:"Perplexity AI（検索マーケティング利用企業）",tool:"Perplexity API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"マーケットリサーチ時間を70%削減",bg:"マーケティング戦略立案に必要なリサーチが時間集約的でした。複数の情報源から最新のトレンド情報を収集・分析するプロセスが非効率でした。",method:"Perplexity APIを使用して、リアルタイムWeb検索と情報統合の自動化ワークフローを構築しました。市場分析レポート作成を自動化し、インサイト抽出を加速しました。",results:["リサーチ時間を70%削減", "競合分析レポートの更新頻度を週1回に高速化", "意思決定の速度が3倍向上"],flag:"",src:"https://www.perplexity.ai/business"}
+,
+{company:"GitLab",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"ドキュメント生成時間を75%削減",bg:"GitLabはAPIドキュメントとリリースノートの生成に多大な時間を要していた。Claudeを導入して自動生成プロセスを構築。",method:"Claude APIを使用してコードコメントから自動的にドキュメントを生成するワークフローを構築。QAチームによる検証プロセスを組み込み。",results:["ドキュメント生成時間を75%削減", "月間30時間の作業時間を解放", "ドキュメント品質スコア改善（一貫性向上）"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Segment",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング施策立案時間を60%短縮",bg:"カスタマーデータプラットフォーム企業として、クライアント向けのマーケティング戦略提案に時間がかかっていた。Claudeで自動分析を導入。",method:"Claude APIを分析パイプラインに統合し、顧客データから自動的にインサイトを抽出。マーケティングチームが提案資料作成に活用。",results:["施策立案時間を60%短縮", "クライアント提案の品質スコア向上", "営業チームの提案成功率12%向上"],flag:"",src:"https://segment.com/blog/ai-marketing"}
+,
+{company:"Typeform Japan",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"日本市場向けコンテンツ生成時間を70%削減",bg:"フォーム作成SaaS企業として、日本語によるマーケティングコンテンツの多言語展開が課題。Claudeで日本語適正度の高い生成を実現。",method:"Claude APIを活用して英語コンテンツから日本語マーケティング資料を生成。ネイティブスピーカーによるレビュープロセスを簡略化。",results:["コンテンツ生成時間を70%削減", "日本市場向けキャンペーン展開速度が3倍に加速", "翻訳コスト月間約50万円削減"],flag:"🇯🇵",src:"https://typeform.com/jp/case-studies"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
