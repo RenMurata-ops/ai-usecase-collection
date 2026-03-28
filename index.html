@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>190</strong> 事例</span>
+    <span><strong>195</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -490,6 +490,16 @@ const CASES=[
 {company:"Boulton & Watt Digital",tool:"Claude",provider:"claude",genre:"dev",scale:"solo",highlight:"開発速度3倍向上、コード品質スコア30%向上",bg:"独立系ソフトウェア開発者。大規模プロジェクトの開発効率化が課題。複雑なアルゴリズム実装の時間短縮が必要。",method:"Claudeを使用してコード設計レビュー、テストケース生成、デバッグ支援を実施。日々の開発フローに組み込み、反復改善を継続。",results:["開発速度が3倍向上", "コード品質スコア30%向上", "バグ修正に要する時間を50%削減"],flag:"",src:"https://www.anthropic.com/customers"}
 ,
 {company:"Axion Research",tool:"Gemini 1.5 Pro",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"複雑なデータセット分析時間を75%削減",bg:"研究開発企業。大量の学術論文とデータの分析に膨大な時間を要していた。AI活用による分析加速化が重要課題。",method:"Gemini 1.5 Proの大規模コンテキスト窓口（200万トークン）を活用し、複数の論文・データセットを同時分析。パターン抽出と洞察生成を自動化。",results:["データセット分析時間を75%削減", "研究開発サイクルを2ヶ月短縮", "論文執筆準備時間を60%削減"],flag:"",src:"https://blog.google/technology/ai/gemini-1-5-pro-and-gemini-1-5-flash-move-to-general-availability/"}
+,
+{company:"Anthropic（クライアント：物流企業）",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"ドキュメント処理時間を70%削減",bg:"複雑な物流ドキュメントの処理に多くの人的リソースが割かれていた。納期短縮と精度向上が課題であった。",method:"ClaudeのAPIを既存システムに統合し、自動文書分類・データ抽出パイプラインを構築。エラー検出機能も組み込んだ。",results:["処理時間70%削減", "ドキュメント処理エラー率45%低下", "年間250万ドル以上のコスト削減"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Perplexity AI（クライアント：マーケットリサーチ企業）",tool:"Perplexity API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"リサーチレポート作成時間を60%短縮",bg:"市場調査レポートの作成に週単位の時間が必要。情報収集から分析まで複数チームの協業が必要だった。",method:"Perplexity APIを使用した自動情報収集システムを導入。リアルタイム検索と情報統合機能で効率化。",results:["レポート作成時間60%短縮", "情報の鮮度が向上（最新データ反映時間を3日から8時間に短縮）", "リサーチャーの生産性30%向上"],flag:"",src:"https://www.perplexity.ai/hub"}
+,
+{company:"Runway（クライアント：映像制作企業）",tool:"Runway Gen-3",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"ビデオ編集時間を50%削減",bg:"高品質な映像制作には多くの編集時間が必要。色補正やエフェクト作成に専門技術者の工数が多大であった。",method:"RunwayのAIビデオ編集機能を導入。自動カラーグレーディングと特殊効果生成パイプラインを構築。",results:["編集時間50%削減", "プロジェクトスループット40%増加", "制作コスト35%削減"],flag:"",src:"https://runway.com/enterprise"}
+,
+{company:"Retool（クライアント：金融技術企業）",tool:"Retool + Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"内部ツール開発時間を65%短縮",bg:"社内用のデータ処理ツール開発に数週間を要していた。ノーコード/ローコードアプローチが検討されていた。",method:"RetoolにClaudeを統合し、AIアシスト機能でコンポーネント生成を自動化。UIロジック開発を加速。",results:["ツール開発時間65%短縮", "開発チームのベロシティ50%向上", "バグ率25%低下"],flag:"",src:"https://retool.com/customers"}
+,
+{company:"DeepL（クライアント：SaaS翻訳サービス企業）",tool:"DeepL API Pro",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"多言語マーケティング資料作成を55%高速化",bg:"グローバル展開に伴い、複数言語でのマーケティング資料作成が課題。翻訳品質と作成スピードの両立が必要。",method:"DeepL APIを内部マーケティングワークフローに統合。自動翻訳と品質チェック機能により制作フロー を最適化。",results:["資料作成時間55%短縮", "翻訳品質スコア92%（従来85%）", "対応言語を12から24に拡大"],flag:"",src:"https://www.deepl.com/ja/enterprise"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
