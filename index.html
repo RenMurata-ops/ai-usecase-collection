@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>200</strong> 事例</span>
+    <span><strong>203</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -510,6 +510,12 @@ const CASES=[
 {company:"OpenAI（クライアント：SaaS企業D）",tool:"GPT-4 API",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"コード生成効率65%向上",bg:"SaaS企業が開発生産性の向上を目指していた。ルーチン的なコーディングタスクに開発リソースが割かれており、新機能開発に支障が出ていた。",method:"GPT-4 APIをIDEプラグインとして統合。社内コードベースとドキュメントで自社ファインチューニング。",results:["コード生成効率65%向上", "バグ検出率改善により本番障害32%削減", "開発スプリント完成度88%達成"],flag:"",src:"https://openai.com/enterprise/customers"}
 ,
 {company:"Google Cloud（マーケティング自動化企業E）",tool:"Gemini API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"キャンペーン最適化期間50%短縮",bg:"マーケティング自動化プラットフォーム企業がA/Bテスト最適化に多くの手作業を要していた。テスト結果の分析と提案に時間を要していた。",method:"Gemini APIをキャンペーン管理画面に統合。テスト結果の自動分析と最適化提案を実装。",results:["最適化期間50%短縮", "キャンペーンCPA平均20%低減", "プラットフォームユーザーのROI向上平均18%"],flag:"",src:"https://cloud.google.com/customers"}
+,
+{company:"Anthropic（クライアント：大手小売企業）",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング分析精度が40%向上",bg:"大手小売企業がClaudeを活用して顧客分析とセグメンテーションを自動化。従来の手作業による分析プロセスを大幅に効率化することを目指していた。",method:"Claude APIを社内マーケティング分析ツールに統合。顧客データの分析と戦略立案支援に活用。",results:["分析処理時間を60%削減", "マーケティング施策の精度が40%向上", "チームの分析業務工数を半減"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Google Cloud（クライアント：SaaS企業）",tool:"Vertex AI Generative AI",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発サイクル時間が35%短縮",bg:"クラウドベースのSaaS企業が、複雑なAPIドキュメント生成とコード最適化を自動化したい課題を抱えていた。",method:"Vertex AIのGenerative AIモデルをCI/CDパイプラインに統合。コード生成とドキュメント自動作成に活用。",results:["開発サイクル時間35%短縮", "ドキュメント生成作業を80%自動化", "コードレビュー時間25%削減"],flag:"",src:"https://cloud.google.com/customers"}
+,
+{company:"OpenAI（クライアント：金融技術企業）",tool:"GPT-4 API",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"顧客対応コスト40%削減",bg:"フィンテック企業が、カスタマーサポートと金融商品説明の自動化を通じて運用コスト削減を目指していた。",method:"GPT-4 APIを顧客対応チャットボットに統合。マルチランゲージ対応の金融相談対応を実装。",results:["サポート対応コスト40%削減", "顧客満足度が32%向上", "対応可能な問い合わせ件数が3倍に増加"],flag:"",src:"https://openai.com/customers"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
