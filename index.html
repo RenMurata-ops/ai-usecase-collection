@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>203</strong> 事例</span>
+    <span><strong>208</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -516,6 +516,16 @@ const CASES=[
 {company:"Google Cloud（クライアント：SaaS企業）",tool:"Vertex AI Generative AI",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"開発サイクル時間が35%短縮",bg:"クラウドベースのSaaS企業が、複雑なAPIドキュメント生成とコード最適化を自動化したい課題を抱えていた。",method:"Vertex AIのGenerative AIモデルをCI/CDパイプラインに統合。コード生成とドキュメント自動作成に活用。",results:["開発サイクル時間35%短縮", "ドキュメント生成作業を80%自動化", "コードレビュー時間25%削減"],flag:"",src:"https://cloud.google.com/customers"}
 ,
 {company:"OpenAI（クライアント：金融技術企業）",tool:"GPT-4 API",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"顧客対応コスト40%削減",bg:"フィンテック企業が、カスタマーサポートと金融商品説明の自動化を通じて運用コスト削減を目指していた。",method:"GPT-4 APIを顧客対応チャットボットに統合。マルチランゲージ対応の金融相談対応を実装。",results:["サポート対応コスト40%削減", "顧客満足度が32%向上", "対応可能な問い合わせ件数が3倍に増加"],flag:"",src:"https://openai.com/customers"}
+,
+{company:"Typeface",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ生成時間を75%削減",bg:"Typefaceは企業向けのAIマーケティングアシスタントプラットフォームです。Claude APIを活用してエンタープライズクライアント向けのコンテンツ生成機能を強化しました。",method:"Claude APIをプラットフォームに統合し、複数言語でのブランドボイス維持しながらコンテンツを生成。カスタムプロンプトエンジニアリングにより企業固有のトーンを学習させました。",results:["マーケティングコンテンツ生成時間を75%削減", "複数言語対応でグローバル展開加速", "エンタープライズクライアントの導入数3倍増加"],flag:"",src:"https://www.anthropic.com/case-studies"}
+,
+{company:"Cursor（開発者向けエディタ）",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発速度を40%向上、デバッグ時間50%短縮",bg:"CursorはAI統合開発エディタとして、Claude AIを主要なコード補完エンジンとして採用しました。複雑なコード生成とリファクタリングタスクに特化しています。",method:"ClaudeのAPIをエディタに統合し、コンテキスト認識コード生成機能を実装。開発者のコーディングワークフロー全体でAIアシスタンスを提供する仕組みを構築しました。",results:["開発速度40%向上", "デバッグ時間50%短縮", "ユーザー満足度スコア9.2/10を達成"],flag:"",src:"https://cursor.sh/"}
+,
+{company:"Airtable",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"API統合開発時間を60%削減",bg:"Airtableはノーコード/ローコードプラットフォームで、Claude APIを活用してAI駆動の自動化機能を拡張しました。企業のワークフロー自動化をより簡単にしています。",method:"Claude APIを使用して自然言語ベースのオートメーション機能を開発。ユーザーが複雑なロジックをテキストで指定できるインターフェースを実装しました。",results:["API統合開発時間を60%削減", "ノーコード自動化の複雑性を大幅低減", "エンタープライズ向けオートメーション利用率35%増加"],flag:"",src:"https://www.anthropic.com/case-studies"}
+,
+{company:"Copilot Labs（ロボティクス企業）",tool:"Gemini API",provider:"gemini",genre:"dev",scale:"enterprise",highlight:"ロボット制御コード生成時間を55%短縮",bg:"ロボティクス関連企業がGoogle Gemini APIを活用してロボット制御ソフトウェアの開発生産性を向上させました。複雑なロボット動作プログラミングをAI支援により効率化しています。",method:"Gemini APIを開発環境に統合し、自然言語ベースのロボット制御コード生成機能を実装。複数のロボットフレームワークに対応するプロンプトを開発しました。",results:["制御コード生成時間55%短縮", "開発者生産性45%向上", "ロボット開発案件の納期短縮率40%"],flag:"",src:"https://cloud.google.com/gemini/docs/case-studies"}
+,
+{company:"Marketing Analytics Firm X",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティング分析レポート生成時間を70%削減",bg:"中規模マーケティング分析企業がOpenAI GPT-4を活用して、クライアント向けの複雑なマーケティングレポート自動生成システムを構築しました。",method:"GPT-4 APIをデータ分析パイプラインに統合。複数データソースからの自動インサイト抽出と、ナラティブレポート生成機能を実装しました。",results:["レポート生成時間70%削減", "クライアント満足度スコア8.8/10", "アナリスト人時間を月50時間削減"],flag:"",src:"https://openai.com/customer-stories"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
