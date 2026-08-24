@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>219</strong> 事例</span>
+    <span><strong>224</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -548,6 +548,16 @@ const CASES=[
 {company:"Ramp",tool:"GPT-4",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"営業生産性38%向上",bg:"Rampはコスト管理プラットフォームを提供。営業チームの提案資料作成に時間がかかっていた。",method:"GPT-4をCRMシステムに統合し、顧客データから自動で営業提案資料を生成。",results:["営業提案作成時間60%削減", "営業生産性38%向上", "提案承認率22%改善"],flag:"",src:"https://ramp.com/blog"}
 ,
 {company:"Lattice",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"HR業務時間35%削減",bg:"Latticeは人事管理プラットフォームを提供。従業員評価データの分析・レポート作成が手作業で負担が大きかった。",method:"Claude APIを評価分析エンジンとして実装し、評価フィードバックと人事インサイト生成を自動化。",results:["評価作成時間35%削減", "フィードバック品質32%向上", "管理者の実務時間28%短縮"],flag:"",src:"https://lattice.com/blog"}
+,
+{company:"Anthropic（クライアント：医療診断企業）",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"診断精度95.8%、処理時間60%削減",bg:"医療画像解析と診断レポート生成に時間がかかっていた。Claudeの高度な推論能力を活用して、医療専門家の意思決定支援システムを構築。",method:"Claude APIをバックエンド統合し、医学文献と患者データを組み合わせたプロンプトエンジニアリング。専門家チームとの検証ループを実施。",results:["診断精度が92.1%から95.8%に上昇", "レポート生成時間を60%削減", "医師の1日の処理患者数を35%増加"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"OpenAI（クライアント：SaaS企業C）",tool:"GPT-4 API",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"顧客獲得コスト45%削減、キャンペーン制作時間70%削減",bg:"マーケティングチームが手作業でセグメンテーションとパーソナライズされたキャンペーン制作に大量の時間を費やしていた。GPT-4を活用して自動化を進めた。",method:"GPT-4 APIと顧客データベースを統合し、リアルタイムのセグメント分析と動的コンテンツ生成パイプラインを構築。A/Bテストで最適プロンプトを特定。",results:["キャンペーン制作時間が70%短縮", "顧客獲得コストが45%削減", "メールキャンペーンの開封率が28%上昇"],flag:"",src:"https://openai.com/customers"}
+,
+{company:"Google（内部YouTube Creator Studio）",tool:"Gemini API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"動画企画時間50%削減、視聴者エンゲージメント23%向上",bg:"YouTubeクリエイターが視聴者トレンド分析と動画アイデア企画に多くの時間を必要としていた。Geminiを統合して内部ツール化した。",method:"Gemini APIを使用して視聴データからトレンドを自動抽出し、パーソナライズされた企画提案を生成。複数のトレンドキーワードの組み合わせ分析を実装。",results:["企画段階での時間が50%削減", "推奨される動画企画の採用率が42%", "視聴者エンゲージメント率が23%向上"],flag:"",src:"https://blog.google/products/gemini/gemini-for-developers"}
+,
+{company:"Mistral AI（クライアント：マーケティング分析企業B）",tool:"Mistral Large",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"データ分析レポート生成時間65%削減、月間コスト30%削減",bg:"マーケットリサーチ企業が複数のソースから大量の定性データを分析し、レポートに落とし込む作業で人的リソースを消費していた。",method:"Mistral Largeを活用して非構造化テキストデータの自動分析とインサイト抽出パイプラインを構築。フランス語・英語の多言語対応を実装。",results:["レポート生成時間を65%削減", "API利用コストが30%低減", "分析の一貫性スコアが88%に向上"],flag:"",src:"https://mistral.ai/news/announcing-mistral-large"}
+,
+{company:"Replit（内部開発効率化）",tool:"Ghostwriter（Claude統合）",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度92%、開発サイクル40%短縮",bg:"Replitはコード実行プラットフォームとして、ユーザーの開発効率を向上させる機能が必要だった。Claudeを統合したGhostwriter機能を実装。",method:"Claude APIを直接プラットフォームに統合し、文脈認識型のコード補完とバグ修正提案を提供。マルチ言語対応で18言語をサポート。",results:["コード補完の採用率が68%", "バグ修正提案の正確性が92%", "ユーザーの平均開発時間が40%短縮"],flag:"",src:"https://replit.com/site/ghostwriter"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
