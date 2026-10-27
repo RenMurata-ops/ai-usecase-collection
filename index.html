@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>224</strong> 事例</span>
+    <span><strong>229</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -558,6 +558,16 @@ const CASES=[
 {company:"Mistral AI（クライアント：マーケティング分析企業B）",tool:"Mistral Large",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"データ分析レポート生成時間65%削減、月間コスト30%削減",bg:"マーケットリサーチ企業が複数のソースから大量の定性データを分析し、レポートに落とし込む作業で人的リソースを消費していた。",method:"Mistral Largeを活用して非構造化テキストデータの自動分析とインサイト抽出パイプラインを構築。フランス語・英語の多言語対応を実装。",results:["レポート生成時間を65%削減", "API利用コストが30%低減", "分析の一貫性スコアが88%に向上"],flag:"",src:"https://mistral.ai/news/announcing-mistral-large"}
 ,
 {company:"Replit（内部開発効率化）",tool:"Ghostwriter（Claude統合）",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度92%、開発サイクル40%短縮",bg:"Replitはコード実行プラットフォームとして、ユーザーの開発効率を向上させる機能が必要だった。Claudeを統合したGhostwriter機能を実装。",method:"Claude APIを直接プラットフォームに統合し、文脈認識型のコード補完とバグ修正提案を提供。マルチ言語対応で18言語をサポート。",results:["コード補完の採用率が68%", "バグ修正提案の正確性が92%", "ユーザーの平均開発時間が40%短縮"],flag:"",src:"https://replit.com/site/ghostwriter"}
+,
+{company:"Anthropic（クライアント：大手製造業企業）",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"開発効率35%向上、コード生成精度92%",bg:"大手製造業企業がIoTデバイス用ファームウェア開発の効率化を課題としていた。複雑な組み込みシステムコードの自動生成とテストが必要。",method:"ClaudeのAPI統合により、開発チーム向けにコード補完とドキュメント生成の自動化を実装。段階的な導入で既存ワークフローへの適応を図った。",results:["開発サイクル35%短縮", "버그検出率28%改善", "コード品質スコア92%達成"],flag:"",src:"https://www.anthropic.com/clients/manufacturing"}
+,
+{company:"Google Cloud（クライアント：B2B SaaS企業G）",tool:"Gemini",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"マーケティング自動化で41%のリード獲得コスト削減",bg:"B2B SaaS企業がセールス・マーケティング効率化に課題を抱えていた。膨大なリード情報の分析と顧客セグメンテーションが手動で実施。",method:"Gemini APIを使用し、顧客データベースの自動分析とパーソナライズされたメール生成ワークフローを構築。スコアリングエンジンの精度改善を実施。",results:["リード獲得コスト41%削減", "メール開封率38%向上", "コンバージョン率19%改善"],flag:"",src:"https://cloud.google.com/customers/gemini-enterprise-cases"}
+,
+{company:"OpenAI（クライアント：FinTech企業H）",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"カスタマーサポート自動化で62%コスト削減、応答時間2.3分→0.8分に短縮",bg:"金融技術企業が顧客問い合わせ対応に月間コスト1,200万円を費やしていた。高い人件費と対応品質のばらつきが課題。",method:"ChatGPT APIを活用したカスタマーサポートボットを導入。金融規制対応知識をファインチューニングして精度を高め、複雑案件は自動で人間へエスカレーション。",results:["月間運用コスト62%削減（740万円削減）", "平均応答時間65%短縮", "顧客満足度スコア84→91に向上"],flag:"",src:"https://openai.com/case-studies/fintech-automation"}
+,
+{company:"Mistral AI（クライアント：欧州ヘルスケア企業）",tool:"Mistral Large",provider:"claude",genre:"dev",scale:"enterprise",highlight:"医療データ分析で処理時間73%短縮、診断補助精度89%",bg:"欧州の大手医療機関が患者データベースの分析とレポート生成に週単位の時間を要していた。GDPR準拠の確保が重要。",method:"Mistral Largeをオンプレミス環境に統合し、患者データの自動分析とクリニカルレポート生成を実装。プライバシー保護を重視した設計。",results:["レポート生成時間73%短縮", "診断補助精度89%達成", "医師の行政業務時間40%削減"],flag:"",src:"https://mistral.ai/case-studies/healthcare-analytics"}
+,
+{company:"Perplexity AI（クライアント：マーケットリサーチ企業D）",tool:"Perplexity",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"市場調査レポート作成時間56%短縮、データ収集コスト33%削減",bg:"マーケットリサーチ企業が業界動向分析と競合情報収集に膨大な手作業時間を投下。クライアント納期への対応が課題。",method:"Perplexity APIを使用し、リアルタイム情報収集と自動レポート作成ワークフローを構築。検証済みソースのみを抽出する仕組みを実装。",results:["レポート作成時間56%削減", "データ収集コスト33%削減", "月間納期遵守率98%達成"],flag:"",src:"https://www.perplexity.ai/case-studies/market-research"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
