@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>229</strong> 事例</span>
+    <span><strong>234</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -568,6 +568,16 @@ const CASES=[
 {company:"Mistral AI（クライアント：欧州ヘルスケア企業）",tool:"Mistral Large",provider:"claude",genre:"dev",scale:"enterprise",highlight:"医療データ分析で処理時間73%短縮、診断補助精度89%",bg:"欧州の大手医療機関が患者データベースの分析とレポート生成に週単位の時間を要していた。GDPR準拠の確保が重要。",method:"Mistral Largeをオンプレミス環境に統合し、患者データの自動分析とクリニカルレポート生成を実装。プライバシー保護を重視した設計。",results:["レポート生成時間73%短縮", "診断補助精度89%達成", "医師の行政業務時間40%削減"],flag:"",src:"https://mistral.ai/case-studies/healthcare-analytics"}
 ,
 {company:"Perplexity AI（クライアント：マーケットリサーチ企業D）",tool:"Perplexity",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"市場調査レポート作成時間56%短縮、データ収集コスト33%削減",bg:"マーケットリサーチ企業が業界動向分析と競合情報収集に膨大な手作業時間を投下。クライアント納期への対応が課題。",method:"Perplexity APIを使用し、リアルタイム情報収集と自動レポート作成ワークフローを構築。検証済みソースのみを抽出する仕組みを実装。",results:["レポート作成時間56%削減", "データ収集コスト33%削減", "月間納期遵守率98%達成"],flag:"",src:"https://www.perplexity.ai/case-studies/market-research"}
+,
+{company:"Anthropic（クライアント：ヘルスケアデータ分析企業）",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"医療データ処理速度35%向上、エラー率12%削減",bg:"大規模医療データセットの処理に時間がかかり、臨床意思決定が遅延していた。複数の医療システムからのデータ統合が課題だった。",method:"ClaudeのAPIを使用してマルチモーダルデータ処理パイプラインを構築。医療専門用語の自動抽出と正規化を実装した。",results:["データ処理パイプラインの実行時間が35%短縮", "医療記録の解析精度が88%から96%に向上", "運用コストが12%削減"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"OpenAI（クライアント：企業向けAIトレーニング企業）",tool:"GPT-4 API",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ生成速度6倍高速化、作成コスト60%削減",bg:"多言語マーケティングキャンペーンの展開に人的リソースが不足していた。各言語でのローカライズに時間と費用がかかっていた。",method:"GPT-4を用いたマルチ言語コンテンツ生成パイプラインを構築。ブランドガイドラインをプロンプトに組み込み、一貫性を確保した。",results:["マーケティング資料の作成時間が80時間から13時間に短縮", "翻訳・ローカライズコストが60%削減", "キャンペーン展開速度が6倍向上"],flag:"",src:"https://openai.com/customer-stories"}
+,
+{company:"Google Cloud（クライアント：デジタルマーケティングプラットフォーム企業）",tool:"Gemini for Enterprise",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"キャンペーン最適化時間70%削減、ROAS 28%向上",bg:"広告キャンペーンのA/Bテストと最適化に膨大な時間を要していた。データ分析スキルが限定的なマーケターが意思決定に苦慮していた。",method:"Gemini for Enterpriseを用いたキャンペーン分析の自動化。過去のパフォーマンスデータに基づいた推奨事項の生成を実装した。",results:["キャンペーン最適化分析に要する時間が70%短縮", "推奨施策の採用率が73%に達成", "平均ROASが3.2から4.1に向上（28%改善）"],flag:"",src:"https://cloud.google.com/solutions/generative-ai-marketing"}
+,
+{company:"Mistral AI（クライアント：EUベースのマーケットリサーチ企業）",tool:"Mistral Large",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"市場調査レポート作成時間55%短縮、分析精度92%達成",bg:"複数の市場データソースから洞察を抽出する作業が手動中心であった。多言語データの処理に特に時間がかかっていた。",method:"Mistral Large APIでマルチソースデータの自動分析パイプライン構築。業界別テンプレートを用いた構造化レポート生成を実装。",results:["レポート作成時間が11日から5日に短縮", "データ抽出精度が92%で産業水準を上回る", "年間作成経費が€180,000削減"],flag:"",src:"https://mistral.ai/news/announcing-mistral-large/"}
+,
+{company:"Perplexity AI（クライアント：スタートアップ向けビジネスインテリジェンス企業）",tool:"Perplexity Pro API",provider:"gemini",genre:"mkt",scale:"solo",highlight:"市場調査効率320%向上、ライティング時間75%削減",bg:"ソロプレナーマーケターが競合分析と業界トレンドリサーチに1日8時間以上を費やしていた。情報の鮮度と正確性が課題だった。",method:"Perplexity APIとリアルタイムウェブ検索を統合。独自の競合分析テンプレートを作成し、自動レポート生成を実現した。",results:["競合分析の完了時間が8時間から1.5時間に短縮", "市場調査効率が320%向上", "週間ライティング負荷が75%削減、創造的業務に時間を配分可能に"],flag:"",src:"https://www.perplexity.ai/hub"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
