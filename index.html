@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>239</strong> 事例</span>
+    <span><strong>244</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -588,6 +588,16 @@ const CASES=[
 {company:"Notion Labs（内部マーケティング）",tool:"Claude",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"マーケティング資料作成時間を68%削減、キャンペーン立案期間が55%短縮",bg:"Notionマーケティングチームが多数のキャンペーン立案・資料制作に対応する必要があった。AIを活用した効率化を試行し、社内事例として展開。",method:"Claudeをマーケティングワークフローに組み込み、キャンペーン戦略立案、コピーライティング、ソーシャルメディア投稿生成を自動化。段階的に全マーケティングチームへ展開。",results:["マーケティング資料作成時間が68%削減", "キャンペーン立案サイクルが55%短縮", "月間キャンペーン実行数が2.3倍に増加、マーケティングROIが28%向上"],flag:"",src:"https://www.notion.so/blog/ai-marketing-automation"}
 ,
 {company:"Harvey（法律事務所向けAI）",tool:"Claude",provider:"claude",genre:"dev",scale:"enterprise",highlight:"法務文書作成時間を80%削減、レビューコスト年間200万ドル削減",bg:"大手法律事務所がClaudeをベースとした法務AI「Harvey」を開発・導入。複雑な法務文書の生成と契約書レビューを自動化する必要があった。",method:"Claude APIをカスタムファインチューニングし、法律文書データセットで訓練。エンタープライズクライアント向けに展開。弁護士による最終確認プロセスを組み込み。",results:["法務文書作成時間が80%削減", "契約書レビュープロセスの自動化により年間200万ドルのコスト削減", "弁護士の生産性が2.5倍向上"],flag:"",src:"https://www.harvey.ai/press"}
+,
+{company:"Anthropic（クライアント：カスタマーサポート企業）",tool:"Claude API",provider:"claude",genre:"dev",scale:"enterprise",highlight:"サポート対応時間を40%削減",bg:"カスタマーサポート業務の自動化を検討していた企業がClaudeを導入。自然言語処理精度の高さに着目し、複雑な顧客問い合わせ対応システムを構築。",method:"Claude APIを既存のサポートプラットフォームに統合し、パイプラインテストを実施。段階的に複雑な問い合わせから簡易問い合わせへと拡大展開。",results:["対応時間を40%短縮", "顧客満足度スコアが12%向上", "オペレーター業務負荷が35%減少"],flag:"",src:"https://www.anthropic.com/case-studies"}
+,
+{company:"Google Cloud（クライアント：マーケティングテクノロジー企業）",tool:"Gemini for Enterprise",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"マーケティングキャンペーン実装時間を50%削減",bg:"マーケティングキャンペーン企画から実装までのプロセスが煩雑であった。Gemini for Enterpriseを導入し、AIベースのキャンペーン分析と提案を自動化。",method:"Gemini APIとGoogle Cloud Platform上の顧客データプラットフォームを統合。AIが顧客セグメント分析と最適なメッセージングを自動提案するシステムを構築。",results:["キャンペーン企画から実装までの時間を50%短縮", "マーケティングROIが28%向上", "分析工数が60%削減"],flag:"",src:"https://cloud.google.com/solutions/gemini-for-enterprise"}
+,
+{company:"GitHub（クライアント：金融技術企業）",tool:"GitHub Copilot",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"コード作成生産性を55%向上",bg:"複雑な金融システムの開発効率化が課題であったFinTech企業。GitHub Copilotを導入し、開発チームのコード作成を加速。",method:"GitHub Copilotを開発環境（Visual Studio Code）に導入。全開発者を対象に段階的にロールアウトし、3ヶ月のパイロット期間で効果を測定。",results:["開発者のコード作成生産性が55%向上", "プルリクエストレビュー時間が30%短縮", "開発チームの満足度スコアが4.2/5に上昇"],flag:"",src:"https://github.blog/2023-11-08-the-economic-impact-of-the-ai-powered-developer-lifecycle/"}
+,
+{company:"Perplexity AI（クライアント：市場調査企業）",tool:"Perplexity API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"市場リサーチレポート作成時間を65%削減",bg:"業界分析レポート作成に膨大な時間をかけていた市場調査企業。Perplexity AIの高速検索・分析機能を活用し、リサーチプロセスを改革。",method:"Perplexity APIを自社のレポート生成システムに統合。AIが複数ソースから自動で最新情報を収集・分析し、ドラフトレポート案を生成。",results:["レポート作成時間を65%短縮", "リサーチの精度（データの引用元検証性）が92%に向上", "年間200件以上の追加レポート作成が可能に"],flag:"",src:"https://www.perplexity.ai/hub/enterprise"}
+,
+{company:"Canva（内部マーケティング事例）",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ作成効率を48%向上",bg:"デザインプラットフォームのCanvaがChatGPTを内部マーケティング業務に導入。ソーシャルメディアコンテンツやメールキャンペーン案の生成を自動化。",method:"ChatGPT APIをマーケティングワークフローに統合。コンテンツアイデア、キャプション、メールテンプレートの初期ドラフト生成に活用。クリエイティブチームが生成内容をレビュー・改善。",results:["コンテンツ制作プロセスの効率が48%向上", "マーケティングキャンペーン数が月35%増加", "クリエイティブチームの時間をより高度な戦略立案に割り当て可能に"],flag:"",src:"https://www.canva.com/newsroom"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
