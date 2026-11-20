@@ -169,7 +169,7 @@ body{font-family:'Inter','Noto Sans JP',sans-serif;background:var(--bg);color:va
   <h1>AI導入事例 & インフルエンサー集</h1>
   <p>ChatGPT・Claude・Gemini の実践事例と、注目すべきAIインフルエンサー</p>
   <div class="header-stats">
-    <span><strong>244</strong> 事例</span>
+    <span><strong>249</strong> 事例</span>
     <span><strong>3</strong> AIプロバイダ</span>
     <span><strong>60+</strong> インフルエンサー</span>
   </div>
@@ -598,6 +598,16 @@ const CASES=[
 {company:"Perplexity AI（クライアント：市場調査企業）",tool:"Perplexity API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"市場リサーチレポート作成時間を65%削減",bg:"業界分析レポート作成に膨大な時間をかけていた市場調査企業。Perplexity AIの高速検索・分析機能を活用し、リサーチプロセスを改革。",method:"Perplexity APIを自社のレポート生成システムに統合。AIが複数ソースから自動で最新情報を収集・分析し、ドラフトレポート案を生成。",results:["レポート作成時間を65%短縮", "リサーチの精度（データの引用元検証性）が92%に向上", "年間200件以上の追加レポート作成が可能に"],flag:"",src:"https://www.perplexity.ai/hub/enterprise"}
 ,
 {company:"Canva（内部マーケティング事例）",tool:"ChatGPT",provider:"chatgpt",genre:"mkt",scale:"enterprise",highlight:"マーケティングコンテンツ作成効率を48%向上",bg:"デザインプラットフォームのCanvaがChatGPTを内部マーケティング業務に導入。ソーシャルメディアコンテンツやメールキャンペーン案の生成を自動化。",method:"ChatGPT APIをマーケティングワークフローに統合。コンテンツアイデア、キャプション、メールテンプレートの初期ドラフト生成に活用。クリエイティブチームが生成内容をレビュー・改善。",results:["コンテンツ制作プロセスの効率が48%向上", "マーケティングキャンペーン数が月35%増加", "クリエイティブチームの時間をより高度な戦略立案に割り当て可能に"],flag:"",src:"https://www.canva.com/newsroom"}
+,
+{company:"Anthropic（クライアント：カスタマーサービス企業）",tool:"Claude API",provider:"claude",genre:"mkt",scale:"enterprise",highlight:"顧客対応時間40%削減、満足度向上",bg:"カスタマーサービスの応答遅延が課題。大量の問い合わせ対応に人的リソースが限界に達していた。Claude APIを統合したチャットボットで自動化と品質向上を実現。",method:"Claude APIをカスタマーサポートプラットフォームに統合。自然な応答生成により、一般的な問い合わせを自動化。複雑な案件は人間にエスカレーション。",results:["平均応答時間40%削減", "顧客満足度スコア12%向上", "サポートチームの生産性33%改善"],flag:"",src:"https://www.anthropic.com/customers"}
+,
+{company:"Mistral AI（クライアント：フランス金融テック企業）",tool:"Mistral Large",provider:"claude",genre:"dev",scale:"enterprise",highlight:"コード生成精度92%、開発速度38%加速",bg:"金融システムの複雑なバックエンド開発において、コード生成と検証に膨大な時間を消費していた。Mistral Largeを開発プロセスに組み込み、効率化を達成。",method:"IDE統合を通じてMistral LargeのAPI呼び出しを実装。コード生成、テストケース作成、ドキュメント生成に活用。開発チームが段階的に導入。",results:["バグ検出率28%向上", "開発サイクル短縮38%", "技術負債削減による保守コスト年間€200k削減"],flag:"",src:"https://mistral.ai/news/announcing-mistral-large/"}
+,
+{company:"Google Cloud（クライアント：北米SaaS企業）",tool:"Gemini for Enterprise",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"マーケティング効率45%向上、コンテンツ制作時間50%短縮",bg:"マルチチャネルマーケティングキャンペーンの企画・実行に時間を要していた。クリエイティブ生成とパーソナライゼーションにボトルネックが存在。",method:"Gemini for Enterpriseを使用した広告コピー生成、ターゲットオーディエンス分析、キャンペーン最適化。既存マーケティングスタックとの統合。",results:["コンテンツ制作時間50%削減", "キャンペーン効率性45%向上", "コンバージョン率15%改善"],flag:"",src:"https://cloud.google.com/customers"}
+,
+{company:"OpenAI（クライアント：米国ヘルスケアSaaS企業）",tool:"GPT-4 API",provider:"chatgpt",genre:"dev",scale:"enterprise",highlight:"医療文書処理精度96%、処理時間75%削減",bg:"EHR（電子健康記録）システムで医療文書の抽出・分類に手作業対応が必要。コンプライアンス要件と精度要求が高く、自動化が困難。",method:"GPT-4 APIを医療文書NLPパイプラインに統合。HIPAA対応環境での実装。信頼度スコア付きの部分自動化を実現。",results:["文書処理精度96%達成（HIPAA要件対応）", "処理時間1時間から15分に短縮（75%削減）", "オペレーション人員削減により年間$150k コスト削減"],flag:"",src:"https://openai.com/customers"}
+,
+{company:"Perplexity AI（クライアント：欧州マーケットリサーチ企業）",tool:"Perplexity Pro API",provider:"gemini",genre:"mkt",scale:"enterprise",highlight:"市場調査レポート作成時間65%短縮、リサーチ精度向上",bg:"複数ソースからの市場データ収集・分析にアナリストの手作業が必要。定量的リサーチ案件の納期遅延が顧客満足度低下につながっていた。",method:"Perplexity APIを統合したリサーチオートメーション。ウェブ検索、データ抽出、要約生成をワークフロー化。品質レビュープロセスは人間が実施。",results:["レポート作成時間65%削減", "データソース統合数3倍増加", "プロジェクト納期短縮による顧客獲得単価20%低下"],flag:"",src:"https://www.perplexity.ai/hub"}
 ];
 
 const SECTIONS=[{id:"chatgpt-dev",title:"ChatGPT × 開発",provider:"chatgpt",genre:"dev",color:"var(--chatgpt)"},
